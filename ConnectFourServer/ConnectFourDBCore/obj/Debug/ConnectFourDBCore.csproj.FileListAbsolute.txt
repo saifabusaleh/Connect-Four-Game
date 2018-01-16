@@ -1,0 +1,10 @@
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\bin\Debug\ConnectFourDBCore.dll.config
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\bin\Debug\ConnectFourDBCore.dll
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\bin\Debug\ConnectFourDBCore.pdb
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\bin\Debug\EntityFramework.dll
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\bin\Debug\EntityFramework.SqlServer.dll
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\bin\Debug\EntityFramework.xml
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\bin\Debug\EntityFramework.SqlServer.xml
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\obj\Debug\ConnectFourDBCore.csprojResolveAssemblyReference.cache
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\obj\Debug\ConnectFourDBCore.dll
+E:\c#-project\ConnectFourServer\ConnectFourDBCore\obj\Debug\ConnectFourDBCore.pdb
