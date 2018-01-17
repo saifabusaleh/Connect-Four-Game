@@ -21,7 +21,13 @@ namespace ConnectFourServer
 
         public void register(string username, string password)
         {
-            cs.RegisterUser(username, password);
+            bool isRegisterSuccess = cs.RegisterUser(username, password);
+            if(isRegisterSuccess == false)
+            {
+                UserExistsFault fault = new UserExistsFault()
+                { Message = "Username " + username + " already exists" };
+                throw new FaultException<UserExistsFault>(fault);
+            }
         }
 
         public IEnumerable<String> getConnectedUsersByUsernameThatWaitingForPartner(string username)

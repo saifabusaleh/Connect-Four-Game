@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,9 +38,17 @@ namespace ConnectFourClient
                 MessageBox.Show("username and password cant be empty!");
                 return;
             }
-            connection.register(username, password);
+            try
+            {
+                connection.register(username, password);
+                MessageBox.Show("Register done successfully!");
+                this.Close();
+            }
+            catch (FaultException<UserExistsFault> ex)
+            {
 
-            MessageBox.Show("Register done successfully!");
+                MessageBox.Show(ex.Detail.Message);
+            }
         }
     }
 }

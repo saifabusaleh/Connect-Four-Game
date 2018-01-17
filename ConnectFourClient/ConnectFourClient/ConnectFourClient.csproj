@@ -112,6 +112,9 @@
     <None Include="Service References\ConnectFourService\item1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ConnectFourService\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

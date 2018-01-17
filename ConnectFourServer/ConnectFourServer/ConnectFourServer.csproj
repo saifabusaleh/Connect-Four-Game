@@ -57,6 +57,7 @@
     <Compile Include="IConnectFourService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConnectFourService.cs" />
+    <Compile Include="UserExistsFault.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

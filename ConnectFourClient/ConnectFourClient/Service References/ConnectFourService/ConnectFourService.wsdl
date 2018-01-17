@@ -3,6 +3,7 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer" />
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
@@ -11,6 +12,9 @@
   </wsdl:message>
   <wsdl:message name="IConnectFourService_register_OutputMessage">
     <wsdl:part name="parameters" element="tns:registerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IConnectFourService_register_UserExistsFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/ConnectFourServer" name="detail" element="q1:UserExistsFault" />
   </wsdl:message>
   <wsdl:message name="IConnectFourService_login_InputMessage">
     <wsdl:part name="parameters" element="tns:login" />
@@ -22,6 +26,7 @@
     <wsdl:operation name="register">
       <wsdl:input wsaw:Action="http://tempuri.org/IConnectFourService/register" message="tns:IConnectFourService_register_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/registerResponse" message="tns:IConnectFourService_register_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IConnectFourService/registerUserExistsFaultFault" name="UserExistsFaultFault" message="tns:IConnectFourService_register_UserExistsFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="login">
       <wsdl:input wsaw:Action="http://tempuri.org/IConnectFourService/login" message="tns:IConnectFourService_login_InputMessage" />
@@ -38,6 +43,9 @@
       <wsdl:output>
         <soap:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="UserExistsFaultFault">
+        <soap:fault use="literal" name="UserExistsFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="login">
       <soap:operation soapAction="http://tempuri.org/IConnectFourService/login" style="document" />

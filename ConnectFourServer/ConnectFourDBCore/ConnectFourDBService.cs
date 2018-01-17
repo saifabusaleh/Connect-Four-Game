@@ -11,6 +11,8 @@ namespace ConnectFourDBCore
     {
 
         #region user_authentication
+        //returns true if login succes
+        //return false if login failed
         public bool CheckIfValidLogin(string username, string password)
         {
             using (var db = new ConnectFourContext())
@@ -25,13 +27,15 @@ namespace ConnectFourDBCore
 
         }
 
-        public void RegisterUser(string username, string password)
+        //return true if registered successfully
+        //return false if failed (username or password already exists)
+        public bool RegisterUser(string username, string password)
         {
             using (var db = new ConnectFourContext())
             {
                 if (db.Users.Any(u => u.userName == username))
                 {
-                    throw new UserNameAlreadyExistsException();
+                    return false;
                 }
 
                 User user = new User
@@ -41,6 +45,7 @@ namespace ConnectFourDBCore
                 };
                 db.Users.Add(user);
                 db.SaveChanges();
+                return true;
             }
         }
         #endregion

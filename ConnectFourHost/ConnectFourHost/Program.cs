@@ -15,7 +15,7 @@ namespace ConnectFourHost
             try
             {
                 ServiceHost host = new ServiceHost(
-            typeof(ConnectFourServer.ConnectFourService), new Uri(
+            typeof(ConnectFourService), new Uri(
                 "http://localhost:8000/ConnectFourService"));
                 host.Description.Behaviors.Add(
                     new ServiceMetadataBehavior { HttpGetEnabled = true });

@@ -10,6 +10,7 @@ namespace ConnectFourServer
     [ServiceContract]
     public interface IConnectFourService
     {
+        [FaultContract(typeof(UserExistsFault))]
         [OperationContract]
         void register(string username, string password);
 
