@@ -21,8 +21,8 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" Content="User name:"/>
         <Label Grid.Row="1" Grid.Column="0" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" Content="Password:"/>
-        <TextBox FontWeight="UltraBlack" Foreground="Blue" FontSize="14" FontFamily="David" Name="userNameText"  Grid.Column="1" Grid.Row="0" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-        <TextBox FontWeight="UltraBlack" Foreground="Blue" FontSize="14" FontFamily="David" Name="userNamePassword"  Grid.Column="1" Grid.Row="1"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+        <TextBox FontWeight="UltraBlack" Foreground="Blue" FontSize="14" FontFamily="David" Name="tbUsername"  Grid.Column="1" Grid.Row="0" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Margin="0.4,0,150.4,24.6" Grid.RowSpan="2" />
+        <TextBox FontWeight="UltraBlack" Foreground="Blue" FontSize="14" FontFamily="David" Name="tbPassword"  Grid.Column="1" Grid.Row="1"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  Margin="0.4,0.2,150.4,39.6" Grid.RowSpan="2"  />
         <Button  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" 
             MinWidth="80" Margin="10" Content="Login" Click="Login_Click"  />
         <Label Grid.Row="3" Grid.Column="0" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" Content="Don't have an account?:"/>
