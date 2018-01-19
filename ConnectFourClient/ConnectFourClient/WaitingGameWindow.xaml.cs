@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,10 +33,25 @@ namespace ConnectFourClient
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
              Callback.updateUsers += UpdateUsers;
+             Callback.sendGameRequestToUserFunc += SendGameRequestForThisUser;
             // call update clients which iterates through all the online clients
             //and add this user to their list
             client.updateClients(currentUser);
             this.Title = "Waiting window, connected as: " + currentUser;
+        }
+
+        private void SendGameRequestForThisUser(string user)
+        {
+            MessageBoxResult dialogResult  = MessageBox.Show("user: " + user + " want to play game with you, do you want to play?","Game request", MessageBoxButton.YesNo);
+            switch (dialogResult)
+            {
+                case MessageBoxResult.Yes:
+                    //Start game here
+                    break;
+                case MessageBoxResult.No:
+                    MessageBox.Show("Oh well, too bad!", "My App");
+                    break;
+            }
         }
 
         private void UpdateUsers(string[] users)
@@ -59,6 +75,18 @@ namespace ConnectFourClient
                 MessageBox.Show("you need to pick opponent to play with!");
                 return;
             }
+            string selectedOponentString = (string)selectedOponent;
+            try
+            {
+                client.SendRequestForGameToUser(selectedOponentString, currentUser);
+
+            }
+            catch (FaultException<UserNotFoundFault> ex)
+            {
+
+                MessageBox.Show(ex.Detail.Message);
+            }
+
         }
 
         private void Window_Closed(object sender, EventArgs e)

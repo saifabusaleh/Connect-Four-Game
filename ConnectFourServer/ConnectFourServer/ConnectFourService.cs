@@ -26,10 +26,6 @@ namespace ConnectFourServer
         public bool login(string username, string password)
         {
             var loginResult =  cs.CheckIfValidLogin(username, password);
-            if (loginResult == true)
-            {
-            //    updateClientsList(username);
-            }
             return loginResult;
         }
 
@@ -76,6 +72,22 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             clients.Remove(userName);
             Thread updateThread = new Thread(UpdateClientsListsThreadingFunction);
             updateThread.Start(); 
+        }
+
+        public void SendRequestForGameToUser(string opponentUserName, string myUserName)
+        {
+            foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
+            {
+                if(client.Key == opponentUserName)
+                {
+                    client.Value.sendGameRequestToUser(myUserName);
+                    return;
+                }
+                // if user not found
+                UserNotFoundFault fault = new UserNotFoundFault()
+                { Message = "Username " + opponentUserName + " is not found!" };
+                throw new FaultException<UserNotFoundFault>(fault);
+            }
         }
     }
 }

@@ -53,10 +53,30 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="SendRequestForGameToUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="opponentUserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="myUserName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendRequestForGameToUserResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="UpdateClientsList">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="users" nillable="true" type="q1:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendGameRequestToUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fromUser" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -23,5 +23,9 @@ namespace ConnectFourServer
         [OperationContract]
         void Disconnect(string userName);
 
+        [FaultContract(typeof(UserNotFoundFault))]
+        [OperationContract]
+        void SendRequestForGameToUser(string opponentUserName, string myUserName);
+
     }
 }

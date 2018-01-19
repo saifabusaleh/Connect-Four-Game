@@ -17,5 +17,15 @@ namespace ConnectFourClient
         {
             updateUsers(users);
         }
+
+        public delegate void SendGameRequestToUserDelegate(string users);
+        public event SendGameRequestToUserDelegate sendGameRequestToUserFunc;
+
+        public void sendGameRequestToUser(string user)
+        {
+            sendGameRequestToUserFunc(user);
+        }
+
+
     }
 }

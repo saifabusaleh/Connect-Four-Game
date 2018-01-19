@@ -58,6 +58,51 @@ namespace ConnectFourClient.ConnectFourService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+    [System.SerializableAttribute()]
+    public partial class UserNotFoundFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ConnectFourService.IConnectFourService", CallbackContract=typeof(ConnectFourClient.ConnectFourService.IConnectFourServiceCallback))]
     public interface IConnectFourService {
@@ -86,6 +131,14 @@ namespace ConnectFourClient.ConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Disconnect", ReplyAction="http://tempuri.org/IConnectFourService/DisconnectResponse")]
         System.Threading.Tasks.Task DisconnectAsync(string userName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendRequestForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendRequestForGameToUserResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/SendRequestForGameToUserUserNotFoundFaultF" +
+            "ault", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+        void SendRequestForGameToUser(string opponentUserName, string myUserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendRequestForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendRequestForGameToUserResponse")]
+        System.Threading.Tasks.Task SendRequestForGameToUserAsync(string opponentUserName, string myUserName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -93,6 +146,9 @@ namespace ConnectFourClient.ConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/UpdateClientsList")]
         void UpdateClientsList(string[] users);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendGameRequestToUser")]
+        void sendGameRequestToUser(string fromUser);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -153,6 +209,14 @@ namespace ConnectFourClient.ConnectFourService {
         
         public System.Threading.Tasks.Task DisconnectAsync(string userName) {
             return base.Channel.DisconnectAsync(userName);
+        }
+        
+        public void SendRequestForGameToUser(string opponentUserName, string myUserName) {
+            base.Channel.SendRequestForGameToUser(opponentUserName, myUserName);
+        }
+        
+        public System.Threading.Tasks.Task SendRequestForGameToUserAsync(string opponentUserName, string myUserName) {
+            return base.Channel.SendRequestForGameToUserAsync(opponentUserName, myUserName);
         }
     }
 }
