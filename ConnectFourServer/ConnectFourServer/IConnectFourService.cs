@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ConnectFourServer
 {
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IConnectFourServiceCallback))]
     public interface IConnectFourService
     {
         [FaultContract(typeof(UserExistsFault))]
@@ -16,6 +16,9 @@ namespace ConnectFourServer
 
         [OperationContract]
         bool login(string username, string password);
+
+        //[OperationContract]
+        //void updateClients(string username);
 
 
     }

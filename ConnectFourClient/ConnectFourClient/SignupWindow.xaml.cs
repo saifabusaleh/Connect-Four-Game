@@ -21,12 +21,14 @@ namespace ConnectFourClient
     /// </summary>
     public partial class SignupWindow : Window
     {
-        ConnectFourServiceClient connection;
+        public ConnectFourServiceClient client { get; set; }
 
         public SignupWindow()
         {
             InitializeComponent();
-            connection = new ConnectFourServiceClient();
+            ClientCallback callback = new ClientCallback();
+
+            client = new ConnectFourServiceClient(new InstanceContext(callback));
         }
 
         private void Signup_Click(object sender, RoutedEventArgs e)
@@ -40,7 +42,7 @@ namespace ConnectFourClient
             }
             try
             {
-                connection.register(username, password);
+                client.register(username, password);
                 MessageBox.Show("Register done successfully!");
                 this.Close();
             }

@@ -5,6 +5,8 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using ConnectFourDBCore;
+using System.Threading;
+
 namespace ConnectFourServer
 {
     [ServiceBehavior(
@@ -12,11 +14,40 @@ namespace ConnectFourServer
     ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class ConnectFourService : IConnectFourService
     {
-        ConnectFourDBService cs = new ConnectFourDBService();
+        private ConnectFourDBService cs = new ConnectFourDBService();
+        private SortedDictionary<string, IConnectFourServiceCallback> clients;
+
+        public ConnectFourService()
+        {
+            clients = new SortedDictionary<string, IConnectFourServiceCallback>();
+        }
+
 
         public bool login(string username, string password)
         {
-            return cs.CheckIfValidLogin(username, password);
+            var loginResult =  cs.CheckIfValidLogin(username, password);
+            if (loginResult == true)
+            {
+                updateClientsList(username);
+            }
+            return loginResult;
+        }
+
+        private void updateClientsList(string username)
+        {
+            IConnectFourServiceCallback callback =
+OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
+            clients.Add(username, callback);
+            Thread updateThread = new Thread(UpdateClientsListsThreadingFunction);
+            updateThread.Start();
+        }
+
+        private void UpdateClientsListsThreadingFunction()
+        {
+            foreach (var callback in clients.Values)
+            {
+                callback.UpdateClientsList(clients.Keys);
+            }
         }
 
         public void register(string username, string password)

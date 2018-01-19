@@ -59,7 +59,7 @@ namespace ConnectFourClient.ConnectFourService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ConnectFourService.IConnectFourService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ConnectFourService.IConnectFourService", CallbackContract=typeof(ConnectFourClient.ConnectFourService.IConnectFourServiceCallback))]
     public interface IConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/register", ReplyAction="http://tempuri.org/IConnectFourService/registerResponse")]
@@ -77,30 +77,38 @@ namespace ConnectFourClient.ConnectFourService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IConnectFourServiceCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/UpdateClientsList")]
+        void UpdateClientsList(string[] users);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IConnectFourServiceChannel : ConnectFourClient.ConnectFourService.IConnectFourService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ConnectFourServiceClient : System.ServiceModel.ClientBase<ConnectFourClient.ConnectFourService.IConnectFourService>, ConnectFourClient.ConnectFourService.IConnectFourService {
+    public partial class ConnectFourServiceClient : System.ServiceModel.DuplexClientBase<ConnectFourClient.ConnectFourService.IConnectFourService>, ConnectFourClient.ConnectFourService.IConnectFourService {
         
-        public ConnectFourServiceClient() {
+        public ConnectFourServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
         }
         
-        public ConnectFourServiceClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+        public ConnectFourServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
         }
         
-        public ConnectFourServiceClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public ConnectFourServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public ConnectFourServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public ConnectFourServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public ConnectFourServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
+        public ConnectFourServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
         }
         
         public void register(string username, string password) {

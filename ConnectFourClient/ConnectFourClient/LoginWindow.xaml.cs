@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ConnectFourClient.ConnectFourService;
+using System.ServiceModel;
+
 namespace ConnectFourClient
 {
     /// <summary>
@@ -20,11 +22,11 @@ namespace ConnectFourClient
     /// </summary>
     public partial class LoginWindow : Window
     {
-        ConnectFourServiceClient connection;
+        public ConnectFourServiceClient client { get; set; }
         public LoginWindow()
         {
             InitializeComponent();
-            connection = new ConnectFourServiceClient();
+
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -36,8 +38,20 @@ namespace ConnectFourClient
                 MessageBox.Show("username and password cant be empty!");
                 return;
             }
-            bool res = connection.login(username, password);
-            MessageBox.Show(res.ToString());
+            ClientCallback callback = new ClientCallback();
+
+            client = new ConnectFourServiceClient(new InstanceContext(callback));
+            bool loginResult = client.login(username, password);
+            if(loginResult == false)
+            {
+                MessageBox.Show("username or password is incorrect!");
+                return;
+            }
+
+            WaitingGameWindow waitingGameWindow = new WaitingGameWindow();
+            waitingGameWindow.Callback = callback;
+            waitingGameWindow.Show();
+            this.Close();
         }
 
         private void Signup_Click(object sender, RoutedEventArgs e)
