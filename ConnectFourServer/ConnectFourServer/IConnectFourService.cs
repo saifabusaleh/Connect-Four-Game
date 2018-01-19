@@ -17,29 +17,11 @@ namespace ConnectFourServer
         [OperationContract]
         bool login(string username, string password);
 
-        //[OperationContract]
-        //void updateClients(string username);
+        [OperationContract]
+        void updateClients(string username);
 
+        [OperationContract]
+        void Disconnect(string userName);
 
     }
-    //[DataContract]
-    //public class CompositeType
-    //{
-    //    bool boolValue = true;
-    //    string stringValue = "Hello ";
-
-    //    [DataMember]
-    //    public bool BoolValue
-    //    {
-    //        get { return boolValue; }
-    //        set { boolValue = value; }
-    //    }
-
-    //    [DataMember]
-    //    public string StringValue
-    //    {
-    //        get { return stringValue; }
-    //        set { stringValue = value; }
-    //    }
-    //}
 }

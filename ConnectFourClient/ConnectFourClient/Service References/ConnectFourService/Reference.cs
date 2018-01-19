@@ -74,6 +74,18 @@ namespace ConnectFourClient.ConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/login", ReplyAction="http://tempuri.org/IConnectFourService/loginResponse")]
         System.Threading.Tasks.Task<bool> loginAsync(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/updateClients", ReplyAction="http://tempuri.org/IConnectFourService/updateClientsResponse")]
+        void updateClients(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/updateClients", ReplyAction="http://tempuri.org/IConnectFourService/updateClientsResponse")]
+        System.Threading.Tasks.Task updateClientsAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Disconnect", ReplyAction="http://tempuri.org/IConnectFourService/DisconnectResponse")]
+        void Disconnect(string userName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Disconnect", ReplyAction="http://tempuri.org/IConnectFourService/DisconnectResponse")]
+        System.Threading.Tasks.Task DisconnectAsync(string userName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -125,6 +137,22 @@ namespace ConnectFourClient.ConnectFourService {
         
         public System.Threading.Tasks.Task<bool> loginAsync(string username, string password) {
             return base.Channel.loginAsync(username, password);
+        }
+        
+        public void updateClients(string username) {
+            base.Channel.updateClients(username);
+        }
+        
+        public System.Threading.Tasks.Task updateClientsAsync(string username) {
+            return base.Channel.updateClientsAsync(username);
+        }
+        
+        public void Disconnect(string userName) {
+            base.Channel.Disconnect(userName);
+        }
+        
+        public System.Threading.Tasks.Task DisconnectAsync(string userName) {
+            return base.Channel.DisconnectAsync(userName);
         }
     }
 }

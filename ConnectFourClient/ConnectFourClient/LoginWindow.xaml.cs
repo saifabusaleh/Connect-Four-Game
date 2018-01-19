@@ -32,7 +32,7 @@ namespace ConnectFourClient
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             string username = tbUsername.Text;
-            string password = tbPassword.Text;
+            string password = tbPassword.Password;
             if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("username and password cant be empty!");
@@ -50,6 +50,8 @@ namespace ConnectFourClient
 
             WaitingGameWindow waitingGameWindow = new WaitingGameWindow();
             waitingGameWindow.Callback = callback;
+            waitingGameWindow.currentUser = username;
+            waitingGameWindow.client = client;
             waitingGameWindow.Show();
             this.Close();
         }

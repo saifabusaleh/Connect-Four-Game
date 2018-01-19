@@ -21,7 +21,7 @@
         <Label Grid.Row="1" Grid.Column="0" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" Content="Password:"/>
 
         <TextBox FontWeight="UltraBlack" Foreground="Blue" FontSize="14" FontFamily="David" Name="tbUsername" Grid.Row="0"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.ColumnSpan="2" Margin="70,0,24.6,24.6" Grid.RowSpan="2" />
-        <TextBox FontWeight="UltraBlack" Foreground="Blue" FontSize="14" FontFamily="David" Name="tbPassword" Grid.Row="1"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.ColumnSpan="2" Margin="70,0.2,24.6,39.6" Grid.RowSpan="2" />
+        <PasswordBox FontWeight="UltraBlack" Foreground="Blue" FontSize="14" FontFamily="David" Name="tbPassword" Grid.Row="1"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.ColumnSpan="2" Margin="70,0.2,24.6,39.6" Grid.RowSpan="2" />
 
         <Button  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" 
             MinWidth="80" Margin="10" Content="Sign up" Click="Signup_Click"  />

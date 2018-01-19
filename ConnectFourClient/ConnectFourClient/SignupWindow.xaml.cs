@@ -34,7 +34,7 @@ namespace ConnectFourClient
         private void Signup_Click(object sender, RoutedEventArgs e)
         {
             string username = tbUsername.Text;
-            string password = tbPassword.Text;
+            string password = tbPassword.Password;
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("username and password cant be empty!");

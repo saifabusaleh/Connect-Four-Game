@@ -28,7 +28,7 @@ namespace ConnectFourServer
             var loginResult =  cs.CheckIfValidLogin(username, password);
             if (loginResult == true)
             {
-                updateClientsList(username);
+            //    updateClientsList(username);
             }
             return loginResult;
         }
@@ -66,6 +66,16 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             return cs.getConnectedUsersByUsernameThatWaitingForPartner(username);
         }
 
-        
+        public void updateClients(string username)
+        {
+            updateClientsList(username);
+        }
+
+        public void Disconnect(string userName)
+        {
+            clients.Remove(userName);
+            Thread updateThread = new Thread(UpdateClientsListsThreadingFunction);
+            updateThread.Start(); 
+        }
     }
 }
