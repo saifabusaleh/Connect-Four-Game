@@ -21,8 +21,7 @@ namespace ConnectFourClient
     /// </summary>
     public partial class SignupWindow : Window
     {
-        public ConnectFourServiceClient client { get; set; }
-
+        private ConnectFourServiceClient client;
         public SignupWindow()
         {
             InitializeComponent();

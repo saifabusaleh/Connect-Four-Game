@@ -37,8 +37,10 @@ namespace ConnectFourClient
             //and add this user to their list
             Callback.updateUsers += UpdateUsers;
 
-            Callback.sendGameRequestToUserFunc += SendGameRequestForThisUser;
-            Callback.sendRejectRequestToUserFunc += SendRejectForThisUser;
+            Callback.sendGameRequestToUserFunc += RecieveGameRequest;
+            Callback.sendAcceptRequestToUserFunc += ReceiveAccept;
+
+            Callback.sendRejectRequestToUserFunc += RecieveReject;
             try
             {
                 client.Connect(currentUser);
@@ -54,21 +56,48 @@ namespace ConnectFourClient
             this.Title = "Waiting window, connected as: " + currentUser;
         }
 
-        private void SendRejectForThisUser()
+        private void ReceiveAccept()
+        {
+            //Init With Red because its Player1
+            initGameWindow(GameWindow.Side.Red);
+        }
+
+        private void initGameWindow(GameWindow.Side Side)
+        {
+            GameWindow gWindow = new GameWindow(Side);
+            gWindow.client = this.client;
+            gWindow.Callback = this.Callback;
+            gWindow.currentUser = this.currentUser;
+            gWindow.Show();
+            this.Close();
+        }
+
+        private void RecieveReject()
         {
             string selectedOponent = (string)lbUsers.SelectedItem;
-             MessageBox.Show("user: " + selectedOponent + " has reject request for game...");
+            MessageBox.Show("user: " + selectedOponent + " has reject request for game...");
             lbUsers.IsEnabled = true;
             btnPick.IsEnabled = true;
         }
 
-        private void SendGameRequestForThisUser(string user)
+        private void RecieveGameRequest(string user)
         {
             MessageBoxResult dialogResult = MessageBox.Show("user: " + user + " want to play game with you, do you want to play?", "Game request", MessageBoxButton.YesNo);
             switch (dialogResult)
             {
                 case MessageBoxResult.Yes:
-                    //Start game here
+                    try
+                    {
+                        Thread t = new Thread(() => client.SendAcceptForGameToUser(user));
+                        t.Start();
+                        //Init with Black because its Player2
+                        initGameWindow(GameWindow.Side.Black);
+                    }
+                    catch (FaultException<UserNotFoundFault> ex)
+                    {
+
+                        MessageBox.Show(ex.Detail.Message);
+                    }
                     break;
                 case MessageBoxResult.No:
                     try

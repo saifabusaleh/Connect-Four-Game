@@ -29,9 +29,24 @@ namespace ConnectFourServer
         [OperationContract]
         void SendRequestForGameToUser(string opponentUserName, string myUserName);
 
+
+        [FaultContract(typeof(UserNotFoundFault))]
+        [OperationContract]
+        void SendAcceptForGameToUser(string opponentUserName);
+
         [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]
         void SendRejectForGameToUser(string opponentUserName);
 
+        //Game
+        [OperationContract]
+        void InitGame(string player1, string player2);
+
+        [OperationContract]
+        bool IsMyTurn(string playerName);
+
+        //returns the row where the circle inserted
+        [OperationContract]
+        int Insert(int column, string playerName);
     }
 }

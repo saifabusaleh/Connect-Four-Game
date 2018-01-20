@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ConnectFourServer
 {
     [ServiceContract]
-    interface IConnectFourServiceCallback
+    public interface IConnectFourServiceCallback
     {
         //this function gets updated list of clients that is currently connected and it send it to the client
         [OperationContract(IsOneWay = true)]
@@ -20,8 +20,13 @@ namespace ConnectFourServer
         [OperationContract(IsOneWay = true)]
         void sendGameRequestToUser(string fromUser);
 
+        [OperationContract(IsOneWay = true)]
+        void sendAcceptRequestToUser();
 
         [OperationContract(IsOneWay = true)]
         void sendRejectRequestToUser();
+
+        [OperationContract(IsOneWay = true)]
+        void updateCell(int row, int col);
     }
 }

@@ -187,6 +187,14 @@ namespace ConnectFourClient.ConnectFourService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendRequestForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendRequestForGameToUserResponse")]
         System.Threading.Tasks.Task SendRequestForGameToUserAsync(string opponentUserName, string myUserName);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendAcceptForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendAcceptForGameToUserResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/SendAcceptForGameToUserUserNotFoundFaultFa" +
+            "ult", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+        void SendAcceptForGameToUser(string opponentUserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendAcceptForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendAcceptForGameToUserResponse")]
+        System.Threading.Tasks.Task SendAcceptForGameToUserAsync(string opponentUserName);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendRejectForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendRejectForGameToUserResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/SendRejectForGameToUserUserNotFoundFaultFa" +
             "ult", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
@@ -194,6 +202,24 @@ namespace ConnectFourClient.ConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendRejectForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendRejectForGameToUserResponse")]
         System.Threading.Tasks.Task SendRejectForGameToUserAsync(string opponentUserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/InitGame", ReplyAction="http://tempuri.org/IConnectFourService/InitGameResponse")]
+        void InitGame(string player1, string player2);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/InitGame", ReplyAction="http://tempuri.org/IConnectFourService/InitGameResponse")]
+        System.Threading.Tasks.Task InitGameAsync(string player1, string player2);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/IsMyTurn", ReplyAction="http://tempuri.org/IConnectFourService/IsMyTurnResponse")]
+        bool IsMyTurn(string playerName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/IsMyTurn", ReplyAction="http://tempuri.org/IConnectFourService/IsMyTurnResponse")]
+        System.Threading.Tasks.Task<bool> IsMyTurnAsync(string playerName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Insert", ReplyAction="http://tempuri.org/IConnectFourService/InsertResponse")]
+        int Insert(int column, string playerName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Insert", ReplyAction="http://tempuri.org/IConnectFourService/InsertResponse")]
+        System.Threading.Tasks.Task<int> InsertAsync(int column, string playerName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -205,8 +231,14 @@ namespace ConnectFourClient.ConnectFourService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendGameRequestToUser")]
         void sendGameRequestToUser(string fromUser);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendAcceptRequestToUser")]
+        void sendAcceptRequestToUser();
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendRejectRequestToUser")]
         void sendRejectRequestToUser();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/updateCell")]
+        void updateCell(int row, int col);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -277,12 +309,44 @@ namespace ConnectFourClient.ConnectFourService {
             return base.Channel.SendRequestForGameToUserAsync(opponentUserName, myUserName);
         }
         
+        public void SendAcceptForGameToUser(string opponentUserName) {
+            base.Channel.SendAcceptForGameToUser(opponentUserName);
+        }
+        
+        public System.Threading.Tasks.Task SendAcceptForGameToUserAsync(string opponentUserName) {
+            return base.Channel.SendAcceptForGameToUserAsync(opponentUserName);
+        }
+        
         public void SendRejectForGameToUser(string opponentUserName) {
             base.Channel.SendRejectForGameToUser(opponentUserName);
         }
         
         public System.Threading.Tasks.Task SendRejectForGameToUserAsync(string opponentUserName) {
             return base.Channel.SendRejectForGameToUserAsync(opponentUserName);
+        }
+        
+        public void InitGame(string player1, string player2) {
+            base.Channel.InitGame(player1, player2);
+        }
+        
+        public System.Threading.Tasks.Task InitGameAsync(string player1, string player2) {
+            return base.Channel.InitGameAsync(player1, player2);
+        }
+        
+        public bool IsMyTurn(string playerName) {
+            return base.Channel.IsMyTurn(playerName);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsMyTurnAsync(string playerName) {
+            return base.Channel.IsMyTurnAsync(playerName);
+        }
+        
+        public int Insert(int column, string playerName) {
+            return base.Channel.Insert(column, playerName);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsertAsync(int column, string playerName) {
+            return base.Channel.InsertAsync(column, playerName);
         }
     }
 }
