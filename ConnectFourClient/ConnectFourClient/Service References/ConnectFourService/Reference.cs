@@ -60,6 +60,51 @@ namespace ConnectFourClient.ConnectFourService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserAlreadyLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+    [System.SerializableAttribute()]
+    public partial class UserAlreadyLoggedInFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
     [System.SerializableAttribute()]
     public partial class UserNotFoundFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -120,13 +165,15 @@ namespace ConnectFourClient.ConnectFourService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/login", ReplyAction="http://tempuri.org/IConnectFourService/loginResponse")]
         System.Threading.Tasks.Task<bool> loginAsync(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/updateClients", ReplyAction="http://tempuri.org/IConnectFourService/updateClientsResponse")]
-        void updateClients(string username);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Connect", ReplyAction="http://tempuri.org/IConnectFourService/ConnectResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserAlreadyLoggedInFault), Action="http://tempuri.org/IConnectFourService/ConnectUserAlreadyLoggedInFaultFault", Name="UserAlreadyLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+        void Connect(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/updateClients", ReplyAction="http://tempuri.org/IConnectFourService/updateClientsResponse")]
-        System.Threading.Tasks.Task updateClientsAsync(string username);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Connect", ReplyAction="http://tempuri.org/IConnectFourService/ConnectResponse")]
+        System.Threading.Tasks.Task ConnectAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Disconnect", ReplyAction="http://tempuri.org/IConnectFourService/DisconnectResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/DisconnectUserNotFoundFaultFault", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
         void Disconnect(string userName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Disconnect", ReplyAction="http://tempuri.org/IConnectFourService/DisconnectResponse")]
@@ -139,6 +186,14 @@ namespace ConnectFourClient.ConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendRequestForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendRequestForGameToUserResponse")]
         System.Threading.Tasks.Task SendRequestForGameToUserAsync(string opponentUserName, string myUserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendRejectForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendRejectForGameToUserResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/SendRejectForGameToUserUserNotFoundFaultFa" +
+            "ult", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+        void SendRejectForGameToUser(string opponentUserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendRejectForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendRejectForGameToUserResponse")]
+        System.Threading.Tasks.Task SendRejectForGameToUserAsync(string opponentUserName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -149,6 +204,9 @@ namespace ConnectFourClient.ConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendGameRequestToUser")]
         void sendGameRequestToUser(string fromUser);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendRejectRequestToUser")]
+        void sendRejectRequestToUser();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -195,12 +253,12 @@ namespace ConnectFourClient.ConnectFourService {
             return base.Channel.loginAsync(username, password);
         }
         
-        public void updateClients(string username) {
-            base.Channel.updateClients(username);
+        public void Connect(string username) {
+            base.Channel.Connect(username);
         }
         
-        public System.Threading.Tasks.Task updateClientsAsync(string username) {
-            return base.Channel.updateClientsAsync(username);
+        public System.Threading.Tasks.Task ConnectAsync(string username) {
+            return base.Channel.ConnectAsync(username);
         }
         
         public void Disconnect(string userName) {
@@ -217,6 +275,14 @@ namespace ConnectFourClient.ConnectFourService {
         
         public System.Threading.Tasks.Task SendRequestForGameToUserAsync(string opponentUserName, string myUserName) {
             return base.Channel.SendRequestForGameToUserAsync(opponentUserName, myUserName);
+        }
+        
+        public void SendRejectForGameToUser(string opponentUserName) {
+            base.Channel.SendRejectForGameToUser(opponentUserName);
+        }
+        
+        public System.Threading.Tasks.Task SendRejectForGameToUserAsync(string opponentUserName) {
+            return base.Channel.SendRejectForGameToUserAsync(opponentUserName);
         }
     }
 }

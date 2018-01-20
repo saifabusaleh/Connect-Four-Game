@@ -58,6 +58,7 @@
     <Compile Include="IConnectFourService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConnectFourService.cs" />
+    <Compile Include="UserAlreadyLoggedInFault.cs" />
     <Compile Include="UserExistsFault.cs" />
     <Compile Include="UserNotFoundFault.cs" />
   </ItemGroup>

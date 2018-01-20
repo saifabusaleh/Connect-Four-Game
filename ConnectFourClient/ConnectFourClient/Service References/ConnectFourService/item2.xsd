@@ -6,6 +6,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserExistsFault" nillable="true" type="tns:UserExistsFault" />
+  <xs:complexType name="UserAlreadyLoggedInFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserAlreadyLoggedInFault" nillable="true" type="tns:UserAlreadyLoggedInFault" />
   <xs:complexType name="UserNotFoundFault">
     <xs:sequence>
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />

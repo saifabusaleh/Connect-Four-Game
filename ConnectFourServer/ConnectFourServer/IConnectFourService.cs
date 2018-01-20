@@ -17,15 +17,21 @@ namespace ConnectFourServer
         [OperationContract]
         bool login(string username, string password);
 
+        [FaultContract(typeof(UserAlreadyLoggedInFault))]
         [OperationContract]
-        void updateClients(string username);
+        void Connect(string username);
 
+        [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]
         void Disconnect(string userName);
 
         [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]
         void SendRequestForGameToUser(string opponentUserName, string myUserName);
+
+        [FaultContract(typeof(UserNotFoundFault))]
+        [OperationContract]
+        void SendRejectForGameToUser(string opponentUserName);
 
     }
 }

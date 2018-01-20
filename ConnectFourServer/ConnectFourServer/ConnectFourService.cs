@@ -25,17 +25,8 @@ namespace ConnectFourServer
 
         public bool login(string username, string password)
         {
-            var loginResult =  cs.CheckIfValidLogin(username, password);
+            var loginResult = cs.CheckIfValidLogin(username, password);
             return loginResult;
-        }
-
-        private void updateClientsList(string username)
-        {
-            IConnectFourServiceCallback callback =
-OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
-            clients.Add(username, callback);
-            Thread updateThread = new Thread(UpdateClientsListsThreadingFunction);
-            updateThread.Start();
         }
 
         private void UpdateClientsListsThreadingFunction()
@@ -49,7 +40,7 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
         public void register(string username, string password)
         {
             bool isRegisterSuccess = cs.RegisterUser(username, password);
-            if(isRegisterSuccess == false)
+            if (isRegisterSuccess == false)
             {
                 UserExistsFault fault = new UserExistsFault()
                 { Message = "Username " + username + " already exists" };
@@ -62,32 +53,66 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             return cs.getConnectedUsersByUsernameThatWaitingForPartner(username);
         }
 
-        public void updateClients(string username)
+        public void Connect(string username)
         {
-            updateClientsList(username);
+            if (clients.ContainsKey(username))
+            {
+                UserAlreadyLoggedInFault fault = new UserAlreadyLoggedInFault()
+                { Message = "Username " + username + " already logged in, exiting.." };
+                throw new FaultException<UserAlreadyLoggedInFault>(fault);
+            }
+
+            IConnectFourServiceCallback callback =
+OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
+            clients.Add(username, callback);
+            Thread updateThread = new Thread(UpdateClientsListsThreadingFunction);
+            updateThread.Start();
         }
 
         public void Disconnect(string userName)
         {
+            if(!clients.ContainsKey(userName))
+            {
+                UserNotFoundFault fault = new UserNotFoundFault()
+                { Message = "Username " + userName + " is not found!" };
+                throw new FaultException<UserNotFoundFault>(fault);
+            }
             clients.Remove(userName);
             Thread updateThread = new Thread(UpdateClientsListsThreadingFunction);
-            updateThread.Start(); 
+            updateThread.Start();
         }
 
         public void SendRequestForGameToUser(string opponentUserName, string myUserName)
         {
             foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
             {
-                if(client.Key == opponentUserName)
+                if (client.Key == opponentUserName)
                 {
                     client.Value.sendGameRequestToUser(myUserName);
                     return;
                 }
-                // if user not found
-                UserNotFoundFault fault = new UserNotFoundFault()
-                { Message = "Username " + opponentUserName + " is not found!" };
-                throw new FaultException<UserNotFoundFault>(fault);
             }
+            // if user not found
+            UserNotFoundFault fault = new UserNotFoundFault()
+            { Message = "Username " + opponentUserName + " is not found!" };
+            throw new FaultException<UserNotFoundFault>(fault);
+        }
+
+        public void SendRejectForGameToUser(string opponentUserName)
+        {
+            foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
+            {
+                if (client.Key == opponentUserName)
+                {
+                    client.Value.sendRejectRequestToUser();
+                    return;
+                }
+                
+            }
+            // if user not found
+            UserNotFoundFault fault = new UserNotFoundFault()
+            { Message = "Username " + opponentUserName + " is not found!" };
+            throw new FaultException<UserNotFoundFault>(fault);
         }
     }
 }

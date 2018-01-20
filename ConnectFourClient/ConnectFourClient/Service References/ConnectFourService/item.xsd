@@ -29,14 +29,14 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="updateClients">
+  <xs:element name="Connect">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="updateClientsResponse">
+  <xs:element name="ConnectResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
@@ -66,6 +66,18 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="SendRejectForGameToUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="opponentUserName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendRejectForGameToUserResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="UpdateClientsList">
     <xs:complexType>
       <xs:sequence>
@@ -78,6 +90,11 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="fromUser" nillable="true" type="xs:string" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendRejectRequestToUser">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

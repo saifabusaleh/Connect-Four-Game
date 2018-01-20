@@ -19,5 +19,9 @@ namespace ConnectFourServer
         //opponent user
         [OperationContract(IsOneWay = true)]
         void sendGameRequestToUser(string fromUser);
+
+
+        [OperationContract(IsOneWay = true)]
+        void sendRejectRequestToUser();
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,24 +33,54 @@ namespace ConnectFourClient
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-             Callback.updateUsers += UpdateUsers;
-             Callback.sendGameRequestToUserFunc += SendGameRequestForThisUser;
             // call update clients which iterates through all the online clients
             //and add this user to their list
-            client.updateClients(currentUser);
+            Callback.updateUsers += UpdateUsers;
+
+            Callback.sendGameRequestToUserFunc += SendGameRequestForThisUser;
+            Callback.sendRejectRequestToUserFunc += SendRejectForThisUser;
+            try
+            {
+                client.Connect(currentUser);
+
+            }
+            catch (FaultException<UserAlreadyLoggedInFault> ex)
+            {
+                MessageBox.Show(ex.Detail.Message);
+                this.Close();
+                LoginWindow window = new LoginWindow();
+                window.Show();
+            }
             this.Title = "Waiting window, connected as: " + currentUser;
+        }
+
+        private void SendRejectForThisUser()
+        {
+            string selectedOponent = (string)lbUsers.SelectedItem;
+             MessageBox.Show("user: " + selectedOponent + " has reject request for game...");
+            lbUsers.IsEnabled = true;
+            btnPick.IsEnabled = true;
         }
 
         private void SendGameRequestForThisUser(string user)
         {
-            MessageBoxResult dialogResult  = MessageBox.Show("user: " + user + " want to play game with you, do you want to play?","Game request", MessageBoxButton.YesNo);
+            MessageBoxResult dialogResult = MessageBox.Show("user: " + user + " want to play game with you, do you want to play?", "Game request", MessageBoxButton.YesNo);
             switch (dialogResult)
             {
                 case MessageBoxResult.Yes:
                     //Start game here
                     break;
                 case MessageBoxResult.No:
-                    MessageBox.Show("Oh well, too bad!", "My App");
+                    try
+                    {
+                        Thread t = new Thread(() => client.SendRejectForGameToUser(user));
+                        t.Start();
+                    }
+                    catch (FaultException<UserNotFoundFault> ex)
+                    {
+
+                        MessageBox.Show(ex.Detail.Message);
+                    }
                     break;
             }
         }
@@ -57,14 +88,14 @@ namespace ConnectFourClient
         private void UpdateUsers(string[] users)
         {
             List<String> connectedUsersWithoutCurrent = new List<String>(users);
-            //foreach( string user in connectedUsersWithoutCurrent)
+            //foreach (string user in connectedUsersWithoutCurrent)
             //{
-            //    if(user == currentUser)
+            //    if (user == currentUser)
             //    {
             //        connectedUsersWithoutCurrent.Remove(user);
             //    }
             //}
-            lbUsers.ItemsSource = connectedUsersWithoutCurrent;
+            lbUsers.ItemsSource = users;
         }
 
         private void btnPick_Click(object sender, RoutedEventArgs e)
@@ -79,7 +110,8 @@ namespace ConnectFourClient
             try
             {
                 client.SendRequestForGameToUser(selectedOponentString, currentUser);
-
+                lbUsers.IsEnabled = false;
+                btnPick.IsEnabled = false;
             }
             catch (FaultException<UserNotFoundFault> ex)
             {
@@ -89,9 +121,18 @@ namespace ConnectFourClient
 
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            client.Disconnect(currentUser);
+            try
+            {
+                client.Disconnect(currentUser);
+
+            }
+            catch (FaultException<UserNotFoundFault> ex)
+            {
+                MessageBox.Show(ex.Detail.Message);
+
+            }
             System.Environment.Exit(System.Environment.ExitCode);
         }
     }
