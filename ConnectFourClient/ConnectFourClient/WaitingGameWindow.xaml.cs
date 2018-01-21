@@ -91,6 +91,8 @@ namespace ConnectFourClient
                         Thread t = new Thread(() => client.SendAcceptForGameToUser(user));
                         t.Start();
                         //Init with Black because its Player2
+                        Thread t1 = new Thread(() => initGameThread(user, currentUser));
+                        t1.Start();
                         initGameWindow(GameWindow.Side.Black);
                     }
                     catch (FaultException<UserNotFoundFault> ex)
@@ -113,7 +115,10 @@ namespace ConnectFourClient
                     break;
             }
         }
-
+        private void initGameThread(string player1, string player2)
+        {
+            client.InitGame(player1, player2);
+        }
         private void UpdateUsers(string[] users)
         {
             List<String> connectedUsersWithoutCurrent = new List<String>(users);
@@ -152,17 +157,18 @@ namespace ConnectFourClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            try
-            {
-                client.Disconnect(currentUser);
+            //Temporary disable because of problems with init game
+            //try
+            //{
+            //    client.Disconnect(currentUser);
 
-            }
-            catch (FaultException<UserNotFoundFault> ex)
-            {
-                MessageBox.Show(ex.Detail.Message);
+            //}
+            //catch (FaultException<UserNotFoundFault> ex)
+            //{
+            //    MessageBox.Show(ex.Detail.Message);
 
-            }
-            System.Environment.Exit(System.Environment.ExitCode);
+            //}
+          //  System.Environment.Exit(System.Environment.ExitCode);
         }
     }
 }

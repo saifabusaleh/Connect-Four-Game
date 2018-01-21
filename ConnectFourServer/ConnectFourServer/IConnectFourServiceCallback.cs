@@ -28,5 +28,8 @@ namespace ConnectFourServer
 
         [OperationContract(IsOneWay = true)]
         void updateCell(int row, int col);
+
+        [OperationContract(IsOneWay = true)]
+        void annouceWinner(string username);
     }
 }

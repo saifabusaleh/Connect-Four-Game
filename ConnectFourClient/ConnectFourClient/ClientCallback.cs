@@ -49,5 +49,14 @@ namespace ConnectFourClient
         {
             updateCellFunc(row,col);
         }
+
+
+        public delegate void AnnouceWinner(string winnerName);
+        public event AnnouceWinner annouceWinnerFunc;
+
+        public void annouceWinner(string winnerName)
+        {
+            annouceWinnerFunc(winnerName);
+        }
     }
 }

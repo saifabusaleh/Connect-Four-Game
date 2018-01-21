@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -86,15 +87,21 @@ namespace ConnectFourClient
                 if (GameBoard[0, column] != Side.None)
                 {
                     MessageBox.Show("Column is full, therefore you cant enter circle on it");
+                    return;
                 }
-                int insertedRow = client.Insert(column, currentUser);
-                GameBoard[insertedRow, column] = currentSide;
-                currentColumn = column;
-                DrawCircle(currentSide, column);
-                //        AfterTurn();
-                //    }
+                Thread t = new Thread(() => insertThread(column, currentUser, currentSide));
+                t.Start();
             }
+        }
 
+        public void insertThread(int column, string currentUser, Side currentSide)
+        {
+            int insertedRow = client.Insert(column, currentUser);
+            GameBoard[insertedRow, column] = currentSide;
+            currentColumn = column;
+            Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(currentSide, column); }));
+
+            
         }
 
         #region InsertButton_Click Methods
@@ -245,12 +252,37 @@ namespace ConnectFourClient
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Title = "Playing as player: " + currentUser;
             Callback.updateCellFunc += updateCell;
+            Callback.annouceWinnerFunc += annouceWinner;
+        }
+
+        private void annouceWinner(string winnerName)
+        {
+            if(winnerName == currentUser)
+            {
+                MessageBox.Show("Congrats, you won!!!");
+            } else
+            {
+                MessageBox.Show("Ooops, you lost :(");
+            }
+            this.Close();
         }
 
         private void updateCell(int row, int col)
         {
-            GameBoard[row, col] = currentSide;
+            //paint with th other color
+            Side addColor;
+            if(currentSide == Side.Red)
+            {
+                addColor = Side.Black;
+            } else
+            {
+                addColor = Side.Red;
+            }
+            GameBoard[row, col] = addColor;
+            currentColumn = col;
+            Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(addColor, col); }));
         }
     }
 }

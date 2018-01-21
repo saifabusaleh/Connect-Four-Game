@@ -85,6 +85,12 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
 
         public void SendRequestForGameToUser(string opponentUserName, string myUserName)
         {
+            Thread t = new Thread(() => sendRequestForGameToUserThread(opponentUserName, myUserName));
+            t.Start();
+        }
+
+        private void sendRequestForGameToUserThread(string opponentUserName, string myUserName)
+        {
             foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
             {
                 if (client.Key == opponentUserName)
@@ -98,7 +104,6 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             { Message = "Username " + opponentUserName + " is not found!" };
             throw new FaultException<UserNotFoundFault>(fault);
         }
-
         public void SendRejectForGameToUser(string opponentUserName)
         {
             foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
@@ -118,6 +123,13 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
 
         public void SendAcceptForGameToUser(string opponentUserName)
         {
+            Thread t = new Thread(() => sendAcceptForGameToUserThread(opponentUserName));
+            t.Start();
+
+        }
+
+        private void sendAcceptForGameToUserThread(string opponentUserName)
+        {
             foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
             {
                 if (client.Key == opponentUserName)
@@ -132,10 +144,8 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             { Message = "Username " + opponentUserName + " is not found!" };
             throw new FaultException<UserNotFoundFault>(fault);
         }
-
-        public void InitGame(string player1, string player2)
+        private void initGameThread(string player1, string player2)
         {
-            //Search player1
             IConnectFourServiceCallback player1CallBack = null;
             IConnectFourServiceCallback player2CallBack = null;
 
@@ -143,7 +153,7 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             {
                 if (client.Key == player1)
                 {
-                    player1CallBack  = client.Value;
+                    player1CallBack = client.Value;
                 }
 
                 if (client.Key == player2)
@@ -153,7 +163,14 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             }
 
             //if player1 or 2 callbacks null throw exception 
-            currentGames.Add(initPlayingPlayers(player1,player2,player1CallBack,player2CallBack), initPlayingGame(player1));
+            currentGames.Add(initPlayingPlayers(player1, player2, player1CallBack, player2CallBack), initPlayingGame(player1));
+        }
+
+        public void InitGame(string player1, string player2)
+        {
+            //Search player1
+            Thread t = new Thread(() => initGameThread(player1, player2));
+            t.Start();
         }
 
         private PlayingPlayers initPlayingPlayers(string player1, string player2, IConnectFourServiceCallback player1CallBack, IConnectFourServiceCallback player2CallBack)
@@ -197,7 +214,15 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 {
                     insertionRowIndex = currentGame.Value.Board.Insert(Side.Red, column);
                     currentGame.Value.Turn = currentGame.Key.Player2;
-                    currentGame.Key.CallBackPlayer1.updateCell(insertionRowIndex, column);
+                    //Side winner = currentGame.Value.Board.AfterInsert();
+                    //if(winner != Side.None)
+                    //{
+                    //    //We have a winner
+                    //    return; 
+                    //}
+
+
+                   // currentGame.Key.CallBackPlayer1.updateCell(insertionRowIndex, column);
                     currentGame.Key.CallBackPlayer2.updateCell(insertionRowIndex, column);
                     return insertionRowIndex;
                 } else if (playerName == currentGame.Key.Player2)
@@ -205,7 +230,7 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                     insertionRowIndex = currentGame.Value.Board.Insert(Side.Black, column);
                     currentGame.Value.Turn = currentGame.Key.Player1;
                     currentGame.Key.CallBackPlayer1.updateCell(insertionRowIndex, column);
-                    currentGame.Key.CallBackPlayer2.updateCell(insertionRowIndex, column);
+                   // currentGame.Key.CallBackPlayer2.updateCell(insertionRowIndex, column);
                     return insertionRowIndex;
                 }
             }

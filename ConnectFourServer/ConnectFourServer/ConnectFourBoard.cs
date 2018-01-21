@@ -181,19 +181,19 @@ namespace ConnectFourServer
             return numOfPieces;
         }
 
-        public int AfterInsert()
+        public Side AfterInsert()
         {
             Side winner = Winner();
 
             if (winner != Side.None)
             {
-                return (int)winner;
+                return winner;
             }
-            else if (Tied())
-            {
-                return (int)Side.None;
-            }
-            return -1;
+            //else if (Tied())
+            //{
+            //    return -1;
+            //}
+            return Side.None;
         }
     }
 }
