@@ -220,6 +220,12 @@ namespace ConnectFourClient.ConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Insert", ReplyAction="http://tempuri.org/IConnectFourService/InsertResponse")]
         System.Threading.Tasks.Task<int> InsertAsync(int column, string playerName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/checkIfIWin", ReplyAction="http://tempuri.org/IConnectFourService/checkIfIWinResponse")]
+        bool checkIfIWin(string playerName, int row, int col);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/checkIfIWin", ReplyAction="http://tempuri.org/IConnectFourService/checkIfIWinResponse")]
+        System.Threading.Tasks.Task<bool> checkIfIWinAsync(string playerName, int row, int col);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -350,6 +356,14 @@ namespace ConnectFourClient.ConnectFourService {
         
         public System.Threading.Tasks.Task<int> InsertAsync(int column, string playerName) {
             return base.Channel.InsertAsync(column, playerName);
+        }
+        
+        public bool checkIfIWin(string playerName, int row, int col) {
+            return base.Channel.checkIfIWin(playerName, row, col);
+        }
+        
+        public System.Threading.Tasks.Task<bool> checkIfIWinAsync(string playerName, int row, int col) {
+            return base.Channel.checkIfIWinAsync(playerName, row, col);
         }
     }
 }

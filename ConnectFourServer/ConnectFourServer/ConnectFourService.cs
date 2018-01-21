@@ -30,12 +30,24 @@ namespace ConnectFourServer
             return loginResult;
         }
 
-        private void UpdateClientsListsThreadingFunction()
+        private void UpdateClientsListsThreadingFunction(string username)
         {
             foreach (var callback in clients.Values)
             {
                 callback.UpdateClientsList(clients.Keys);
+
             }
+            //foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
+            //{
+            //    if (client.Key == username)
+            //    {
+            //        client.Value.UpdateClientsList(newUsersListWithoutUsername);
+            //    } else
+            //    {
+            //        client.Value.UpdateClientsList(clients.Keys);
+            //    }
+            //}
+
         }
 
         public void register(string username, string password)
@@ -66,20 +78,20 @@ namespace ConnectFourServer
             IConnectFourServiceCallback callback =
 OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             clients.Add(username, callback);
-            Thread updateThread = new Thread(UpdateClientsListsThreadingFunction);
+            Thread updateThread = new Thread(()=> UpdateClientsListsThreadingFunction(username));
             updateThread.Start();
         }
 
         public void Disconnect(string userName)
         {
-            if(!clients.ContainsKey(userName))
+            if (!clients.ContainsKey(userName))
             {
                 UserNotFoundFault fault = new UserNotFoundFault()
                 { Message = "Username " + userName + " is not found!" };
                 throw new FaultException<UserNotFoundFault>(fault);
             }
             clients.Remove(userName);
-            Thread updateThread = new Thread(UpdateClientsListsThreadingFunction);
+            Thread updateThread = new Thread(()=>UpdateClientsListsThreadingFunction(userName));
             updateThread.Start();
         }
 
@@ -113,7 +125,7 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                     client.Value.sendRejectRequestToUser();
                     return;
                 }
-                
+
             }
             // if user not found
             UserNotFoundFault fault = new UserNotFoundFault()
@@ -194,9 +206,9 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
 
         public bool IsMyTurn(string playerName)
         {
-            foreach(KeyValuePair<PlayingPlayers, PlayingGame> currentGame in currentGames)
+            foreach (KeyValuePair<PlayingPlayers, PlayingGame> currentGame in currentGames)
             {
-                if(playerName == currentGame.Key.Player1 || playerName == currentGame.Key.Player2)
+                if (playerName == currentGame.Key.Player1 || playerName == currentGame.Key.Player2)
                 {
                     return currentGame.Value.Turn == playerName;
                 }
@@ -213,30 +225,68 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 if (playerName == currentGame.Key.Player1)
                 {
                     insertionRowIndex = currentGame.Value.Board.Insert(Side.Red, column);
-                    currentGame.Value.Turn = currentGame.Key.Player2;
-                    //Side winner = currentGame.Value.Board.AfterInsert();
-                    //if(winner != Side.None)
-                    //{
-                    //    //We have a winner
-                    //    return; 
-                    //}
+                   // currentGame.Value.Turn = currentGame.Key.Player2;
 
-
-                   // currentGame.Key.CallBackPlayer1.updateCell(insertionRowIndex, column);
+                    // currentGame.Key.CallBackPlayer1.updateCell(insertionRowIndex, column);
                     currentGame.Key.CallBackPlayer2.updateCell(insertionRowIndex, column);
                     return insertionRowIndex;
-                } else if (playerName == currentGame.Key.Player2)
+                }
+                else if (playerName == currentGame.Key.Player2)
                 {
                     insertionRowIndex = currentGame.Value.Board.Insert(Side.Black, column);
-                    currentGame.Value.Turn = currentGame.Key.Player1;
+                    //currentGame.Value.Turn = currentGame.Key.Player1;
                     currentGame.Key.CallBackPlayer1.updateCell(insertionRowIndex, column);
-                   // currentGame.Key.CallBackPlayer2.updateCell(insertionRowIndex, column);
+                    // currentGame.Key.CallBackPlayer2.updateCell(insertionRowIndex, column);
                     return insertionRowIndex;
                 }
             }
 
             //Throw exception
             return -1;
+        }
+        public bool checkIfIWin(string playerName, int row, int col)
+        {
+            foreach (KeyValuePair<PlayingPlayers, PlayingGame> currentGame in currentGames)
+            {
+                if (playerName == currentGame.Key.Player1 || playerName == currentGame.Key.Player2)
+                {
+                    Side winner = currentGame.Value.Board.Winner(row, col);
+                    if (winner != Side.None)
+                    {
+                        //Send to another player that this player won
+                        if(playerName == currentGame.Key.Player1)
+                        {
+                            currentGame.Key.CallBackPlayer2.annouceWinner(playerName);
+
+                            cs.addGameWithWinToDB(playerName, currentGame.Key.Player2, playerName);
+                        } else
+                        {
+                            currentGame.Key.CallBackPlayer1.annouceWinner(playerName);
+
+                            cs.addGameWithWinToDB(currentGame.Key.Player1, playerName, playerName);
+
+                        }
+                        Disconnect(currentGame.Key.Player1);
+                        Disconnect(currentGame.Key.Player2);
+
+                        return true;
+                    }
+                    else
+                    {
+                        if (playerName == currentGame.Key.Player1)
+                        {
+                            currentGame.Value.Turn = currentGame.Key.Player2;
+                        } else
+                        {
+                            currentGame.Value.Turn = currentGame.Key.Player1;
+
+                        }
+                        return false;
+                    }
+                }
+
+            }
+            return false;
         }
     }
 }

@@ -89,19 +89,26 @@ namespace ConnectFourClient
                     MessageBox.Show("Column is full, therefore you cant enter circle on it");
                     return;
                 }
-                Thread t = new Thread(() => insertThread(column, currentUser, currentSide));
+                Thread t = new Thread(() => insertCellThread(column, currentUser, currentSide));
                 t.Start();
             }
         }
 
-        public void insertThread(int column, string currentUser, Side currentSide)
+        public void insertCellThread(int column, string currentUser, Side currentSide)
         {
             int insertedRow = client.Insert(column, currentUser);
             GameBoard[insertedRow, column] = currentSide;
             currentColumn = column;
             Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(currentSide, column); }));
 
-            
+            //Check if the user is winner after insertion
+            bool isWin = client.checkIfIWin(currentUser, insertedRow, column);
+            if(isWin)
+            {
+                MessageBox.Show("Congrats, you won");
+                
+                Application.Current.Dispatcher.Invoke(new Action(() => { this.Close(); }));
+            }
         }
 
         #region InsertButton_Click Methods
@@ -259,13 +266,14 @@ namespace ConnectFourClient
 
         private void annouceWinner(string winnerName)
         {
-            if(winnerName == currentUser)
-            {
-                MessageBox.Show("Congrats, you won!!!");
-            } else
-            {
-                MessageBox.Show("Ooops, you lost :(");
-            }
+            //if(winnerName == currentUser)
+            //{
+            //    MessageBox.Show("Congrats, you won!!!");
+            //} else
+            //{
+            //    MessageBox.Show("Ooops, you lost :(");
+            //}
+            MessageBox.Show("Ooops, you lost :(");
             this.Close();
         }
 

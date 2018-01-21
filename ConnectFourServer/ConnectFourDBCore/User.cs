@@ -23,6 +23,14 @@ namespace ConnectFourDBCore
 
         public string password { get; set; }
 
+        public int numberOfGames { get; set; }
+
+        public int numberOfWins { get; set; }
+
+
+        public int numberOfLoses { get; set; }
+
+
         public USER_STATUS status { get; set; }
         
         public int numberOfPoints { get; set; }

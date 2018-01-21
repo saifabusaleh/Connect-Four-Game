@@ -48,5 +48,8 @@ namespace ConnectFourServer
         //returns the row where the circle inserted
         [OperationContract]
         int Insert(int column, string playerName);
+
+        [OperationContract]
+        bool checkIfIWin(string playerName, int row, int col);
     }
 }
