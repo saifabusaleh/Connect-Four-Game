@@ -269,6 +269,8 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                         Disconnect(currentGame.Key.Player1);
                         Disconnect(currentGame.Key.Player2);
 
+                        currentGames.Remove(currentGame.Key);
+                        // add the game to finished games..
                         return true;
                     }
                     else
