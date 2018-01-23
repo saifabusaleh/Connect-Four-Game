@@ -30,23 +30,25 @@ namespace ConnectFourServer
             return loginResult;
         }
 
-        private void UpdateClientsListsThreadingFunction(string username)
+        private void AddToClientListThreadingFunction(string username, IConnectFourServiceCallback callback)
         {
-            foreach (var callback in clients.Values)
-            {
-                callback.UpdateClientsList(clients.Keys);
 
+            //Update rest clients with the new client instead of new one
+            List<string> connclients = new List<String>();
+            connclients.Add(username);
+            foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
+            {
+                if (client.Key != username)
+                {
+                    client.Value.addUsersToList(connclients);
+                }
+                
             }
-            //foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
-            //{
-            //    if (client.Key == username)
-            //    {
-            //        client.Value.UpdateClientsList(newUsersListWithoutUsername);
-            //    } else
-            //    {
-            //        client.Value.UpdateClientsList(clients.Keys);
-            //    }
-            //}
+
+            //update new one with the rest of clients
+            connclients = new List<String>(clients.Keys);
+            connclients.Remove(username);
+            callback.addUsersToList(connclients);
 
         }
 
@@ -78,7 +80,7 @@ namespace ConnectFourServer
             IConnectFourServiceCallback callback =
 OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             clients.Add(username, callback);
-            Thread updateThread = new Thread(()=> UpdateClientsListsThreadingFunction(username));
+            Thread updateThread = new Thread(()=> AddToClientListThreadingFunction(username, callback));
             updateThread.Start();
         }
 
@@ -91,8 +93,21 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 throw new FaultException<UserNotFoundFault>(fault);
             }
             clients.Remove(userName);
-            Thread updateThread = new Thread(()=>UpdateClientsListsThreadingFunction(userName));
+            Thread updateThread = new Thread(()=>RemoveFromClientListThreadingFunction(userName));
             updateThread.Start();
+        }
+
+        private void RemoveFromClientListThreadingFunction(string userName)
+        {
+
+            //update all clients without the client that will be deleted with the client that will be deleted
+            foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
+            {
+                if (client.Key != userName)
+                {
+                    client.Value.removeUsersFromList(userName);
+                }
+            }
         }
 
         public void SendRequestForGameToUser(string opponentUserName, string myUserName)

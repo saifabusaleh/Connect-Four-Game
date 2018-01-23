@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel Margin="0,0,-0.4,-0.4">
             <Label>Pick opposite player from connected players:</Label>
-            <ListBox Margin="10" Name="lbUsers" Height="200" />
+            <ListBox Margin="10" Name="lbUsers" Height="200" ItemsSource="{Binding connectedUsers}"/>
             <Button x:Name="btnPick" Content="Pick" Click="btnPick_Click"/>
 
         </StackPanel>

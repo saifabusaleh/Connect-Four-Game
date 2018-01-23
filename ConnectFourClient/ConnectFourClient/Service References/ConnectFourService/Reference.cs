@@ -231,8 +231,11 @@ namespace ConnectFourClient.ConnectFourService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IConnectFourServiceCallback {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/UpdateClientsList")]
-        void UpdateClientsList(string[] users);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/addUsersToList")]
+        void addUsersToList(string[] newUser);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/removeUsersFromList")]
+        void removeUsersFromList(string connclients);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendGameRequestToUser")]
         void sendGameRequestToUser(string fromUser);

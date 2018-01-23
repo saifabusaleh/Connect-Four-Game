@@ -12,8 +12,10 @@ namespace ConnectFourServer
     {
         //this function gets updated list of clients that is currently connected and it send it to the client
         [OperationContract(IsOneWay = true)]
-        void UpdateClientsList(IEnumerable<string> users);
+        void addUsersToList(IEnumerable<string> newUser);
 
+        [OperationContract(IsOneWay = true)]
+        void removeUsersFromList(string connclients);
 
         // this function gets as parameter user name that want to start game and it send it to the
         //opponent user

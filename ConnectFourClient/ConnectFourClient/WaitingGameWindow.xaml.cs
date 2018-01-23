@@ -1,6 +1,7 @@
 ﻿using ConnectFourClient.ConnectFourService;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -26,17 +27,21 @@ namespace ConnectFourClient
         public string currentUser { get; set; }
         public ConnectFourServiceClient client { get; set; }
 
+        public ObservableCollection<string> connectedUsers { get; set; }
+
         public WaitingGameWindow()
         {
             InitializeComponent();
+            connectedUsers = new ObservableCollection<string>();
+            lbUsers.ItemsSource = connectedUsers;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // call update clients which iterates through all the online clients
             //and add this user to their list
-            Callback.updateUsers += UpdateUsers;
-
+            Callback.addUsers += AddUsers;
+            Callback.removeUser += removeUser;
             Callback.sendGameRequestToUserFunc += RecieveGameRequest;
             Callback.sendAcceptRequestToUserFunc += ReceiveAccept;
 
@@ -54,6 +59,16 @@ namespace ConnectFourClient
                 window.Show();
             }
             this.Title = "Waiting window, connected as: " + currentUser;
+        }
+
+        private void removeUser(string user)
+        {
+            if (!connectedUsers.Contains(user))
+            {
+                MessageBox.Show("connected users update problem..");
+                return;
+            }
+            connectedUsers.Remove(user);
         }
 
         private void ReceiveAccept()
@@ -119,17 +134,13 @@ namespace ConnectFourClient
         {
             client.InitGame(player1, player2);
         }
-        private void UpdateUsers(string[] users)
+        private void AddUsers(string[] users)
         {
-            List<String> connectedUsersWithoutCurrent = new List<String>(users);
-            //foreach (string user in connectedUsersWithoutCurrent)
-            //{
-            //    if (user == currentUser)
-            //    {
-            //        connectedUsersWithoutCurrent.Remove(user);
-            //    }
-            //}
-            lbUsers.ItemsSource = users;
+            for(int i=0;i<users.Length;i++)
+            {
+                connectedUsers.Add(users[i]);
+            }
+            // lbUsers.ItemsSource = users;
         }
 
         private void btnPick_Click(object sender, RoutedEventArgs e)
@@ -158,17 +169,17 @@ namespace ConnectFourClient
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Temporary disable because of problems with init game
-            //try
-            //{
-            //    client.Disconnect(currentUser);
+            try
+            {
+                client.Disconnect(currentUser);
 
-            //}
-            //catch (FaultException<UserNotFoundFault> ex)
-            //{
-            //    MessageBox.Show(ex.Detail.Message);
+            }
+            catch (FaultException<UserNotFoundFault> ex)
+            {
+                MessageBox.Show(ex.Detail.Message);
 
-            //}
-          //  System.Environment.Exit(System.Environment.ExitCode);
+            }
+            System.Environment.Exit(System.Environment.ExitCode);
         }
     }
 }

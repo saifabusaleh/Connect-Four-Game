@@ -10,12 +10,20 @@ namespace ConnectFourClient
     public class ClientCallback : IConnectFourServiceCallback
     {
 
-        public delegate void UpdateListDelegate(string[] users);
-        public event UpdateListDelegate updateUsers;
+        public delegate void AddToClientListDelegate(string[] users);
+        public event AddToClientListDelegate addUsers;
 
-        public void UpdateClientsList(string[] users)
+        public void addUsersToList(string[] users)
         {
-            updateUsers(users);
+            addUsers(users);
+        }
+
+        public delegate void RemoveFromClientListDelegate(string user);
+        public event RemoveFromClientListDelegate removeUser;
+
+        public void removeUsersFromList(string user)
+        {
+            removeUser(user);
         }
 
         public delegate void SendGameRequestToUserDelegate(string users);
