@@ -48,6 +48,17 @@ namespace ConnectFourClient
                 return;
             }
 
+            try
+            {
+                client.Connect(username);
+
+            }
+            catch (FaultException<UserAlreadyLoggedInFault> ex)
+            {
+                MessageBox.Show(ex.Detail.Message);
+                return;
+            }
+
             WaitingGameWindow waitingGameWindow = new WaitingGameWindow();
             waitingGameWindow.Callback = callback;
             waitingGameWindow.currentUser = username;

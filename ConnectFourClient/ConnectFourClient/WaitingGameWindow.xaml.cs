@@ -46,18 +46,6 @@ namespace ConnectFourClient
             Callback.sendAcceptRequestToUserFunc += ReceiveAccept;
 
             Callback.sendRejectRequestToUserFunc += RecieveReject;
-            try
-            {
-                client.Connect(currentUser);
-
-            }
-            catch (FaultException<UserAlreadyLoggedInFault> ex)
-            {
-                MessageBox.Show(ex.Detail.Message);
-                this.Close();
-                LoginWindow window = new LoginWindow();
-                window.Show();
-            }
             this.Title = "Waiting window, connected as: " + currentUser;
         }
 
