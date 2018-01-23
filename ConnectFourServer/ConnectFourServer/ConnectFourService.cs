@@ -110,61 +110,28 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             }
         }
 
-        public void SendRequestForGameToUser(string opponentUserName, string myUserName)
+        public bool SendRequestForGameToUser(string opponentUserName, string myUserName)
         {
-            Thread t = new Thread(() => sendRequestForGameToUserThread(opponentUserName, myUserName));
+            bool requestResult = false;
+            Thread t = new Thread(() => { requestResult = sendRequestForGameToUserThread(opponentUserName, myUserName); });
             t.Start();
+            t.Join();
+            return requestResult;
         }
 
-        private void sendRequestForGameToUserThread(string opponentUserName, string myUserName)
+        private bool sendRequestForGameToUserThread(string opponentUserName, string myUserName)
         {
             foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
             {
                 if (client.Key == opponentUserName)
                 {
-                    client.Value.sendGameRequestToUser(myUserName);
-                    return;
+                    bool requestResult = client.Value.sendGameRequestToUser(myUserName);
+                    if(requestResult == true)
+                    {
+                        initGameThread(myUserName, opponentUserName);
+                    }
+                    return requestResult;
                 }
-            }
-            // if user not found
-            UserNotFoundFault fault = new UserNotFoundFault()
-            { Message = "Username " + opponentUserName + " is not found!" };
-            throw new FaultException<UserNotFoundFault>(fault);
-        }
-        public void SendRejectForGameToUser(string opponentUserName)
-        {
-            foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
-            {
-                if (client.Key == opponentUserName)
-                {
-                    client.Value.sendRejectRequestToUser();
-                    return;
-                }
-
-            }
-            // if user not found
-            UserNotFoundFault fault = new UserNotFoundFault()
-            { Message = "Username " + opponentUserName + " is not found!" };
-            throw new FaultException<UserNotFoundFault>(fault);
-        }
-
-        public void SendAcceptForGameToUser(string opponentUserName)
-        {
-            Thread t = new Thread(() => sendAcceptForGameToUserThread(opponentUserName));
-            t.Start();
-
-        }
-
-        private void sendAcceptForGameToUserThread(string opponentUserName)
-        {
-            foreach (KeyValuePair<string, IConnectFourServiceCallback> client in clients)
-            {
-                if (client.Key == opponentUserName)
-                {
-                    client.Value.sendAcceptRequestToUser();
-                    return;
-                }
-
             }
             // if user not found
             UserNotFoundFault fault = new UserNotFoundFault()

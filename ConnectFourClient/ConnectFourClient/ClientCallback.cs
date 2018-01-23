@@ -26,28 +26,12 @@ namespace ConnectFourClient
             removeUser(user);
         }
 
-        public delegate void SendGameRequestToUserDelegate(string users);
+        public delegate bool SendGameRequestToUserDelegate(string users);
         public event SendGameRequestToUserDelegate sendGameRequestToUserFunc;
 
-        public void sendGameRequestToUser(string user)
+        public bool sendGameRequestToUser(string user)
         {
-            sendGameRequestToUserFunc(user);
-        }
-
-        public delegate void SendAcceptRequest();
-        public event SendAcceptRequest sendAcceptRequestToUserFunc;
-
-        public void sendAcceptRequestToUser()
-        {
-            sendAcceptRequestToUserFunc();
-        }
-
-        public delegate void SendRejectRequest();
-        public event SendRejectRequest sendRejectRequestToUserFunc;
-
-        public void sendRejectRequestToUser()
-        {
-            sendRejectRequestToUserFunc();
+            return sendGameRequestToUserFunc(user);
         }
 
         public delegate void UpdateCell(int row, int col);

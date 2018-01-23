@@ -63,31 +63,9 @@
   </xs:element>
   <xs:element name="SendRequestForGameToUserResponse">
     <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendAcceptForGameToUser">
-    <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="opponentUserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SendRequestForGameToUserResult" type="xs:boolean" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendAcceptForGameToUserResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendRejectForGameToUser">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="opponentUserName" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendRejectForGameToUserResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="InitGame">
@@ -169,14 +147,11 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="sendAcceptRequestToUser">
+  <xs:element name="sendGameRequestToUserResponse">
     <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="sendRejectRequestToUser">
-    <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sendGameRequestToUserResult" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="updateCell">

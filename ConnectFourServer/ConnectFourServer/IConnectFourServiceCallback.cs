@@ -19,14 +19,8 @@ namespace ConnectFourServer
 
         // this function gets as parameter user name that want to start game and it send it to the
         //opponent user
-        [OperationContract(IsOneWay = true)]
-        void sendGameRequestToUser(string fromUser);
-
-        [OperationContract(IsOneWay = true)]
-        void sendAcceptRequestToUser();
-
-        [OperationContract(IsOneWay = true)]
-        void sendRejectRequestToUser();
+        [OperationContract]
+        bool sendGameRequestToUser(string fromUser);
 
         [OperationContract(IsOneWay = true)]
         void updateCell(int row, int col);

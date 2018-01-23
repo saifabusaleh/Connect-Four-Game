@@ -27,16 +27,7 @@ namespace ConnectFourServer
 
         [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]
-        void SendRequestForGameToUser(string opponentUserName, string myUserName);
-
-
-        [FaultContract(typeof(UserNotFoundFault))]
-        [OperationContract]
-        void SendAcceptForGameToUser(string opponentUserName);
-
-        [FaultContract(typeof(UserNotFoundFault))]
-        [OperationContract]
-        void SendRejectForGameToUser(string opponentUserName);
+        bool SendRequestForGameToUser(string opponentUserName, string myUserName);
 
         //Game
         [OperationContract]

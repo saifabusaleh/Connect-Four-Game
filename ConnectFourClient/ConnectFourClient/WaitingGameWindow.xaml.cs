@@ -43,9 +43,6 @@ namespace ConnectFourClient
             Callback.addUsers += AddUsers;
             Callback.removeUser += removeUser;
             Callback.sendGameRequestToUserFunc += RecieveGameRequest;
-            Callback.sendAcceptRequestToUserFunc += ReceiveAccept;
-
-            Callback.sendRejectRequestToUserFunc += RecieveReject;
             this.Title = "Waiting window, connected as: " + currentUser;
         }
 
@@ -83,40 +80,44 @@ namespace ConnectFourClient
             btnPick.IsEnabled = true;
         }
 
-        private void RecieveGameRequest(string user)
+        private bool RecieveGameRequest(string user)
         {
             MessageBoxResult dialogResult = MessageBox.Show("user: " + user + " want to play game with you, do you want to play?", "Game request", MessageBoxButton.YesNo);
             switch (dialogResult)
             {
                 case MessageBoxResult.Yes:
-                    try
-                    {
-                        Thread t = new Thread(() => client.SendAcceptForGameToUser(user));
-                        t.Start();
-                        //Init with Black because its Player2
-                        Thread t1 = new Thread(() => initGameThread(user, currentUser));
-                        t1.Start();
-                        initGameWindow(GameWindow.Side.Black);
-                    }
-                    catch (FaultException<UserNotFoundFault> ex)
-                    {
+                    //Thread t1 = new Thread(() => initGameThread(user, currentUser));
+                    //t1.Start();
+                    initGameWindow(GameWindow.Side.Black);
+                    return true;
+                    //  try
+                    //{
+                    //    Thread t = new Thread(() => client.SendAcceptForGameToUser(user));
+                    //    t.Start();
+                    //    //Init with Black because its Player2
 
-                        MessageBox.Show(ex.Detail.Message);
-                    }
-                    break;
+                //}
+                //catch (FaultException<UserNotFoundFault> ex)
+                //{
+
+                //    MessageBox.Show(ex.Detail.Message);
+                //}
+                // break;
                 case MessageBoxResult.No:
-                    try
-                    {
-                        Thread t = new Thread(() => client.SendRejectForGameToUser(user));
-                        t.Start();
-                    }
-                    catch (FaultException<UserNotFoundFault> ex)
-                    {
+                    return false;
+                    //try
+                    //{
+                    //    Thread t = new Thread(() => client.SendRejectForGameToUser(user));
+                    //    t.Start();
+                    //}
+                    //catch (FaultException<UserNotFoundFault> ex)
+                    //{
 
-                        MessageBox.Show(ex.Detail.Message);
-                    }
-                    break;
+                    //    MessageBox.Show(ex.Detail.Message);
+                    //}
+                    //break;
             }
+            return true;
         }
         private void initGameThread(string player1, string player2)
         {
@@ -124,7 +125,7 @@ namespace ConnectFourClient
         }
         private void AddUsers(string[] users)
         {
-            for(int i=0;i<users.Length;i++)
+            for (int i = 0; i < users.Length; i++)
             {
                 connectedUsers.Add(users[i]);
             }
@@ -142,9 +143,19 @@ namespace ConnectFourClient
             string selectedOponentString = (string)selectedOponent;
             try
             {
-                client.SendRequestForGameToUser(selectedOponentString, currentUser);
+                bool gameRequestResult = client.SendRequestForGameToUser(selectedOponentString, currentUser);
                 lbUsers.IsEnabled = false;
                 btnPick.IsEnabled = false;
+                if (gameRequestResult == true)
+                {
+                    initGameWindow(GameWindow.Side.Red);
+                } else
+                {
+                    MessageBox.Show("Player: " + selectedOponentString + " refused to play with you.. :(");
+                    lbUsers.IsEnabled = true;
+                    btnPick.IsEnabled = true;
+                }
+
             }
             catch (FaultException<UserNotFoundFault> ex)
             {
@@ -157,17 +168,18 @@ namespace ConnectFourClient
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Temporary disable because of problems with init game
-            try
-            {
-                client.Disconnect(currentUser);
+            //    try
+            //    {
+            //        client.Disconnect(currentUser);
 
-            }
-            catch (FaultException<UserNotFoundFault> ex)
-            {
-                MessageBox.Show(ex.Detail.Message);
+            //    }
+            //    catch (FaultException<UserNotFoundFault> ex)
+            //    {
+            //        MessageBox.Show(ex.Detail.Message);
 
-            }
-            System.Environment.Exit(System.Environment.ExitCode);
+            //    }
+            //    System.Environment.Exit(System.Environment.ExitCode);
+            //}
         }
     }
 }
