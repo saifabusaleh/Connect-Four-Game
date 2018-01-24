@@ -23,6 +23,8 @@ namespace ConnectFourClient
     /// </summary>
     public partial class WaitingGameWindow : Window
     {
+        private bool isClosingFromGui = false;
+
         public ClientCallback Callback { get; set; }
         public string currentUser { get; set; }
         public ConnectFourServiceClient client { get; set; }
@@ -69,6 +71,7 @@ namespace ConnectFourClient
             gWindow.Callback = this.Callback;
             gWindow.currentUser = this.currentUser;
             gWindow.Show();
+            isClosingFromGui = true;
             this.Close();
         }
 
@@ -90,11 +93,11 @@ namespace ConnectFourClient
                     //t1.Start();
                     initGameWindow(GameWindow.Side.Black);
                     return true;
-                    //  try
-                    //{
-                    //    Thread t = new Thread(() => client.SendAcceptForGameToUser(user));
-                    //    t.Start();
-                    //    //Init with Black because its Player2
+                //  try
+                //{
+                //    Thread t = new Thread(() => client.SendAcceptForGameToUser(user));
+                //    t.Start();
+                //    //Init with Black because its Player2
 
                 //}
                 //catch (FaultException<UserNotFoundFault> ex)
@@ -168,18 +171,24 @@ namespace ConnectFourClient
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Temporary disable because of problems with init game
-            //    try
-            //    {
-            //        client.Disconnect(currentUser);
 
-            //    }
-            //    catch (FaultException<UserNotFoundFault> ex)
-            //    {
-            //        MessageBox.Show(ex.Detail.Message);
+            if (!isClosingFromGui)
+            {
 
-            //    }
-            //    System.Environment.Exit(System.Environment.ExitCode);
-            //}
+                try
+                {
+                    client.Disconnect(currentUser);
+
+                }
+                catch (FaultException<UserNotFoundFault> ex)
+                {
+                    MessageBox.Show(ex.Detail.Message);
+
+                }
+                System.Environment.Exit(System.Environment.ExitCode);
+
+            }
         }
     }
 }
+
