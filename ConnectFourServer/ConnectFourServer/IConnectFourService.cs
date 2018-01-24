@@ -10,6 +10,10 @@ namespace ConnectFourServer
     [ServiceContract(CallbackContract = typeof(IConnectFourServiceCallback))]
     public interface IConnectFourService
     {
+
+        //Login and register functions
+
+
         [FaultContract(typeof(UserExistsFault))]
         [OperationContract]
         void register(string username, string password);
@@ -29,7 +33,7 @@ namespace ConnectFourServer
         [OperationContract]
         bool SendRequestForGameToUser(string opponentUserName, string myUserName);
 
-        //Game
+        //Game Functions
         [OperationContract]
         void InitGame(string player1, string player2);
 
@@ -38,9 +42,9 @@ namespace ConnectFourServer
 
         //returns the row where the circle inserted
         [OperationContract]
-        int Insert(int column, string playerName);
+        InsertResult Insert(int column, string playerName);
 
-        [OperationContract]
-        bool checkIfIWin(string playerName, int row, int col);
+        //[OperationContract]
+        //bool checkIfIWin(string playerName, int row, int col);
     }
 }

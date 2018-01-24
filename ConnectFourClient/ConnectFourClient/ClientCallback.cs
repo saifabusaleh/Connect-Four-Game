@@ -34,21 +34,12 @@ namespace ConnectFourClient
             return sendGameRequestToUserFunc(user);
         }
 
-        public delegate void UpdateCell(int row, int col);
+        public delegate void UpdateCell(int row, int col, MOVE_RESULT result);
         public event UpdateCell updateCellFunc;
 
-        public void updateCell(int row, int col)
+        public void updateCell(int row, int col, MOVE_RESULT result)
         {
-            updateCellFunc(row,col);
-        }
-
-
-        public delegate void AnnouceWinner(string winnerName);
-        public event AnnouceWinner annouceWinnerFunc;
-
-        public void annouceWinner(string winnerName)
-        {
-            annouceWinnerFunc(winnerName);
+            updateCellFunc(row,col, result);
         }
     }
 }

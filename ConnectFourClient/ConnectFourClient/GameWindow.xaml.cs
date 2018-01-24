@@ -20,6 +20,7 @@ namespace ConnectFourClient
     /// <summary>
     /// Interaction logic for GameWindow.xaml
     /// </summary>
+    /// 
     public partial class GameWindow : Window
     {
         public ConnectFourServiceClient client { get; set; }
@@ -96,19 +97,27 @@ namespace ConnectFourClient
 
         public void insertCellThread(int column, string currentUser, Side currentSide)
         {
-            int insertedRow = client.Insert(column, currentUser);
-            GameBoard[insertedRow, column] = currentSide;
+            InsertResult insertResult = client.Insert(column, currentUser);
+            GameBoard[insertResult.Row_index, column] = currentSide;
             currentColumn = column;
             Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(currentSide, column); }));
 
-            //Check if the user is winner after insertion
-            bool isWin = client.checkIfIWin(currentUser, insertedRow, column);
-            if(isWin)
+            if(insertResult.Move_result == MOVE_RESULT.Win)
             {
-                MessageBox.Show("Congrats, you won");
-                
-                Application.Current.Dispatcher.Invoke(new Action(() => { this.Close(); }));
+                  MessageBox.Show("Congrats, you won");
+
+            } else if(insertResult.Move_result == MOVE_RESULT.Draw)
+            {
+                MessageBox.Show("Game ended with Draw");
             }
+            //Check if the user is winner after insertion
+            //bool isWin = client.checkIfIWin(currentUser, insertedRow, column);
+            //if(isWin)
+            //{
+            //    MessageBox.Show("Congrats, you won");
+
+            //    Application.Current.Dispatcher.Invoke(new Action(() => { this.Close(); }));
+            //}
         }
 
         #region InsertButton_Click Methods
@@ -208,28 +217,6 @@ namespace ConnectFourClient
             return numOfPieces;
         }
 
-        //Implementation must be in server
-        //private void AfterTurn()
-        //{
-        //    Side winner = board.Winner();
-
-        //    if (winner != Side.None)
-        //    {
-        //        StatusText.Text = String.Format("{0} player Wins!", currentSide);
-        //        DisableAllInsertButtons();
-        //    }
-        //    else if (board.Tied())
-        //    {
-        //        StatusText.Text = "Tied game!";
-        //        DisableAllInsertButtons();
-        //    }
-        //    else
-        //    {
-        //        currentSide = (currentSide == Side.Black) ? Side.Red : Side.Black;
-        //        StatusText.Text = String.Format("{0}'s Turn", currentSide);
-        //    }
-        //}
-
         private void DisableAllInsertButtons()
         {
             InsertButton0.IsEnabled = false;
@@ -261,23 +248,11 @@ namespace ConnectFourClient
         {
             this.Title = "Playing as player: " + currentUser;
             Callback.updateCellFunc += updateCell;
-            Callback.annouceWinnerFunc += annouceWinner;
         }
 
-        private void annouceWinner(string winnerName)
-        {
-            //if(winnerName == currentUser)
-            //{
-            //    MessageBox.Show("Congrats, you won!!!");
-            //} else
-            //{
-            //    MessageBox.Show("Ooops, you lost :(");
-            //}
-            MessageBox.Show("Ooops, you lost :(");
-            this.Close();
-        }
 
-        private void updateCell(int row, int col)
+        //Insert result from player 1 callback
+        private void updateCell(int row, int col, MOVE_RESULT result)
         {
             //paint with th other color
             Side addColor;
@@ -291,6 +266,13 @@ namespace ConnectFourClient
             GameBoard[row, col] = addColor;
             currentColumn = col;
             Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(addColor, col); }));
+            if(result == MOVE_RESULT.Win)
+            {
+                MessageBox.Show("Oops, looks like you lost :(");
+            } else if(result == MOVE_RESULT.Draw)
+            {
+                MessageBox.Show("Game ended with draw");
+            }
         }
     }
 }

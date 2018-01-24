@@ -57,6 +57,7 @@
     <Compile Include="ConnectFourBoard.cs" />
     <Compile Include="IConnectFourServiceCallback.cs" />
     <Compile Include="IConnectFourService.cs" />
+    <Compile Include="InsertResult.cs" />
     <Compile Include="PlayingGame.cs" />
     <Compile Include="PlayingPlayers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

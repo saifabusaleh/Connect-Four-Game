@@ -23,9 +23,7 @@ namespace ConnectFourServer
         bool sendGameRequestToUser(string fromUser);
 
         [OperationContract(IsOneWay = true)]
-        void updateCell(int row, int col);
+        void updateCell(int row, int col, MOVE_RESULT move_result);
 
-        [OperationContract(IsOneWay = true)]
-        void annouceWinner(string username);
     }
 }

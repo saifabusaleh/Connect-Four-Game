@@ -29,20 +29,6 @@ namespace ConnectFourServer
             return true;
         }
 
-        public Side Winner()
-        {
-            for (int row = 0; row < this.GameBoard.GetLength(0); row++)
-            {
-                for (int col = 0; col < this.GameBoard.GetLength(1); col++)
-                {
-                    if (GameBoard[row, col] != Side.None &&
-                        (VerticalConnectFour(row, col) || HorizontalConnectFour(row, col) || ForwardDiagonalConnectFour(row, col) || BackwardDiagonalConnectFour(row, col)))
-                        return GameBoard[row, col];
-                }
-            }
-            return Side.None;
-        }
-
         public Side Winner(int row, int col)
         {
             if (GameBoard[row, col] != Side.None &&
@@ -166,34 +152,6 @@ namespace ConnectFourServer
                 }
             }
             return -1;
-        }
-
-        public int PiecesInCol(int column)
-        {
-            int numOfPieces = 0;
-            for (int row = GameBoard.GetLength(0) - 1; row >= 0; row--)
-            {
-                if (GameBoard[row, column] != Side.None)
-                {
-                    numOfPieces++;
-                }
-            }
-            return numOfPieces;
-        }
-
-        public Side AfterInsert()
-        {
-            Side winner = Winner();
-
-            if (winner != Side.None)
-            {
-                return winner;
-            }
-            //else if (Tied())
-            //{
-            //    return -1;
-            //}
-            return Side.None;
         }
     }
 }

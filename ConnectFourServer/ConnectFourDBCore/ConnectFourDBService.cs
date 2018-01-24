@@ -105,6 +105,34 @@ namespace ConnectFourDBCore
 
             }
         }
+
+        public void addGameWithDrawToDB(string player1, string player2)
+        {
+            using (var db = new ConnectFourContext())
+            {
+                User player1InDB = db.Users.SingleOrDefault(user => user.userName == player1);
+                User player2InDB = db.Users.SingleOrDefault(user => user.userName == player2);
+                //Throw exception if player1 or player2 is null
+
+                //User player1InDB = db.Users.Find(player1);
+                //User player2InDB = db.Users.Find(player2);
+                Game g = new Game();
+                g.user1 = player1InDB;
+                g.user2 = player2InDB;
+
+                g.winner = 0;
+
+                player1InDB.numberOfGames += 1;
+                player2InDB.numberOfGames += 1;
+
+                db.Entry(player1InDB).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(player2InDB).State = System.Data.Entity.EntityState.Modified;
+
+                db.Games.Add(g);
+                db.SaveChanges();
+
+            }
+        }
         #endregion
 
         #region exceptions

@@ -148,6 +148,81 @@ namespace ConnectFourClient.ConnectFourService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="InsertResult", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+    [System.SerializableAttribute()]
+    public partial class InsertResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ConnectFourClient.ConnectFourService.MOVE_RESULT Move_resultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int Row_indexField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ConnectFourClient.ConnectFourService.MOVE_RESULT Move_result {
+            get {
+                return this.Move_resultField;
+            }
+            set {
+                if ((this.Move_resultField.Equals(value) != true)) {
+                    this.Move_resultField = value;
+                    this.RaisePropertyChanged("Move_result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Row_index {
+            get {
+                return this.Row_indexField;
+            }
+            set {
+                if ((this.Row_indexField.Equals(value) != true)) {
+                    this.Row_indexField = value;
+                    this.RaisePropertyChanged("Row_index");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MOVE_RESULT", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+    public enum MOVE_RESULT : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Win = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Draw = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Nothing = 2,
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ConnectFourService.IConnectFourService", CallbackContract=typeof(ConnectFourClient.ConnectFourService.IConnectFourServiceCallback))]
     public interface IConnectFourService {
@@ -200,16 +275,10 @@ namespace ConnectFourClient.ConnectFourService {
         System.Threading.Tasks.Task<bool> IsMyTurnAsync(string playerName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Insert", ReplyAction="http://tempuri.org/IConnectFourService/InsertResponse")]
-        int Insert(int column, string playerName);
+        ConnectFourClient.ConnectFourService.InsertResult Insert(int column, string playerName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Insert", ReplyAction="http://tempuri.org/IConnectFourService/InsertResponse")]
-        System.Threading.Tasks.Task<int> InsertAsync(int column, string playerName);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/checkIfIWin", ReplyAction="http://tempuri.org/IConnectFourService/checkIfIWinResponse")]
-        bool checkIfIWin(string playerName, int row, int col);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/checkIfIWin", ReplyAction="http://tempuri.org/IConnectFourService/checkIfIWinResponse")]
-        System.Threading.Tasks.Task<bool> checkIfIWinAsync(string playerName, int row, int col);
+        System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.InsertResult> InsertAsync(int column, string playerName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -225,10 +294,7 @@ namespace ConnectFourClient.ConnectFourService {
         bool sendGameRequestToUser(string fromUser);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/updateCell")]
-        void updateCell(int row, int col);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/annouceWinner")]
-        void annouceWinner(string username);
+        void updateCell(int row, int col, ConnectFourClient.ConnectFourService.MOVE_RESULT move_result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -315,20 +381,12 @@ namespace ConnectFourClient.ConnectFourService {
             return base.Channel.IsMyTurnAsync(playerName);
         }
         
-        public int Insert(int column, string playerName) {
+        public ConnectFourClient.ConnectFourService.InsertResult Insert(int column, string playerName) {
             return base.Channel.Insert(column, playerName);
         }
         
-        public System.Threading.Tasks.Task<int> InsertAsync(int column, string playerName) {
+        public System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.InsertResult> InsertAsync(int column, string playerName) {
             return base.Channel.InsertAsync(column, playerName);
-        }
-        
-        public bool checkIfIWin(string playerName, int row, int col) {
-            return base.Channel.checkIfIWin(playerName, row, col);
-        }
-        
-        public System.Threading.Tasks.Task<bool> checkIfIWinAsync(string playerName, int row, int col) {
-            return base.Channel.checkIfIWinAsync(playerName, row, col);
         }
     }
 }

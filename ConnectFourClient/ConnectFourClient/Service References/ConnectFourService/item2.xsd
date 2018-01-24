@@ -18,4 +18,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserNotFoundFault" nillable="true" type="tns:UserNotFoundFault" />
+  <xs:complexType name="InsertResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Move_result" type="tns:MOVE_RESULT" />
+      <xs:element minOccurs="0" name="Row_index" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InsertResult" nillable="true" type="tns:InsertResult" />
+  <xs:simpleType name="MOVE_RESULT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Win" />
+      <xs:enumeration value="Draw" />
+      <xs:enumeration value="Nothing" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MOVE_RESULT" nillable="true" type="tns:MOVE_RESULT" />
 </xs:schema>

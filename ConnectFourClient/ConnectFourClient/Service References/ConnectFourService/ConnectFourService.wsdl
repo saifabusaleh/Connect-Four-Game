@@ -563,52 +563,6 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_checkIfIWin_Input_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_checkIfIWin_output_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_addUsersToList_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -724,29 +678,6 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_annouceWinner_output_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
-          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -815,12 +746,6 @@
   <wsdl:message name="IConnectFourService_Insert_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertResponse" />
   </wsdl:message>
-  <wsdl:message name="IConnectFourService_checkIfIWin_InputMessage">
-    <wsdl:part name="parameters" element="tns:checkIfIWin" />
-  </wsdl:message>
-  <wsdl:message name="IConnectFourService_checkIfIWin_OutputMessage">
-    <wsdl:part name="parameters" element="tns:checkIfIWinResponse" />
-  </wsdl:message>
   <wsdl:message name="IConnectFourService_addUsersToList_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:addUsersToList" />
   </wsdl:message>
@@ -835,9 +760,6 @@
   </wsdl:message>
   <wsdl:message name="IConnectFourService_updateCell_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:updateCell" />
-  </wsdl:message>
-  <wsdl:message name="IConnectFourService_annouceWinner_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:annouceWinner" />
   </wsdl:message>
   <wsdl:portType name="IConnectFourService">
     <wsdl:operation name="register">
@@ -876,10 +798,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IConnectFourService/Insert" message="tns:IConnectFourService_Insert_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/InsertResponse" message="tns:IConnectFourService_Insert_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="checkIfIWin">
-      <wsdl:input wsaw:Action="http://tempuri.org/IConnectFourService/checkIfIWin" message="tns:IConnectFourService_checkIfIWin_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/checkIfIWinResponse" message="tns:IConnectFourService_checkIfIWin_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="addUsersToList">
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/addUsersToList" message="tns:IConnectFourService_addUsersToList_OutputCallbackMessage" />
     </wsdl:operation>
@@ -892,9 +810,6 @@
     </wsdl:operation>
     <wsdl:operation name="updateCell">
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/updateCell" message="tns:IConnectFourService_updateCell_OutputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="annouceWinner">
-      <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/annouceWinner" message="tns:IConnectFourService_annouceWinner_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSDualHttpBinding_IConnectFourService" type="tns:IConnectFourService">
@@ -1004,17 +919,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="checkIfIWin">
-      <soap12:operation soapAction="http://tempuri.org/IConnectFourService/checkIfIWin" style="document" />
-      <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_checkIfIWin_Input_policy" />
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_checkIfIWin_output_policy" />
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="addUsersToList">
       <soap12:operation soapAction="http://tempuri.org/IConnectFourService/addUsersToList" style="document" />
       <wsdl:output>
@@ -1044,13 +948,6 @@
       <soap12:operation soapAction="http://tempuri.org/IConnectFourService/updateCell" style="document" />
       <wsdl:output>
         <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_updateCell_output_policy" />
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="annouceWinner">
-      <soap12:operation soapAction="http://tempuri.org/IConnectFourService/annouceWinner" style="document" />
-      <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_annouceWinner_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

@@ -170,7 +170,6 @@ namespace ConnectFourClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //Temporary disable because of problems with init game
 
             if (!isClosingFromGui)
             {
