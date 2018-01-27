@@ -5,14 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConnectFourClient"
         mc:Ignorable="d"
-        Title="Waiting Players window" Height="309.072" Width="409.487" Loaded="Window_Loaded" Closing="Window_Closing">
-    <Grid>
-        <StackPanel Margin="0,0,-0.4,-0.4">
-            <Label>Pick opposite player from connected players:</Label>
-            <ListBox Margin="10" Name="lbUsers" Height="200" ItemsSource="{Binding connectedUsers}"/>
-            <Button x:Name="btnPick" Content="Pick" Click="btnPick_Click"/>
+        Title="Waiting Players window" Height="350" Width="525" Loaded="Window_Loaded" Closing="Window_Closing">
+    <DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="0,0,0.4,-0.2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="37*"/>
+                    <RowDefinition Height="239*"/>
+                    <RowDefinition Height="45*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" >Pick opposite player from connected players:</Label>
+                <ListBox Grid.Row="1"  Name="lbUsers" ItemsSource="{Binding connectedUsers}" SelectionChanged="lbUsers_SelectionChanged" />
+                <Button x:Name="btnPick" Content="Pick" Click="btnPick_Click" Margin="0,0,0.4,-0.2" Grid.Row="2"/>
 
-        </StackPanel>
 
-    </Grid>
+            </Grid>
+            <GridSplitter HorizontalAlignment="Right" 
+                  VerticalAlignment="Stretch" 
+                  Grid.Column="1" ResizeBehavior="PreviousAndNext"
+                  Width="5" Background="#FFBCBCBC" Margin="0,0,0.4,-0.2"/>
+
+            <Grid Margin="0,1,0.4,-1.2" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="34*"  />
+                    <RowDefinition Height="34*" />
+                    <RowDefinition Height="34*" />
+                    <RowDefinition Height="34*"/>
+                    <RowDefinition Height="34*"/>
+                    <RowDefinition Height="Auto" />
+
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" Content="Number of games:" />
+                <Label Grid.Row="1" Grid.Column="0" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" Content="Number of wins:" />
+                <Label Grid.Row="2" Grid.Column="0" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" Content="Number of loses:" />
+                <Label Grid.Row="3" Grid.Column="0" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" Content="Number of Points:"   />
+                <Label Grid.Row="4" Grid.Column="0" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" Content="Winning Percent:"  />
+
+                <TextBlock VerticalAlignment="Top" Height="20" FontWeight="UltraBlack" Foreground="Blue" FontSize="14" FontFamily="David" Name="txtNumOfGames"  Grid.Column="1" Grid.Row="0" Margin="0,3,2.8,2.2" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+                <TextBlock  VerticalAlignment="Top" Height="20" Foreground="Blue" FontWeight="UltraBlack" FontSize="14" FontFamily="David" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Name="txtNumOfWins"  Grid.Column="1" Grid.Row="1" Margin="0,3.8,2.8,1.8"  >
+                </TextBlock>
+                <TextBlock VerticalAlignment="Top" Height="20" Grid.Row="2" Margin="3,4.2,2.8,2.2" Grid.Column="1" FontWeight="ExtraBold" FontStyle="Italic" FontFamily="Trebuchet MS" />
+                <TextBlock VerticalAlignment="Top" Height="20" Grid.Row="4" Grid.Column="1" FontWeight="UltraBlack" FontSize="14"  Foreground="Blue" FontFamily="David" Name="txtWinPercent"     Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"    />
+
+                <TextBlock VerticalAlignment="Top" Height="20" FontWeight="UltraBlack" FontSize="14" Grid.Row="2" Grid.Column="1" Foreground="Blue" FontFamily="David" Name="txtNumOfLoses"     Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"  />
+                <TextBlock  VerticalAlignment="Top" Height="20" FontWeight="UltraBlack" FontSize="14" Grid.Row="3" Grid.Column="1" Foreground="Blue" FontFamily="David" Name="txtNumOfPoints"     Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+
+
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>

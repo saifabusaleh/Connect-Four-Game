@@ -348,6 +348,16 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             return users;
         }
 
+        public PlayersDetails getPlayerDetails(string username)
+        {
+            PlayersDetails player = null;
+            Thread t = new Thread(() => { player = cs.getPlayerDetails(username); });
+            t.Start();
+            t.Join();
+            return player;
+        }
+
+
         public IEnumerable<PlayingGames> getCurrentGames()
         {
             List<PlayingGames> currentGames = new List<PlayingGames>();

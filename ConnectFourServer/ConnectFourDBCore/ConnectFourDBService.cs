@@ -71,6 +71,24 @@ namespace ConnectFourDBCore
             }
         }
 
+        public PlayersDetails getPlayerDetails(string username)
+        {
+            using (var db = new ConnectFourContext())
+            {
+                User player = db.Users.SingleOrDefault(user => user.userName == username);
+                //if (player == null)
+                //{
+                //    return null;
+                //}
+                PlayersDetails playerDetails = new PlayersDetails();
+                playerDetails.numOfGames = player.numberOfGames;
+                playerDetails.numOfLoses = player.numberOfLoses;
+                playerDetails.numOfWins = player.numberOfWins;
+                playerDetails.numOfPoints = player.numberOfPoints;
+                return playerDetails;
+            }
+        }
+
         public IEnumerable<GameDetails> getGames()
         {
             using (var db = new ConnectFourContext())

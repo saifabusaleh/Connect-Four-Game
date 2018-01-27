@@ -40,6 +40,9 @@ namespace ConnectFourServer
         IEnumerable<PlayersDetails> getPlayers();
 
         [OperationContract]
+        PlayersDetails getPlayerDetails(string username);
+
+        [OperationContract]
         IEnumerable<GameDetails> getGames();
 
         [OperationContract]

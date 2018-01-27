@@ -67,6 +67,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="getPlayerDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPlayerDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ConnectFourDBCore" minOccurs="0" name="getPlayerDetailsResult" nillable="true" type="q2:PlayersDetails" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="getGames">
     <xs:complexType>
       <xs:sequence />
@@ -75,7 +89,7 @@
   <xs:element name="getGamesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ConnectFourDBCore" minOccurs="0" name="getGamesResult" nillable="true" type="q2:ArrayOfGameDetails" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ConnectFourDBCore" minOccurs="0" name="getGamesResult" nillable="true" type="q3:ArrayOfGameDetails" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -87,7 +101,7 @@
   <xs:element name="getCurrentGamesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="getCurrentGamesResult" nillable="true" type="q3:ArrayOfPlayingGames" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="getCurrentGamesResult" nillable="true" type="q4:ArrayOfPlayingGames" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -144,14 +158,14 @@
   <xs:element name="InsertResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="InsertResult" nillable="true" type="q4:InsertResult" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="InsertResult" nillable="true" type="q5:InsertResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="addUsersToList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="newUser" nillable="true" type="q5:ArrayOfstring" />
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="newUser" nillable="true" type="q6:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -181,7 +195,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="row" type="xs:int" />
         <xs:element minOccurs="0" name="col" type="xs:int" />
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="move_result" type="q6:MOVE_RESULT" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="move_result" type="q7:MOVE_RESULT" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

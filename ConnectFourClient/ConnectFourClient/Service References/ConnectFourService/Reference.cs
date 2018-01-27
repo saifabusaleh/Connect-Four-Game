@@ -523,6 +523,12 @@ namespace ConnectFourClient.ConnectFourService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getPlayers", ReplyAction="http://tempuri.org/IConnectFourService/getPlayersResponse")]
         System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.PlayersDetails[]> getPlayersAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getPlayerDetails", ReplyAction="http://tempuri.org/IConnectFourService/getPlayerDetailsResponse")]
+        ConnectFourClient.ConnectFourService.PlayersDetails getPlayerDetails(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getPlayerDetails", ReplyAction="http://tempuri.org/IConnectFourService/getPlayerDetailsResponse")]
+        System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.PlayersDetails> getPlayerDetailsAsync(string username);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getGames", ReplyAction="http://tempuri.org/IConnectFourService/getGamesResponse")]
         ConnectFourClient.ConnectFourService.GameDetails[] getGames();
         
@@ -644,6 +650,14 @@ namespace ConnectFourClient.ConnectFourService {
         
         public System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.PlayersDetails[]> getPlayersAsync() {
             return base.Channel.getPlayersAsync();
+        }
+        
+        public ConnectFourClient.ConnectFourService.PlayersDetails getPlayerDetails(string username) {
+            return base.Channel.getPlayerDetails(username);
+        }
+        
+        public System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.PlayersDetails> getPlayerDetailsAsync(string username) {
+            return base.Channel.getPlayerDetailsAsync(username);
         }
         
         public ConnectFourClient.ConnectFourService.GameDetails[] getGames() {

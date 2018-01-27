@@ -152,7 +152,8 @@ namespace ConnectFourClient
                 if (gameRequestResult == true)
                 {
                     initGameWindow(GameWindow.Side.Red);
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Player: " + selectedOponentString + " refused to play with you.. :(");
                     lbUsers.IsEnabled = true;
@@ -187,6 +188,48 @@ namespace ConnectFourClient
                 System.Environment.Exit(System.Environment.ExitCode);
 
             }
+        }
+
+        private void lbUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var curItem = lbUsers.SelectedItem;
+            if (curItem == null) // handling the case that nothing is selected
+
+            {
+                setTextBoxesToEmpty();
+                return;
+            }
+            string playername = (string)curItem;
+            PlayersDetails playerDetails = null;
+            Thread t = new Thread(() => { playerDetails = client.getPlayerDetails(playername); });
+            t.Start();
+            t.Join();
+            setTextBoxesToPlayerData(playerDetails);
+
+        }
+
+        private void setTextBoxesToPlayerData(PlayersDetails playerDetails)
+        {
+            txtNumOfGames.Text = playerDetails.numOfGames.ToString();
+            txtNumOfLoses.Text = playerDetails.numOfLoses.ToString();
+            txtNumOfPoints.Text = playerDetails.numOfPoints.ToString();
+            txtNumOfWins.Text = playerDetails.numOfWins.ToString();
+            if (playerDetails.numOfGames == 0) // to make sure not to divide by 0
+            {
+                txtWinPercent.Text = "0";
+                return;
+            }
+            txtWinPercent.Text = ((playerDetails.numOfWins / playerDetails.numOfGames) * 100).ToString() + "%";
+        }
+
+        //This method set all textboxes to empty
+        private void setTextBoxesToEmpty()
+        {
+            txtNumOfGames.Text = string.Empty;
+            txtNumOfLoses.Text = string.Empty;
+            txtNumOfPoints.Text = string.Empty;
+            txtNumOfWins.Text = string.Empty;
+            txtWinPercent.Text = string.Empty;
         }
     }
 }
