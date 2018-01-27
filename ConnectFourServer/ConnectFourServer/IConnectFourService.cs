@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ConnectFourDBCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ConnectFourServer
 {
@@ -21,6 +23,7 @@ namespace ConnectFourServer
         [OperationContract]
         bool login(string username, string password);
 
+        //Connection functions
         [FaultContract(typeof(UserAlreadyLoggedInFault))]
         [OperationContract]
         void Connect(string username);
@@ -29,11 +32,25 @@ namespace ConnectFourServer
         [OperationContract]
         void Disconnect(string userName);
 
+
+
+
+        //Getters
+        [OperationContract]
+        IEnumerable<PlayersDetails> getPlayers();
+
+        [OperationContract]
+        IEnumerable<GameDetails> getGames();
+
+        [OperationContract]
+        IEnumerable<PlayingGames> getCurrentGames();
+
+        //Game Functions
+
         [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]
         bool SendRequestForGameToUser(string opponentUserName, string myUserName);
 
-        //Game Functions
         [OperationContract]
         void InitGame(string player1, string player2);
 

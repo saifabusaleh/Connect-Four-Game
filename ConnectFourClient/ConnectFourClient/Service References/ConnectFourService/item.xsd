@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ConnectFourDBCore" />
   <xs:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer" />
-  <xs:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="register">
     <xs:complexType>
       <xs:sequence>
@@ -52,6 +53,42 @@
   <xs:element name="DisconnectResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPlayers">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPlayersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ConnectFourDBCore" minOccurs="0" name="getPlayersResult" nillable="true" type="q1:ArrayOfPlayersDetails" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getGames">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getGamesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ConnectFourDBCore" minOccurs="0" name="getGamesResult" nillable="true" type="q2:ArrayOfGameDetails" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getCurrentGames">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getCurrentGamesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="getCurrentGamesResult" nillable="true" type="q3:ArrayOfPlayingGames" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SendRequestForGameToUser">
@@ -107,14 +144,14 @@
   <xs:element name="InsertResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="InsertResult" nillable="true" type="q1:InsertResult" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="InsertResult" nillable="true" type="q4:InsertResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="addUsersToList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="newUser" nillable="true" type="q2:ArrayOfstring" />
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="newUser" nillable="true" type="q5:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -144,7 +181,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="row" type="xs:int" />
         <xs:element minOccurs="0" name="col" type="xs:int" />
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="move_result" type="q3:MOVE_RESULT" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="move_result" type="q6:MOVE_RESULT" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -1,0 +1,23 @@
+﻿<Window x:Class="ConnectFourClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConnectFourClient"
+        mc:Ignorable="d"
+        Title="Main connect four window" Height="300" Width="300">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Play">
+                <MenuItem Header="Waiting window" Click="waitingWindow_Click" />
+            </MenuItem>
+            <MenuItem Header="_Show">
+                <MenuItem Header="Players" Click="showPlayers_Click"/>
+                <MenuItem Header="Games" Click="showGames_Click"/>
+                <MenuItem Header="Current Games" Click="showCurrentGames_Click"/>
+            </MenuItem>
+
+        </Menu>
+        <TextBox AcceptsReturn="True" />
+    </DockPanel>
+</Window>

@@ -15,7 +15,7 @@ namespace ConnectFourClient
 
         public void addUsersToList(string[] users)
         {
-            addUsers(users);
+             addUsers(users);
         }
 
         public delegate void RemoveFromClientListDelegate(string user);

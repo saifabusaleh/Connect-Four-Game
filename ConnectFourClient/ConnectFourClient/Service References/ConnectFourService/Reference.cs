@@ -150,6 +150,269 @@ namespace ConnectFourClient.ConnectFourService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PlayersDetails", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourDBCore")]
+    [System.SerializableAttribute()]
+    public partial class PlayersDetails : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int numOfGamesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int numOfLosesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int numOfPointsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int numOfWinsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string usernameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int numOfGames {
+            get {
+                return this.numOfGamesField;
+            }
+            set {
+                if ((this.numOfGamesField.Equals(value) != true)) {
+                    this.numOfGamesField = value;
+                    this.RaisePropertyChanged("numOfGames");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int numOfLoses {
+            get {
+                return this.numOfLosesField;
+            }
+            set {
+                if ((this.numOfLosesField.Equals(value) != true)) {
+                    this.numOfLosesField = value;
+                    this.RaisePropertyChanged("numOfLoses");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int numOfPoints {
+            get {
+                return this.numOfPointsField;
+            }
+            set {
+                if ((this.numOfPointsField.Equals(value) != true)) {
+                    this.numOfPointsField = value;
+                    this.RaisePropertyChanged("numOfPoints");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int numOfWins {
+            get {
+                return this.numOfWinsField;
+            }
+            set {
+                if ((this.numOfWinsField.Equals(value) != true)) {
+                    this.numOfWinsField = value;
+                    this.RaisePropertyChanged("numOfWins");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string username {
+            get {
+                return this.usernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.usernameField, value) != true)) {
+                    this.usernameField = value;
+                    this.RaisePropertyChanged("username");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GameDetails", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourDBCore")]
+    [System.SerializableAttribute()]
+    public partial class GameDetails : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Player1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Player2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WinnerField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Player1 {
+            get {
+                return this.Player1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Player1Field, value) != true)) {
+                    this.Player1Field = value;
+                    this.RaisePropertyChanged("Player1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Player2 {
+            get {
+                return this.Player2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Player2Field, value) != true)) {
+                    this.Player2Field = value;
+                    this.RaisePropertyChanged("Player2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Winner {
+            get {
+                return this.WinnerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WinnerField, value) != true)) {
+                    this.WinnerField = value;
+                    this.RaisePropertyChanged("Winner");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PlayingGames", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+    [System.SerializableAttribute()]
+    public partial class PlayingGames : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string player1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string player2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime startTimeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string player1 {
+            get {
+                return this.player1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.player1Field, value) != true)) {
+                    this.player1Field = value;
+                    this.RaisePropertyChanged("player1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string player2 {
+            get {
+                return this.player2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.player2Field, value) != true)) {
+                    this.player2Field = value;
+                    this.RaisePropertyChanged("player2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime startTime {
+            get {
+                return this.startTimeField;
+            }
+            set {
+                if ((this.startTimeField.Equals(value) != true)) {
+                    this.startTimeField = value;
+                    this.RaisePropertyChanged("startTime");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="InsertResult", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
     [System.SerializableAttribute()]
     public partial class InsertResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -254,6 +517,24 @@ namespace ConnectFourClient.ConnectFourService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Disconnect", ReplyAction="http://tempuri.org/IConnectFourService/DisconnectResponse")]
         System.Threading.Tasks.Task DisconnectAsync(string userName);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getPlayers", ReplyAction="http://tempuri.org/IConnectFourService/getPlayersResponse")]
+        ConnectFourClient.ConnectFourService.PlayersDetails[] getPlayers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getPlayers", ReplyAction="http://tempuri.org/IConnectFourService/getPlayersResponse")]
+        System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.PlayersDetails[]> getPlayersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getGames", ReplyAction="http://tempuri.org/IConnectFourService/getGamesResponse")]
+        ConnectFourClient.ConnectFourService.GameDetails[] getGames();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getGames", ReplyAction="http://tempuri.org/IConnectFourService/getGamesResponse")]
+        System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.GameDetails[]> getGamesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getCurrentGames", ReplyAction="http://tempuri.org/IConnectFourService/getCurrentGamesResponse")]
+        ConnectFourClient.ConnectFourService.PlayingGames[] getCurrentGames();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/getCurrentGames", ReplyAction="http://tempuri.org/IConnectFourService/getCurrentGamesResponse")]
+        System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.PlayingGames[]> getCurrentGamesAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/SendRequestForGameToUser", ReplyAction="http://tempuri.org/IConnectFourService/SendRequestForGameToUserResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/SendRequestForGameToUserUserNotFoundFaultF" +
             "ault", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
@@ -355,6 +636,30 @@ namespace ConnectFourClient.ConnectFourService {
         
         public System.Threading.Tasks.Task DisconnectAsync(string userName) {
             return base.Channel.DisconnectAsync(userName);
+        }
+        
+        public ConnectFourClient.ConnectFourService.PlayersDetails[] getPlayers() {
+            return base.Channel.getPlayers();
+        }
+        
+        public System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.PlayersDetails[]> getPlayersAsync() {
+            return base.Channel.getPlayersAsync();
+        }
+        
+        public ConnectFourClient.ConnectFourService.GameDetails[] getGames() {
+            return base.Channel.getGames();
+        }
+        
+        public System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.GameDetails[]> getGamesAsync() {
+            return base.Channel.getGamesAsync();
+        }
+        
+        public ConnectFourClient.ConnectFourService.PlayingGames[] getCurrentGames() {
+            return base.Channel.getCurrentGames();
+        }
+        
+        public System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.PlayingGames[]> getCurrentGamesAsync() {
+            return base.Channel.getCurrentGamesAsync();
         }
         
         public bool SendRequestForGameToUser(string opponentUserName, string myUserName) {

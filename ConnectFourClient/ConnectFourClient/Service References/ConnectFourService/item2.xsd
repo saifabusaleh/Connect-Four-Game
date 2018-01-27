@@ -18,6 +18,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserNotFoundFault" nillable="true" type="tns:UserNotFoundFault" />
+  <xs:complexType name="ArrayOfPlayingGames">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayingGames" nillable="true" type="tns:PlayingGames" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayingGames" nillable="true" type="tns:ArrayOfPlayingGames" />
+  <xs:complexType name="PlayingGames">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="player1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="player2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="startTime" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayingGames" nillable="true" type="tns:PlayingGames" />
   <xs:complexType name="InsertResult">
     <xs:sequence>
       <xs:element minOccurs="0" name="Move_result" type="tns:MOVE_RESULT" />

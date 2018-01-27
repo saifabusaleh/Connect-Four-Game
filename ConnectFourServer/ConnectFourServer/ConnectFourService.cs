@@ -338,5 +338,42 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
 
             currentGames.Remove(currentGame.Key);
         }
+
+        public IEnumerable<PlayersDetails> getPlayers()
+        {
+            IEnumerable<PlayersDetails> users = null;
+            Thread t = new Thread(() => { users = cs.getPlayers();  });
+            t.Start();
+            t.Join();
+            return users;
+        }
+
+        public IEnumerable<PlayingGames> getCurrentGames()
+        {
+            List<PlayingGames> currentGames = new List<PlayingGames>();
+            Thread t = new Thread(() => {
+                foreach(KeyValuePair<PlayingPlayers, PlayingGame> currentGame in this.currentGames)
+                {
+                    PlayingGames game = new PlayingGames();
+                    game.player1 = currentGame.Key.Player1;
+                    game.player2 = currentGame.Key.Player2;
+                    game.startTime = currentGame.Value.GameStartTime;
+                    currentGames.Add(game);
+                }
+            });
+            t.Start();
+            t.Join();
+            return currentGames;
+        }
+
+        public IEnumerable<GameDetails> getGames()
+        {
+            IEnumerable<GameDetails> games = null;
+
+            Thread t = new Thread(() => { games = cs.getGames(); });
+            t.Start();
+            t.Join();
+            return games;
+        }
     }
 }

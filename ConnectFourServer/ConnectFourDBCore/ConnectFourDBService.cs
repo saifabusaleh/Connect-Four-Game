@@ -51,7 +51,43 @@ namespace ConnectFourDBCore
         #endregion
 
 
+        #region getters
 
+        public IEnumerable<PlayersDetails> getPlayers()
+        {
+            using (var db = new ConnectFourContext())
+            {
+                List<PlayersDetails> players = (from c in db.Users
+                                        select new PlayersDetails
+                                        {
+                                            username = c.userName,
+                                            numOfGames = c.numberOfGames,
+                                            numOfWins = c.numberOfWins,
+                                            numOfLoses = c.numberOfLoses,
+                                            numOfPoints = c.numberOfPoints
+                                        }
+                                        ).ToList();
+                return players;
+            }
+        }
+
+        public IEnumerable<GameDetails> getGames()
+        {
+            using (var db = new ConnectFourContext())
+            {
+                List<GameDetails> games = (from c in db.Games
+                                           select new GameDetails
+                                           {
+                                               Player1 = c.user1.userName,
+                                               Player2 = c.user2.userName,
+                                               Winner = c.user1.userId == c.winner ? c.user1.userName : (c.user2.userId == c.winner ? c.user2.userName : "No Winner")
+
+                                      }                                    
+                                      ).ToList();
+                return games;
+            }
+        }
+        #endregion
         #region game_logic
         //Input: username that indicates the user that is just connected 
         //Output: list of users returned by username which is waiting for partner for playing

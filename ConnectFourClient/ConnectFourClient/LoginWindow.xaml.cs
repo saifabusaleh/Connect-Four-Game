@@ -48,23 +48,29 @@ namespace ConnectFourClient
                 return;
             }
 
-            try
-            {
-                client.Connect(username);
+            //try
+            //{
+            //    client.Connect(username);
 
-            }
-            catch (FaultException<UserAlreadyLoggedInFault> ex)
-            {
-                MessageBox.Show(ex.Detail.Message);
-                return;
-            }
+            //}
+            //catch (FaultException<UserAlreadyLoggedInFault> ex)
+            //{
+            //    MessageBox.Show(ex.Detail.Message);
+            //    return;
+            //}
 
-            WaitingGameWindow waitingGameWindow = new WaitingGameWindow();
-            waitingGameWindow.Callback = callback;
-            waitingGameWindow.currentUser = username;
-            waitingGameWindow.client = client;
-            waitingGameWindow.Show();
+            OpenMainWindow(username, callback);
             this.Close();
+        }
+
+        private void OpenMainWindow(string username, ClientCallback callback)
+        {
+            MainWindow window = new MainWindow();
+            window.Callback = callback;
+            window.currentUser = username;
+            window.client = client;
+
+            window.Show();
         }
 
         private void Signup_Click(object sender, RoutedEventArgs e)
