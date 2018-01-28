@@ -9,9 +9,7 @@ using System.Threading;
 
 namespace ConnectFourServer
 {
-
     public enum MOVE_RESULT { Win, Draw, Nothing };
-
 
     [ServiceBehavior(
     InstanceContextMode = InstanceContextMode.Single,
@@ -199,8 +197,8 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                     return currentGame.Value.Turn == playerName;
                 }
             }
+            throwUserNotFoundFault(playerName);
             return false;
-            //IF NOT throw exception that playerName not found
         }
 
         public InsertResult Insert(int column, string playerName)
@@ -250,7 +248,7 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 }
             }
 
-            //Throw exception
+            throwUserNotFoundFault(playerName);
             return result;
         }
 

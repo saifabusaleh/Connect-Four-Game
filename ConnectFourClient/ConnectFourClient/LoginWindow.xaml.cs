@@ -48,17 +48,6 @@ namespace ConnectFourClient
                 return;
             }
 
-            //try
-            //{
-            //    client.Connect(username);
-
-            //}
-            //catch (FaultException<UserAlreadyLoggedInFault> ex)
-            //{
-            //    MessageBox.Show(ex.Detail.Message);
-            //    return;
-            //}
-
             OpenMainWindow(username, callback);
             this.Close();
         }

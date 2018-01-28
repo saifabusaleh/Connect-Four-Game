@@ -81,11 +81,21 @@ namespace ConnectFourClient
                  * 
                  * 
                  */
-                if (!client.IsMyTurn(currentUser))
+                try
                 {
-                    MessageBox.Show("its not your turn!!");
+                    if (!client.IsMyTurn(currentUser))
+                    {
+                        MessageBox.Show("its not your turn!!");
+                        return;
+                    }
+                }
+                catch (FaultException<UserAlreadyLoggedInFault> ex)
+                {
+                    MessageBox.Show(ex.Detail.Message);
                     return;
                 }
+                
+                
                 if (GameBoard[0, column] != Side.None)
                 {
                     MessageBox.Show("Column is full, therefore you cant enter circle on it");

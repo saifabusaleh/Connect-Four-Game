@@ -55,6 +55,7 @@ namespace ConnectFourServer
         [OperationContract]
         void InitGame(string player1, string player2);
 
+        [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]
         bool IsMyTurn(string playerName);
 
