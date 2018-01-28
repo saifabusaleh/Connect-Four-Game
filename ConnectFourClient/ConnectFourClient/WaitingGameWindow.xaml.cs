@@ -168,7 +168,18 @@ namespace ConnectFourClient
             }
             string playername = (string)curItem;
             PlayersDetails playerDetails = null;
-            Thread t = new Thread(() => { playerDetails = client.getPlayerDetails(playername); });
+            Thread t = new Thread(() => {
+                try
+                {
+
+                
+                playerDetails = client.getPlayerDetails(playername);
+                }   catch (FaultException<UserAlreadyLoggedInFault> ex)
+                {
+                    MessageBox.Show(ex.Detail.Message);
+                    return;
+                }
+            });
             t.Start();
             t.Join();
             setTextBoxesToPlayerData(playerDetails);

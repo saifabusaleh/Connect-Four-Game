@@ -76,10 +76,10 @@ namespace ConnectFourDBCore
             using (var db = new ConnectFourContext())
             {
                 User player = db.Users.SingleOrDefault(user => user.userName == username);
-                //if (player == null)
-                //{
-                //    return null;
-                //}
+                if (player == null)
+                {
+                    return null;
+                }
                 PlayersDetails playerDetails = new PlayersDetails();
                 playerDetails.numOfGames = player.numberOfGames;
                 playerDetails.numOfLoses = player.numberOfLoses;
@@ -121,26 +121,24 @@ namespace ConnectFourDBCore
             }
         }
 
-        public void addGameWithWinToDB(string player1, string player2, string winnerPlayer)
+        public bool addGameWithWinToDB(string player1, string player2, string winnerPlayer)
         {
             using (var db = new ConnectFourContext())
             {
                 User player1InDB = db.Users.SingleOrDefault(user => user.userName == player1);
                 User player2InDB = db.Users.SingleOrDefault(user => user.userName == player2);
-                //Throw exception if player1 or player2 is null
-
-                //User player1InDB = db.Users.Find(player1);
-                //User player2InDB = db.Users.Find(player2);
+                if(player1InDB == null || player2InDB == null)
+                {
+                    return false;
+                }
                 Game g = new Game();
                 g.user1 = player1InDB;
                 g.user2 = player2InDB;
                 if(winnerPlayer == player1)
                 {
                     g.winner = player1InDB.userId;
-                    //TODO
                     player1InDB.numberOfWins += 1;
                     player2InDB.numberOfLoses += 1;
-                   // player1InDB.numberOfPoints += 3;
                 } else
                 {
                     g.winner = player2InDB.userId;
@@ -156,20 +154,22 @@ namespace ConnectFourDBCore
 
                 db.Games.Add(g);
                 db.SaveChanges();
-
+                return true;
             }
         }
 
-        public void addGameWithDrawToDB(string player1, string player2)
+        public bool addGameWithDrawToDB(string player1, string player2)
         {
             using (var db = new ConnectFourContext())
             {
                 User player1InDB = db.Users.SingleOrDefault(user => user.userName == player1);
                 User player2InDB = db.Users.SingleOrDefault(user => user.userName == player2);
-                //Throw exception if player1 or player2 is null
 
-                //User player1InDB = db.Users.Find(player1);
-                //User player2InDB = db.Users.Find(player2);
+                if (player1InDB == null || player2InDB == null)
+                {
+                    return false;
+                }
+
                 Game g = new Game();
                 g.user1 = player1InDB;
                 g.user2 = player2InDB;
@@ -184,29 +184,7 @@ namespace ConnectFourDBCore
 
                 db.Games.Add(g);
                 db.SaveChanges();
-
-            }
-        }
-        #endregion
-
-        #region exceptions
-        [Serializable]
-        private class UserNameAlreadyExistsException : Exception
-        {
-            public UserNameAlreadyExistsException()
-            {
-            }
-
-            public UserNameAlreadyExistsException(string message) : base(message)
-            {
-            }
-
-            public UserNameAlreadyExistsException(string message, Exception innerException) : base(message, innerException)
-            {
-            }
-
-            protected UserNameAlreadyExistsException(SerializationInfo info, StreamingContext context) : base(info, context)
-            {
+                return true;
             }
         }
         #endregion

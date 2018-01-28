@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -97,27 +98,28 @@ namespace ConnectFourClient
 
         public void insertCellThread(int column, string currentUser, Side currentSide)
         {
-            InsertResult insertResult = client.Insert(column, currentUser);
-            GameBoard[insertResult.Row_index, column] = currentSide;
-            currentColumn = column;
-            Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(currentSide, column); }));
-
-            if(insertResult.Move_result == MOVE_RESULT.Win)
+            try
             {
-                  MessageBox.Show("Congrats, you won");
+                InsertResult insertResult = client.Insert(column, currentUser);
+                GameBoard[insertResult.Row_index, column] = currentSide;
+                currentColumn = column;
+                Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(currentSide, column); }));
 
-            } else if(insertResult.Move_result == MOVE_RESULT.Draw)
+                if (insertResult.Move_result == MOVE_RESULT.Win)
+                {
+                    MessageBox.Show("Congrats, you won");
+
+                }
+                else if (insertResult.Move_result == MOVE_RESULT.Draw)
+                {
+                    MessageBox.Show("Game ended with Draw");
+                }
+
+            } catch (FaultException<UserNotFoundFault> ex)
             {
-                MessageBox.Show("Game ended with Draw");
+                MessageBox.Show(ex.Detail.Message);
+                return;
             }
-            //Check if the user is winner after insertion
-            //bool isWin = client.checkIfIWin(currentUser, insertedRow, column);
-            //if(isWin)
-            //{
-            //    MessageBox.Show("Congrats, you won");
-
-            //    Application.Current.Dispatcher.Invoke(new Action(() => { this.Close(); }));
-            //}
         }
 
         #region InsertButton_Click Methods

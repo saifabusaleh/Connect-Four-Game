@@ -32,13 +32,11 @@ namespace ConnectFourServer
         [OperationContract]
         void Disconnect(string userName);
 
-
-
-
         //Getters
         [OperationContract]
         IEnumerable<PlayersDetails> getPlayers();
 
+        [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]
         PlayersDetails getPlayerDetails(string username);
 
@@ -61,10 +59,8 @@ namespace ConnectFourServer
         bool IsMyTurn(string playerName);
 
         //returns the row where the circle inserted
+        [FaultContract(typeof(UserNotFoundFault))] 
         [OperationContract]
         InsertResult Insert(int column, string playerName);
-
-        //[OperationContract]
-        //bool checkIfIWin(string playerName, int row, int col);
     }
 }
