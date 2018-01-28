@@ -58,12 +58,6 @@ namespace ConnectFourClient
             connectedUsers.Remove(user);
         }
 
-        private void ReceiveAccept()
-        {
-            //Init With Red because its Player1
-            initGameWindow(GameWindow.Side.Red);
-        }
-
         private void initGameWindow(GameWindow.Side Side)
         {
             GameWindow gWindow = new GameWindow(Side);
@@ -89,36 +83,10 @@ namespace ConnectFourClient
             switch (dialogResult)
             {
                 case MessageBoxResult.Yes:
-                    //Thread t1 = new Thread(() => initGameThread(user, currentUser));
-                    //t1.Start();
                     initGameWindow(GameWindow.Side.Black);
                     return true;
-                //  try
-                //{
-                //    Thread t = new Thread(() => client.SendAcceptForGameToUser(user));
-                //    t.Start();
-                //    //Init with Black because its Player2
-
-                //}
-                //catch (FaultException<UserNotFoundFault> ex)
-                //{
-
-                //    MessageBox.Show(ex.Detail.Message);
-                //}
-                // break;
                 case MessageBoxResult.No:
                     return false;
-                    //try
-                    //{
-                    //    Thread t = new Thread(() => client.SendRejectForGameToUser(user));
-                    //    t.Start();
-                    //}
-                    //catch (FaultException<UserNotFoundFault> ex)
-                    //{
-
-                    //    MessageBox.Show(ex.Detail.Message);
-                    //}
-                    //break;
             }
             return true;
         }
@@ -132,7 +100,6 @@ namespace ConnectFourClient
             {
                 connectedUsers.Add(users[i]);
             }
-            // lbUsers.ItemsSource = users;
         }
 
         private void btnPick_Click(object sender, RoutedEventArgs e)
