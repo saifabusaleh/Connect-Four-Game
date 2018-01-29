@@ -33,10 +33,21 @@ namespace ConnectFourClient
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             PlayersDetails[] users = null;
-            Thread t = new Thread(()=> { users = getPlayers(); });
+            Thread t = new Thread(() => { users = getPlayers(); });
             t.Start();
             t.Join();
-            Application.Current.Dispatcher.Invoke(new Action(() => { PlayersDG.ItemsSource = users; }));
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                PlayersDG.ItemsSource = from user in users
+                                        select new
+                                        {
+                                            Username = user.username,
+                                            Number_Of_Games = user.numOfGames,
+                                            Number_Of_Wins = user.numOfWins,
+                                            Number_Of_Loses = user.numOfLoses,
+                                            Number_Of_Points = user.numOfPoints
+                                        };
+            }));
         }
     }
 }

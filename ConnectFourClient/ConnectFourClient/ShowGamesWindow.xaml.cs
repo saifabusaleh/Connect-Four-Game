@@ -35,7 +35,16 @@ namespace ConnectFourClient
             Thread t = new Thread(() => { games = getGames(); });
             t.Start();
             t.Join();
-            Application.Current.Dispatcher.Invoke(new Action(() => { GamesDG.ItemsSource = games; }));
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                GamesDG.ItemsSource = from game in games
+                                      select new
+                                      {
+                                          Player1 = game.Player1,
+                                          Player2 = game.Player2,
+                                          Winner = game.Winner
+                                      };
+            }));
         }
     }
 }
