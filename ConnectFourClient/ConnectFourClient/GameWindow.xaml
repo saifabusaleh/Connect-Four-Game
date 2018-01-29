@@ -5,43 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConnectFourClient"
         mc:Ignorable="d"
-        Title="Connect Four Game Window" Height="580" Width="575" Loaded="Window_Loaded">
+        Title="Connect Four Game Window" Height="534" Width="574" Loaded="Window_Loaded" ResizeMode="NoResize">
+    <!--<Window.Background>
+        <ImageBrush ImageSource="/Data/MyImage.png"/>
+    </Window.Background>-->
     <DockPanel>
-        <Border Height="40" DockPanel.Dock="Top">
-            <DockPanel>
-                <Border DockPanel.Dock="Top">
-                    <TextBlock Name="StatusText" HorizontalAlignment="Center">
-                        Red's Turn
-                    </TextBlock>
-                </Border>
-                <Border>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-                        <Button Name="InsertButton0" Grid.Column="0" Click="InsertButton0_Click">↓</Button>
-                        <Button Name="InsertButton1" Grid.Column="1" Click="InsertButton1_Click">↓</Button>
-                        <Button Name="InsertButton2" Grid.Column="2" Click="InsertButton2_Click">↓</Button>
-                        <Button Name="InsertButton3" Grid.Column="3" Click="InsertButton3_Click">↓</Button>
-                        <Button Name="InsertButton4" Grid.Column="4" Click="InsertButton4_Click">↓</Button>
-                        <Button Name="InsertButton5" Grid.Column="5" Click="InsertButton5_Click">↓</Button>
-                        <Button Name="InsertButton6" Grid.Column="6" Click="InsertButton6_Click">↓</Button>
-                    </Grid>
-                </Border>
-            </DockPanel>
-        </Border>
         <Border DockPanel.Dock="Bottom">
-            <Button Name="RestartButton" Click="RestartButton_Click">New Game</Button>
-        </Border>
-        <Border DockPanel.Dock="Bottom">
-            <Canvas Name="GameCanvas">
+            <Canvas Name="GameCanvas" MouseDown="GameCanvas_MouseDown">
 
             </Canvas>
         </Border>

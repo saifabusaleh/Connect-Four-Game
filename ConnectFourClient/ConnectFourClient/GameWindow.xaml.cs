@@ -24,6 +24,8 @@ namespace ConnectFourClient
     /// 
     public partial class GameWindow : Window
     {
+        private const int NUMBER_OF_ROWS = 6;
+        private const int NUMBER_OF_COLUMNS = 7;
         public ConnectFourServiceClient client { get; set; }
         public ClientCallback Callback { get; set; }
         public string currentUser { get; set; }
@@ -34,7 +36,6 @@ namespace ConnectFourClient
 
         const int circleSize = 80;
         private Side[,] GameBoard;
-        // private ConnectFourBoard board;
         private DispatcherTimer animationTimer;
         private bool inputLock;
 
@@ -52,7 +53,7 @@ namespace ConnectFourClient
         private void NewGame(Side playerColor)
         {
             inputLock = true;
-            GameBoard = new Side[6, 7];
+            GameBoard = new Side[NUMBER_OF_ROWS, NUMBER_OF_COLUMNS];
             for (int row = 0; row < this.GameBoard.GetLength(0); row++)
                 for (int col = 0; col < this.GameBoard.GetLength(1); col++)
                     this.GameBoard[row, col] = Side.None;
@@ -64,7 +65,6 @@ namespace ConnectFourClient
             GameCanvas.Children.Clear();
             DrawBackground();
             inputLock = false;
-            EnableAllInsertButtons();
         }
 
         private void InsertButton_Click(int column)
@@ -96,8 +96,8 @@ namespace ConnectFourClient
                     MessageBox.Show(ex.Detail.Message);
                     return;
                 }
-                
-                
+
+
                 if (GameBoard[0, column] != Side.None)
                 {
                     MessageBox.Show("Column is full, therefore you cant enter circle on it");
@@ -127,7 +127,8 @@ namespace ConnectFourClient
                     MessageBox.Show("Game ended with Draw");
                 }
 
-            } catch (FaultException<UserNotFoundFault> ex)
+            }
+            catch (FaultException<UserNotFoundFault> ex)
             {
                 MessageBox.Show(ex.Detail.Message);
                 return;
@@ -231,28 +232,6 @@ namespace ConnectFourClient
             return numOfPieces;
         }
 
-        private void DisableAllInsertButtons()
-        {
-            InsertButton0.IsEnabled = false;
-            InsertButton1.IsEnabled = false;
-            InsertButton2.IsEnabled = false;
-            InsertButton3.IsEnabled = false;
-            InsertButton4.IsEnabled = false;
-            InsertButton5.IsEnabled = false;
-            InsertButton6.IsEnabled = false;
-        }
-
-        private void EnableAllInsertButtons()
-        {
-            InsertButton0.IsEnabled = true;
-            InsertButton1.IsEnabled = true;
-            InsertButton2.IsEnabled = true;
-            InsertButton3.IsEnabled = true;
-            InsertButton4.IsEnabled = true;
-            InsertButton5.IsEnabled = true;
-            InsertButton6.IsEnabled = true;
-        }
-
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {
             NewGame(currentSide);
@@ -270,23 +249,65 @@ namespace ConnectFourClient
         {
             //paint with th other color
             Side addColor;
-            if(currentSide == Side.Red)
+            if (currentSide == Side.Red)
             {
                 addColor = Side.Black;
-            } else
+            }
+            else
             {
                 addColor = Side.Red;
             }
             GameBoard[row, col] = addColor;
             currentColumn = col;
             Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(addColor, col); }));
-            if(result == MOVE_RESULT.Win)
+            if (result == MOVE_RESULT.Win)
             {
                 MessageBox.Show("Oops, looks like you lost :(");
-            } else if(result == MOVE_RESULT.Draw)
+            }
+            else if (result == MOVE_RESULT.Draw)
             {
                 MessageBox.Show("Game ended with draw");
             }
+        }
+
+        private void GameCanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (inputLock)
+            {
+                MessageBox.Show("Input is locked, try later");
+                return;
+            }
+            double clickedX = e.GetPosition(GameCanvas).X;
+            if (clickedX >= 0 && clickedX <= 82)
+            {
+                InsertButton_Click(0);
+            }
+            else if (clickedX > 82 && clickedX <= 164)
+            {
+                InsertButton_Click(1);
+            }
+            else if (clickedX > 164 && clickedX <= 246)
+            {
+                InsertButton_Click(2);
+            }
+            else if (clickedX > 246 && clickedX <= 328)
+            {
+                InsertButton_Click(3);
+            }
+            else if (clickedX > 328 && clickedX <= 410)
+            {
+                InsertButton_Click(4);
+            }
+            else if (clickedX > 410 && clickedX <= 492)
+            {
+                InsertButton_Click(5);
+            }
+            else if (clickedX > 492 && clickedX <= 574)
+            {
+                InsertButton_Click(6);
+            }
+
+
         }
     }
 }
