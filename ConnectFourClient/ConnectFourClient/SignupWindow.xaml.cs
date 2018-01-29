@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,6 +38,12 @@ namespace ConnectFourClient
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("username and password cant be empty!");
+                return;
+            }
+            var hasMinimum8Chars = new Regex(@".{6,}");
+            if(!hasMinimum8Chars.IsMatch(password))
+            {
+                MessageBox.Show("Password is too weak, it must have minimum 6 characters");
                 return;
             }
             try
