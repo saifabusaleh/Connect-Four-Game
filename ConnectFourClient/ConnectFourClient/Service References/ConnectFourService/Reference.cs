@@ -569,6 +569,12 @@ namespace ConnectFourClient.ConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Insert", ReplyAction="http://tempuri.org/IConnectFourService/InsertResponse")]
         System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.InsertResult> InsertAsync(int column, string playerName, int gameId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/GiveupGame", ReplyAction="http://tempuri.org/IConnectFourService/GiveupGameResponse")]
+        void GiveupGame(string playerName, int gameId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/GiveupGame", ReplyAction="http://tempuri.org/IConnectFourService/GiveupGameResponse")]
+        System.Threading.Tasks.Task GiveupGameAsync(string playerName, int gameId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -588,6 +594,9 @@ namespace ConnectFourClient.ConnectFourService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendGameId")]
         void sendGameId(int gameId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/annouceWinnerBecauseOtherPlayerLeft")]
+        void annouceWinnerBecauseOtherPlayerLeft();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -712,6 +721,14 @@ namespace ConnectFourClient.ConnectFourService {
         
         public System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.InsertResult> InsertAsync(int column, string playerName, int gameId) {
             return base.Channel.InsertAsync(column, playerName, gameId);
+        }
+        
+        public void GiveupGame(string playerName, int gameId) {
+            base.Channel.GiveupGame(playerName, gameId);
+        }
+        
+        public System.Threading.Tasks.Task GiveupGameAsync(string playerName, int gameId) {
+            return base.Channel.GiveupGameAsync(playerName, gameId);
         }
     }
 }

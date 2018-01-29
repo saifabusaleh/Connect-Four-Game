@@ -166,6 +166,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GiveupGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="playerName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gameId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GiveupGameResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="addUsersToList">
     <xs:complexType>
       <xs:sequence>
@@ -208,6 +221,11 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="gameId" type="xs:int" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="annouceWinnerBecauseOtherPlayerLeft">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

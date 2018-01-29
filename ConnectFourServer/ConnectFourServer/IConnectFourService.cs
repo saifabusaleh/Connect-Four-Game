@@ -63,5 +63,9 @@ namespace ConnectFourServer
         [FaultContract(typeof(UserNotFoundFault))] 
         [OperationContract]
         InsertResult Insert(int column, string playerName, int gameId);
+
+        //if the player decided to give up the game while playing
+        [OperationContract]
+        void GiveupGame(string playerName, int gameId);
     }
 }

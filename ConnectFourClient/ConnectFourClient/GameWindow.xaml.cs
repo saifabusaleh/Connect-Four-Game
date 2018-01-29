@@ -26,6 +26,7 @@ namespace ConnectFourClient
     {
         private const int NUMBER_OF_ROWS = 6;
         private const int NUMBER_OF_COLUMNS = 7;
+        private bool Closed_from_gui = false;
         public ConnectFourServiceClient client { get; set; }
         public ClientCallback Callback { get; set; }
         public string currentUser { get; set; }
@@ -49,7 +50,12 @@ namespace ConnectFourClient
             NewGame(playerColor);
 
         }
-
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Title = "Playing as player: " + currentUser;
+            Callback.updateCellFunc += updateCell;
+            Callback.AnnouceWinnerBecauseOtherPlayerLeftFunc += AnnouceWinnerBecauseOtherPlayerLeft;
+        }
         private void NewGame(Side playerColor)
         {
             inputLock = true;
@@ -135,43 +141,6 @@ namespace ConnectFourClient
             }
         }
 
-        #region InsertButton_Click Methods
-        private void InsertButton0_Click(object sender, RoutedEventArgs e)
-        {
-            InsertButton_Click(0);
-        }
-
-        private void InsertButton1_Click(object sender, RoutedEventArgs e)
-        {
-            InsertButton_Click(1);
-        }
-
-        private void InsertButton2_Click(object sender, RoutedEventArgs e)
-        {
-            InsertButton_Click(2);
-        }
-
-        private void InsertButton3_Click(object sender, RoutedEventArgs e)
-        {
-            InsertButton_Click(3);
-        }
-
-        private void InsertButton4_Click(object sender, RoutedEventArgs e)
-        {
-            InsertButton_Click(4);
-        }
-
-        private void InsertButton5_Click(object sender, RoutedEventArgs e)
-        {
-            InsertButton_Click(5);
-        }
-
-        private void InsertButton6_Click(object sender, RoutedEventArgs e)
-        {
-            InsertButton_Click(6);
-        }
-        #endregion
-
         private void DrawBackground()
         {
             for (int row = 0; row < GameBoard.GetLength(0); row++)
@@ -237,10 +206,13 @@ namespace ConnectFourClient
             NewGame(currentSide);
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+
+
+        private void AnnouceWinnerBecauseOtherPlayerLeft()
         {
-            this.Title = "Playing as player: " + currentUser;
-            Callback.updateCellFunc += updateCell;
+            MessageBox.Show("Congratulations, you own because other player left!");
+            Closed_from_gui = true;
+            this.Close();
         }
 
 
@@ -307,6 +279,17 @@ namespace ConnectFourClient
                 InsertButton_Click(6);
             }
 
+
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(Closed_from_gui)
+            {
+                return;
+            }
+            MessageBox.Show("Game still not finished, closing the game now will set other player as winner", "Quit Game");
+            client.GiveupGame(currentUser, gameId);
 
         }
     }

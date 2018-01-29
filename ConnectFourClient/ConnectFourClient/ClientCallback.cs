@@ -49,5 +49,13 @@ namespace ConnectFourClient
         {
             SendGameIdFunc(gameId);
         }
+
+        public delegate void AnnouceWinnerBecauseOtherPlayerLeft();
+        public event AnnouceWinnerBecauseOtherPlayerLeft AnnouceWinnerBecauseOtherPlayerLeftFunc;
+
+        public void annouceWinnerBecauseOtherPlayerLeft()
+        {
+            AnnouceWinnerBecauseOtherPlayerLeftFunc();
+        }
     }
 }

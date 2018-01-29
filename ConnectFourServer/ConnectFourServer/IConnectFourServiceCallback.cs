@@ -28,5 +28,8 @@ namespace ConnectFourServer
         [OperationContract(IsOneWay = true)]
         void sendGameId(int gameId);
 
+        [OperationContract(IsOneWay = true)]
+        void annouceWinnerBecauseOtherPlayerLeft();
+
     }
 }
