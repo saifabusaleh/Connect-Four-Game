@@ -130,13 +130,16 @@
   </xs:element>
   <xs:element name="InitGameResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InitGameResult" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="IsMyTurn">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="playerName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gameId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -152,6 +155,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="column" type="xs:int" />
         <xs:element minOccurs="0" name="playerName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gameId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -196,6 +200,13 @@
         <xs:element minOccurs="0" name="row" type="xs:int" />
         <xs:element minOccurs="0" name="col" type="xs:int" />
         <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="move_result" type="q7:MOVE_RESULT" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendGameId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="gameId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

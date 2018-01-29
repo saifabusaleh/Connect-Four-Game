@@ -25,5 +25,8 @@ namespace ConnectFourServer
         [OperationContract(IsOneWay = true)]
         void updateCell(int row, int col, MOVE_RESULT move_result);
 
+        [OperationContract(IsOneWay = true)]
+        void sendGameId(int gameId);
+
     }
 }

@@ -27,6 +27,8 @@ namespace ConnectFourClient
         public ConnectFourServiceClient client { get; set; }
         public ClientCallback Callback { get; set; }
         public string currentUser { get; set; }
+        public int gameId { get; set; }
+
         public enum Side { None, Red, Black };
 
 
@@ -83,7 +85,7 @@ namespace ConnectFourClient
                  */
                 try
                 {
-                    if (!client.IsMyTurn(currentUser))
+                    if (!client.IsMyTurn(currentUser, gameId))
                     {
                         MessageBox.Show("its not your turn!!");
                         return;
@@ -110,7 +112,7 @@ namespace ConnectFourClient
         {
             try
             {
-                InsertResult insertResult = client.Insert(column, currentUser);
+                InsertResult insertResult = client.Insert(column, currentUser, gameId);
                 GameBoard[insertResult.Row_index, column] = currentSide;
                 currentColumn = column;
                 Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(currentSide, column); }));

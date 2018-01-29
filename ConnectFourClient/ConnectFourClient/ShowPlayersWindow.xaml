@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConnectFourClient"
         mc:Ignorable="d"
-        Title="Show Players Window" Height="300" Width="300" Loaded="Window_Loaded">
+        Title="Show Players Window" Height="306.02" Width="326.087" Loaded="Window_Loaded">
     <StackPanel Margin="0,0,-0.4,0">
-        <DataGrid Margin="10,10,9.6,0" Name="PlayersDG" Height="217"></DataGrid>
+        <DataGrid Margin="10,10,9.6,0" Name="PlayersDG" Height="250"></DataGrid>
     </StackPanel>
 </Window>

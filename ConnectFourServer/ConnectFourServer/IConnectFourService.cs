@@ -53,15 +53,15 @@ namespace ConnectFourServer
         bool SendRequestForGameToUser(string opponentUserName, string myUserName);
 
         [OperationContract]
-        void InitGame(string player1, string player2);
+        int InitGame(string player1, string player2);
 
         [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]
-        bool IsMyTurn(string playerName);
+        bool IsMyTurn(string playerName, int gameId);
 
         //returns the row where the circle inserted
         [FaultContract(typeof(UserNotFoundFault))] 
         [OperationContract]
-        InsertResult Insert(int column, string playerName);
+        InsertResult Insert(int column, string playerName, int gameId);
     }
 }

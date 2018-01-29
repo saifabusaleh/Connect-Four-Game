@@ -61,7 +61,6 @@
     <Compile Include="InsertResult.cs" />
     <Compile Include="PlayingGame.cs" />
     <Compile Include="PlayingGames.cs" />
-    <Compile Include="PlayingPlayers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConnectFourService.cs" />
     <Compile Include="UserAlreadyLoggedInFault.cs" />

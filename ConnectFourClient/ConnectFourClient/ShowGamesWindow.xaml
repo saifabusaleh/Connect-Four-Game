@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Show Games Window" Height="300" Width="300">
     <StackPanel Margin="0,0,-0.4,0">
-        <DataGrid Margin="10,10,9.6,0" Name="GamesDG" Height="217" Loaded="GamesDG_Loaded"></DataGrid>
+        <DataGrid Margin="10,10,9.6,0" Name="GamesDG" Height="250" Loaded="GamesDG_Loaded"></DataGrid>
     </StackPanel>
 </Window>

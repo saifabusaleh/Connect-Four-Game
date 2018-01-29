@@ -448,6 +448,29 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_getPlayerDetails_UserNotFoundFaultFault_Fault">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_getGames_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -701,6 +724,29 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_IsMyTurn_UserNotFoundFaultFault_Fault">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_Insert_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -725,6 +771,29 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_Insert_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_Insert_UserNotFoundFaultFault_Fault">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -862,6 +931,29 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_sendGameId_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -916,6 +1008,9 @@
   <wsdl:message name="IConnectFourService_getPlayerDetails_OutputMessage">
     <wsdl:part name="parameters" element="tns:getPlayerDetailsResponse" />
   </wsdl:message>
+  <wsdl:message name="IConnectFourService_getPlayerDetails_UserNotFoundFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/ConnectFourServer" name="detail" element="q4:UserNotFoundFault" />
+  </wsdl:message>
   <wsdl:message name="IConnectFourService_getGames_InputMessage">
     <wsdl:part name="parameters" element="tns:getGames" />
   </wsdl:message>
@@ -935,7 +1030,7 @@
     <wsdl:part name="parameters" element="tns:SendRequestForGameToUserResponse" />
   </wsdl:message>
   <wsdl:message name="IConnectFourService_SendRequestForGameToUser_UserNotFoundFaultFault_FaultMessage">
-    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/ConnectFourServer" name="detail" element="q4:UserNotFoundFault" />
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/ConnectFourServer" name="detail" element="q5:UserNotFoundFault" />
   </wsdl:message>
   <wsdl:message name="IConnectFourService_InitGame_InputMessage">
     <wsdl:part name="parameters" element="tns:InitGame" />
@@ -949,11 +1044,17 @@
   <wsdl:message name="IConnectFourService_IsMyTurn_OutputMessage">
     <wsdl:part name="parameters" element="tns:IsMyTurnResponse" />
   </wsdl:message>
+  <wsdl:message name="IConnectFourService_IsMyTurn_UserNotFoundFaultFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/ConnectFourServer" name="detail" element="q6:UserNotFoundFault" />
+  </wsdl:message>
   <wsdl:message name="IConnectFourService_Insert_InputMessage">
     <wsdl:part name="parameters" element="tns:Insert" />
   </wsdl:message>
   <wsdl:message name="IConnectFourService_Insert_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="IConnectFourService_Insert_UserNotFoundFaultFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/ConnectFourServer" name="detail" element="q7:UserNotFoundFault" />
   </wsdl:message>
   <wsdl:message name="IConnectFourService_addUsersToList_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:addUsersToList" />
@@ -969,6 +1070,9 @@
   </wsdl:message>
   <wsdl:message name="IConnectFourService_updateCell_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:updateCell" />
+  </wsdl:message>
+  <wsdl:message name="IConnectFourService_sendGameId_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:sendGameId" />
   </wsdl:message>
   <wsdl:portType name="IConnectFourService">
     <wsdl:operation name="register">
@@ -997,6 +1101,7 @@
     <wsdl:operation name="getPlayerDetails">
       <wsdl:input wsaw:Action="http://tempuri.org/IConnectFourService/getPlayerDetails" message="tns:IConnectFourService_getPlayerDetails_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/getPlayerDetailsResponse" message="tns:IConnectFourService_getPlayerDetails_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IConnectFourService/getPlayerDetailsUserNotFoundFaultFault" name="UserNotFoundFaultFault" message="tns:IConnectFourService_getPlayerDetails_UserNotFoundFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="getGames">
       <wsdl:input wsaw:Action="http://tempuri.org/IConnectFourService/getGames" message="tns:IConnectFourService_getGames_InputMessage" />
@@ -1018,10 +1123,12 @@
     <wsdl:operation name="IsMyTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IConnectFourService/IsMyTurn" message="tns:IConnectFourService_IsMyTurn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/IsMyTurnResponse" message="tns:IConnectFourService_IsMyTurn_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IConnectFourService/IsMyTurnUserNotFoundFaultFault" name="UserNotFoundFaultFault" message="tns:IConnectFourService_IsMyTurn_UserNotFoundFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="Insert">
       <wsdl:input wsaw:Action="http://tempuri.org/IConnectFourService/Insert" message="tns:IConnectFourService_Insert_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/InsertResponse" message="tns:IConnectFourService_Insert_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IConnectFourService/InsertUserNotFoundFaultFault" name="UserNotFoundFaultFault" message="tns:IConnectFourService_Insert_UserNotFoundFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="addUsersToList">
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/addUsersToList" message="tns:IConnectFourService_addUsersToList_OutputCallbackMessage" />
@@ -1035,6 +1142,9 @@
     </wsdl:operation>
     <wsdl:operation name="updateCell">
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/updateCell" message="tns:IConnectFourService_updateCell_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sendGameId">
+      <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/sendGameId" message="tns:IConnectFourService_sendGameId_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSDualHttpBinding_IConnectFourService" type="tns:IConnectFourService">
@@ -1117,6 +1227,10 @@
         <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_getPlayerDetails_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="UserNotFoundFaultFault">
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_getPlayerDetails_UserNotFoundFaultFault_Fault" />
+        <soap12:fault use="literal" name="UserNotFoundFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="getGames">
       <soap12:operation soapAction="http://tempuri.org/IConnectFourService/getGames" style="document" />
@@ -1176,6 +1290,10 @@
         <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_IsMyTurn_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="UserNotFoundFaultFault">
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_IsMyTurn_UserNotFoundFaultFault_Fault" />
+        <soap12:fault use="literal" name="UserNotFoundFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="Insert">
       <soap12:operation soapAction="http://tempuri.org/IConnectFourService/Insert" style="document" />
@@ -1187,6 +1305,10 @@
         <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_Insert_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="UserNotFoundFaultFault">
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_Insert_UserNotFoundFaultFault_Fault" />
+        <soap12:fault use="literal" name="UserNotFoundFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="addUsersToList">
       <soap12:operation soapAction="http://tempuri.org/IConnectFourService/addUsersToList" style="document" />
@@ -1217,6 +1339,13 @@
       <soap12:operation soapAction="http://tempuri.org/IConnectFourService/updateCell" style="document" />
       <wsdl:output>
         <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_updateCell_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendGameId">
+      <soap12:operation soapAction="http://tempuri.org/IConnectFourService/sendGameId" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_sendGameId_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

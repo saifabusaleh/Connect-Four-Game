@@ -41,5 +41,13 @@ namespace ConnectFourClient
         {
             updateCellFunc(row,col, result);
         }
+
+        public delegate void SendGameId(int gameId);
+        public event SendGameId SendGameIdFunc;
+
+        public void sendGameId(int gameId)
+        {
+            SendGameIdFunc(gameId);
+        }
     }
 }

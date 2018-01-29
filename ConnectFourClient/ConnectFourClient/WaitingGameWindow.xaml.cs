@@ -45,7 +45,15 @@ namespace ConnectFourClient
             Callback.addUsers += AddUsers;
             Callback.removeUser += removeUser;
             Callback.sendGameRequestToUserFunc += RecieveGameRequest;
+            Callback.SendGameIdFunc += RecieveGameId;
             this.Title = "Waiting window, connected as: " + currentUser;
+        }
+        // When the player2 accepts the game, wait player1 to init the game and to create game Id
+        // and to send it to player2
+        // when player2 recieves gameId, Player2 inits the game
+        private void RecieveGameId(int gameId)
+        {
+            initGameWindow(GameWindow.Side.Black, gameId);
         }
 
         private void removeUser(string user)
@@ -58,12 +66,13 @@ namespace ConnectFourClient
             connectedUsers.Remove(user);
         }
 
-        private void initGameWindow(GameWindow.Side Side)
+        private void initGameWindow(GameWindow.Side Side, int game_id)
         {
             GameWindow gWindow = new GameWindow(Side);
             gWindow.client = this.client;
             gWindow.Callback = this.Callback;
             gWindow.currentUser = this.currentUser;
+            gWindow.gameId = game_id;
             gWindow.Show();
             isClosingFromGui = true;
             this.Close();
@@ -83,7 +92,6 @@ namespace ConnectFourClient
             switch (dialogResult)
             {
                 case MessageBoxResult.Yes:
-                    initGameWindow(GameWindow.Side.Black);
                     return true;
                 case MessageBoxResult.No:
                     return false;
@@ -118,7 +126,9 @@ namespace ConnectFourClient
                 btnPick.IsEnabled = false;
                 if (gameRequestResult == true)
                 {
-                    initGameWindow(GameWindow.Side.Red);
+                    int game_id = client.InitGame(currentUser, selectedOponentString);
+                    initGameWindow(GameWindow.Side.Red, game_id);
+                    // in thread
                 }
                 else
                 {
