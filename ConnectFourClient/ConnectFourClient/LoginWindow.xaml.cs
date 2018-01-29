@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ConnectFourClient.ConnectFourService;
 using System.ServiceModel;
+using System.Security.Cryptography;
 
 namespace ConnectFourClient
 {
@@ -29,6 +30,28 @@ namespace ConnectFourClient
 
         }
 
+        private string GetSHA1HashData(string data)
+        {
+            //create new instance of md5
+            SHA1 sha1 = SHA1.Create();
+
+            //convert the input text to array of bytes
+            byte[] hashData = sha1.ComputeHash(Encoding.Default.GetBytes(data));
+
+            //create new instance of StringBuilder to save hashed data
+            StringBuilder returnValue = new StringBuilder();
+
+            //loop for each byte and add it to StringBuilder
+            for (int i = 0; i < hashData.Length; i++)
+            {
+                returnValue.Append(hashData[i].ToString());
+            }
+
+            // return hexadecimal string
+            return returnValue.ToString();
+        }
+
+
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             string username = tbUsername.Text;
@@ -38,10 +61,10 @@ namespace ConnectFourClient
                 MessageBox.Show("username and password cant be empty!");
                 return;
             }
+            string passwordEncrypted = GetSHA1HashData(password);
             ClientCallback callback = new ClientCallback();
-
             client = new ConnectFourServiceClient(new InstanceContext(callback));
-            bool loginResult = client.login(username, password);
+            bool loginResult = client.login(username, passwordEncrypted);
             if(loginResult == false)
             {
                 MessageBox.Show("username or password is incorrect!");
