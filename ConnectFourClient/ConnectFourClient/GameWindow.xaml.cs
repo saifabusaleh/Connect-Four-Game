@@ -53,7 +53,7 @@ namespace ConnectFourClient
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Title = "Playing as player: " + currentUser + " " + playersInfo;
-            Callback.updateCellFunc += updateCell;
+            Callback.updateCellFunc += recieveCellWithMoveResult;
             Callback.AnnouceWinnerBecauseOtherPlayerLeftFunc += AnnouceWinnerBecauseOtherPlayerLeft;
         }
         private void NewGame(Color playerColor)
@@ -221,7 +221,7 @@ namespace ConnectFourClient
 
 
         //Insert result from player 1 callback
-        private void updateCell(int row, int col, MOVE_RESULT result)
+        private void recieveCellWithMoveResult(int row, int col, MOVE_RESULT result)
         {
             //paint with th other color
             Color addColor;
@@ -236,6 +236,7 @@ namespace ConnectFourClient
             GameBoard[row, col] = addColor;
             currentColumn = col;
             Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(addColor, col); }));
+            // if we received win the the player has won
             if (result == MOVE_RESULT.Win)
             {
                 MessageBox.Show("Oops, looks like you lost :(");

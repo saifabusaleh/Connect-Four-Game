@@ -24,11 +24,11 @@ namespace ConnectFourClient
     public partial class WaitingGameWindow : Window
     {
         private bool isClosingFromGui = false;
-
         public ClientCallback Callback { get; set; }
         public string currentUser { get; set; }
         public ConnectFourServiceClient client { get; set; }
-
+        // Use obervableCollection in order to auto notify the view when there
+        // is change in user list
         public ObservableCollection<string> connectedUsers { get; set; }
 
         public WaitingGameWindow()
@@ -60,7 +60,6 @@ namespace ConnectFourClient
         {
             if (!connectedUsers.Contains(user))
             {
-                MessageBox.Show("connected users update problem..");
                 return;
             }
             connectedUsers.Remove(user);
@@ -79,13 +78,6 @@ namespace ConnectFourClient
             this.Close();
         }
 
-        private void RecieveReject()
-        {
-            string selectedOponent = (string)lbUsers.SelectedItem;
-            MessageBox.Show("user: " + selectedOponent + " has reject request for game...");
-            lbUsers.IsEnabled = true;
-            btnPick.IsEnabled = true;
-        }
 
         private bool RecieveGameRequest(string user)
         {
@@ -118,40 +110,44 @@ namespace ConnectFourClient
             string selectedOponentString = (string)selectedOponent;
             try
             {
-                bool gameRequestResult = client.SendRequestForGameToUser(selectedOponentString, currentUser);
-                lbUsers.IsEnabled = false;
-                btnPick.IsEnabled = false;
+                bool gameRequestResult = sendRequestForGame(selectedOponentString, currentUser);
+                setUsersTextBoxAndPickButtonEnable(false);
                 if (gameRequestResult == true)
                 {
-                    Thread t = null; 
-                    InitGameResult game = null;
-                    try
-                    {
-                        t = new Thread(() => game = client.InitGame(currentUser, selectedOponentString));
-                    }
-                    catch (FaultException<UserNotFoundFault> ex)
-                    {
-                        MessageBox.Show(ex.Detail.Message);
-
-                    }
-                    t.Start();
-                    t.Join();
+                    InitGameResult game = initGame(currentUser, selectedOponentString);
                     initGameWindow(GameWindow.Color.Red, game);
                 }
                 else
                 {
                     MessageBox.Show("Player: " + selectedOponentString + " refused to play with you.. :(");
-                    lbUsers.IsEnabled = true;
-                    btnPick.IsEnabled = true;
+                    setUsersTextBoxAndPickButtonEnable(true);
                 }
-
             }
             catch (FaultException<UserNotFoundFault> ex)
             {
-
                 MessageBox.Show(ex.Detail.Message);
             }
+        }
 
+        private bool sendRequestForGame(string selectedOponentString, string currentUser)
+        {
+            return client.SendRequestForGameToUser(selectedOponentString, currentUser);
+        }
+
+        private void setUsersTextBoxAndPickButtonEnable(bool isEnabled)
+        {
+            lbUsers.IsEnabled = isEnabled;
+            btnPick.IsEnabled = isEnabled;
+        }
+
+        private InitGameResult initGame(string currentUser, string selectedOponentString)
+        {
+            Thread t = null;
+            InitGameResult game = null;
+            t = new Thread(() => game = client.InitGame(currentUser, selectedOponentString));
+            t.Start();
+            t.Join();
+            return game;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -159,7 +155,6 @@ namespace ConnectFourClient
 
             if (!isClosingFromGui)
             {
-
                 try
                 {
                     client.Disconnect(currentUser);
@@ -171,7 +166,6 @@ namespace ConnectFourClient
 
                 }
                 System.Environment.Exit(System.Environment.ExitCode);
-
             }
         }
 
@@ -186,21 +180,7 @@ namespace ConnectFourClient
                 return;
             }
             string playername = (string)curItem;
-            PlayersDetails playerDetails = null;
-            Thread t = new Thread(() => {
-                try
-                {
-
-                
-                playerDetails = client.getPlayerDetails(playername);
-                }   catch (FaultException<UserNotFoundFault> ex)
-                {
-                    MessageBox.Show(ex.Detail.Message);
-                    return;
-                }
-            });
-            t.Start();
-            t.Join();
+            PlayersDetails playerDetails = getPlayerDetails(playername);
             setTextBoxesToPlayerData(playerDetails);
             if (playerDetails.status == USER_STATUS.PLAYING)
             {
@@ -208,6 +188,26 @@ namespace ConnectFourClient
                 btnPick.IsEnabled = false;
             }
 
+        }
+
+        private PlayersDetails getPlayerDetails(string playername)
+        {
+            PlayersDetails playerDetails = null;
+            Thread t = new Thread(() =>
+            {
+                try
+                {
+                    playerDetails = client.getPlayerDetails(playername);
+                }
+                catch (FaultException<UserNotFoundFault> ex)
+                {
+                    MessageBox.Show(ex.Detail.Message);
+                    return;
+                }
+            });
+            t.Start();
+            t.Join();
+            return playerDetails;
         }
 
         private void setTextBoxesToPlayerData(PlayersDetails playerDetails)

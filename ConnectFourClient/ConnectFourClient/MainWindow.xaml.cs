@@ -84,12 +84,17 @@ namespace ConnectFourClient
                 return;
             }
 
+            initWaitingGame(Callback, currentUser, client);
+            this.Close();
+        }
+
+        private void initWaitingGame(ClientCallback Callback, string currentUser, ConnectFourServiceClient client)
+        {
             WaitingGameWindow waitingGameWindow = new WaitingGameWindow();
             waitingGameWindow.Callback = Callback;
             waitingGameWindow.currentUser = currentUser;
             waitingGameWindow.client = client;
             waitingGameWindow.Show();
-            this.Close();
         }
     }
 }

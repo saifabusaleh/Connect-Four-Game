@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using ConnectFourClient.ConnectFourService;
 using System.ServiceModel;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace ConnectFourClient
 {
@@ -56,7 +57,7 @@ namespace ConnectFourClient
         {
             string username = tbUsername.Text;
             string password = tbPassword.Password;
-            if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("username and password cant be empty!");
                 return;
@@ -64,8 +65,11 @@ namespace ConnectFourClient
             string passwordEncrypted = GetSHA1HashData(password);
             ClientCallback callback = new ClientCallback();
             client = new ConnectFourServiceClient(new InstanceContext(callback));
-            bool loginResult = client.login(username, passwordEncrypted);
-            if(loginResult == false)
+            bool loginResult = false;
+            Thread t = new Thread(() => { loginResult = client.login(username, passwordEncrypted); });
+            t.Start();
+            t.Join();
+            if (loginResult == false)
             {
                 MessageBox.Show("username or password is incorrect!");
                 return;

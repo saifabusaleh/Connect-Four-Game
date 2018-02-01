@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -72,7 +73,8 @@ namespace ConnectFourClient
             string passwordEncrypted = GetSHA1HashData(password);
             try
             {
-                client.register(username, passwordEncrypted);
+                Thread t = new Thread(() => { client.register(username, passwordEncrypted); });
+                t.Start();
                 MessageBox.Show("Register done successfully!");
                 this.Close();
             }
