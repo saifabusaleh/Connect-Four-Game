@@ -490,6 +490,51 @@ namespace ConnectFourClient.ConnectFourService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GameNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+    [System.SerializableAttribute()]
+    public partial class GameNotFoundFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="InsertResult", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
     [System.SerializableAttribute()]
     public partial class InsertResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -563,6 +608,51 @@ namespace ConnectFourClient.ConnectFourService {
         Nothing = 2,
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PlayerNotFoundInGameFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+    [System.SerializableAttribute()]
+    public partial class PlayerNotFoundInGameFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ConnectFourService.IConnectFourService", CallbackContract=typeof(ConnectFourClient.ConnectFourService.IConnectFourServiceCallback))]
     public interface IConnectFourService {
@@ -634,20 +724,21 @@ namespace ConnectFourClient.ConnectFourService {
         System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.InitGameResult> InitGameAsync(string player1, string player2);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/IsMyTurn", ReplyAction="http://tempuri.org/IConnectFourService/IsMyTurnResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/IsMyTurnUserNotFoundFaultFault", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.GameNotFoundFault), Action="http://tempuri.org/IConnectFourService/IsMyTurnGameNotFoundFaultFault", Name="GameNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
         bool IsMyTurn(string playerName, int gameId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/IsMyTurn", ReplyAction="http://tempuri.org/IConnectFourService/IsMyTurnResponse")]
         System.Threading.Tasks.Task<bool> IsMyTurnAsync(string playerName, int gameId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Insert", ReplyAction="http://tempuri.org/IConnectFourService/InsertResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/InsertUserNotFoundFaultFault", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.GameNotFoundFault), Action="http://tempuri.org/IConnectFourService/InsertGameNotFoundFaultFault", Name="GameNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
         ConnectFourClient.ConnectFourService.InsertResult Insert(int column, string playerName, int gameId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/Insert", ReplyAction="http://tempuri.org/IConnectFourService/InsertResponse")]
         System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.InsertResult> InsertAsync(int column, string playerName, int gameId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/GiveupGame", ReplyAction="http://tempuri.org/IConnectFourService/GiveupGameResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.PlayerNotFoundInGameFault), Action="http://tempuri.org/IConnectFourService/GiveupGamePlayerNotFoundInGameFaultFault", Name="PlayerNotFoundInGameFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
         void GiveupGame(string playerName, int gameId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/GiveupGame", ReplyAction="http://tempuri.org/IConnectFourService/GiveupGameResponse")]

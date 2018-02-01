@@ -32,19 +32,19 @@ namespace ConnectFourClient
         public string currentUser { get; set; }
         public int gameId { get; set; }
         public string playersInfo { get; set; }
-        public enum Side { None, Red, Black };
+        public enum Color { None, Red, Black };
 
 
         const int circleSize = 80;
-        private Side[,] GameBoard;
+        private Color[,] GameBoard;
         private DispatcherTimer animationTimer;
         private bool inputLock;
 
-        private Side currentSide;
+        private Color currentSide;
         private Ellipse currentCircle;
         private int currentColumn;
 
-        public GameWindow(Side playerColor)
+        public GameWindow(Color playerColor)
         {
             InitializeComponent();
             NewGame(playerColor);
@@ -56,13 +56,13 @@ namespace ConnectFourClient
             Callback.updateCellFunc += updateCell;
             Callback.AnnouceWinnerBecauseOtherPlayerLeftFunc += AnnouceWinnerBecauseOtherPlayerLeft;
         }
-        private void NewGame(Side playerColor)
+        private void NewGame(Color playerColor)
         {
             inputLock = true;
-            GameBoard = new Side[NUMBER_OF_ROWS, NUMBER_OF_COLUMNS];
+            GameBoard = new Color[NUMBER_OF_ROWS, NUMBER_OF_COLUMNS];
             for (int row = 0; row < this.GameBoard.GetLength(0); row++)
                 for (int col = 0; col < this.GameBoard.GetLength(1); col++)
-                    this.GameBoard[row, col] = Side.None;
+                    this.GameBoard[row, col] = Color.None;
 
             currentSide = playerColor;
             animationTimer = new DispatcherTimer();
@@ -97,14 +97,14 @@ namespace ConnectFourClient
                         return;
                     }
                 }
-                catch (FaultException<UserAlreadyLoggedInFault> ex)
+                catch (FaultException<GameNotFoundFault> ex)
                 {
                     MessageBox.Show(ex.Detail.Message);
                     return;
                 }
 
 
-                if (GameBoard[0, column] != Side.None)
+                if (GameBoard[0, column] != Color.None)
                 {
                     MessageBox.Show("Column is full, therefore you cant enter circle on it");
                     return;
@@ -114,10 +114,11 @@ namespace ConnectFourClient
             }
         }
 
-        public void insertCellThread(int column, string currentUser, Side currentSide)
+        public void insertCellThread(int column, string currentUser, Color currentSide)
         {
             try
             {
+
                 InsertResult insertResult = client.Insert(column, currentUser, gameId);
                 GameBoard[insertResult.Row_index, column] = currentSide;
                 currentColumn = column;
@@ -138,7 +139,7 @@ namespace ConnectFourClient
                 }
 
             }
-            catch (FaultException<UserNotFoundFault> ex)
+            catch (FaultException<GameNotFoundFault> ex)
             {
                 MessageBox.Show(ex.Detail.Message);
                 return;
@@ -162,14 +163,14 @@ namespace ConnectFourClient
             }
         }
 
-        private void DrawCircle(Side side, int col)
+        private void DrawCircle(Color side, int col)
         {
             inputLock = true;
 
             Ellipse circle = new Ellipse();
             circle.Height = circleSize;
             circle.Width = circleSize;
-            circle.Fill = (side == Side.Red) ? Brushes.Red : Brushes.Black;
+            circle.Fill = (side == Color.Red) ? Brushes.Red : Brushes.Black;
             Canvas.SetTop(circle, 0);
             Canvas.SetLeft(circle, col * 80);
             GameCanvas.Children.Add(circle);
@@ -197,7 +198,7 @@ namespace ConnectFourClient
             int numOfPieces = 0;
             for (int row = GameBoard.GetLength(0) - 1; row >= 0; row--)
             {
-                if (GameBoard[row, column] != Side.None)
+                if (GameBoard[row, column] != Color.None)
                 {
                     numOfPieces++;
                 }
@@ -224,14 +225,14 @@ namespace ConnectFourClient
         private void updateCell(int row, int col, MOVE_RESULT result)
         {
             //paint with th other color
-            Side addColor;
-            if (currentSide == Side.Red)
+            Color addColor;
+            if (currentSide == Color.Red)
             {
-                addColor = Side.Black;
+                addColor = Color.Black;
             }
             else
             {
-                addColor = Side.Red;
+                addColor = Color.Red;
             }
             GameBoard[row, col] = addColor;
             currentColumn = col;
@@ -297,7 +298,16 @@ namespace ConnectFourClient
                 return;
             }
             MessageBox.Show("Game still not finished, closing the game now will set other player as winner", "Quit Game");
-            client.GiveupGame(currentUser, gameId);
+
+            try
+            {
+                client.GiveupGame(currentUser, gameId);
+            }
+            catch (FaultException<PlayerNotFoundInGameFault> ex)
+            {
+                MessageBox.Show(ex.Detail.Message);
+                return;
+            }
 
         }
     }

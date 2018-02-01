@@ -53,7 +53,7 @@ namespace ConnectFourClient
         // when player2 recieves gameId, Player2 inits the game
         private void RecieveGameInfo(InitGameResult game)
         {
-            initGameWindow(GameWindow.Side.Black, game);
+            initGameWindow(GameWindow.Color.Black, game);
         }
 
         private void removeUser(string user)
@@ -66,7 +66,7 @@ namespace ConnectFourClient
             connectedUsers.Remove(user);
         }
 
-        private void initGameWindow(GameWindow.Side Side, InitGameResult game)
+        private void initGameWindow(GameWindow.Color Side, InitGameResult game)
         {
             GameWindow gWindow = new GameWindow(Side);
             gWindow.client = this.client;
@@ -123,12 +123,20 @@ namespace ConnectFourClient
                 btnPick.IsEnabled = false;
                 if (gameRequestResult == true)
                 {
+                    Thread t = null; 
                     InitGameResult game = null;
-                    Thread t = new Thread(() => game = client.InitGame(currentUser, selectedOponentString));
+                    try
+                    {
+                        t = new Thread(() => game = client.InitGame(currentUser, selectedOponentString));
+                    }
+                    catch (FaultException<UserNotFoundFault> ex)
+                    {
+                        MessageBox.Show(ex.Detail.Message);
+
+                    }
                     t.Start();
                     t.Join();
-                    initGameWindow(GameWindow.Side.Red, game);
-                    // in thread
+                    initGameWindow(GameWindow.Color.Red, game);
                 }
                 else
                 {

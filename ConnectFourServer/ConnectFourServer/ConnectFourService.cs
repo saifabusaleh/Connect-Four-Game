@@ -66,10 +66,6 @@ namespace ConnectFourServer
             }
         }
 
-        public IEnumerable<String> getConnectedUsersByUsernameThatWaitingForPartner(string username)
-        {
-            return cs.getConnectedUsersByUsernameThatWaitingForPartner(username);
-        }
 
         public void Connect(string username)
         {
@@ -156,7 +152,13 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 }
             }
 
-            //if player1 or 2 callbacks null throw exception 
+            if(player1CallBack == null)
+            {
+                throwUserNotFoundFault(player1);
+            } else if(player2CallBack == null)
+            {
+                throwUserNotFoundFault(player2);
+            }
 
 
             currentGames.Add(currentGameId, initPlayingGame(player1, player2, player1CallBack, player2CallBack));
@@ -206,10 +208,8 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             {
                 return value.Turn == playerName;
             }
-            else
-            { // if game ID not found throw exception, TODO: change exception type
-                throwUserNotFoundFault(playerName);
-            }
+
+            throwGameNotFoundFault(gameId);
             return false;
         }
 
@@ -224,10 +224,10 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 // game is found
                 if (playerName == currentGame.Player1)
                 {
-                    insertionRowIndex = currentGame.Board.Insert(Side.Red, column);
-                    Side winner = currentGame.Board.Winner(insertionRowIndex, column);
+                    insertionRowIndex = currentGame.Board.Insert(Color.Red, column);
+                    Color winner = currentGame.Board.Winner(insertionRowIndex, column);
                     // if player 1 is winner
-                    if (winner != Side.None)
+                    if (winner != Color.None)
                     {
                         updateCellForAnotherPlayer(playerName, insertionRowIndex, column, currentGame, MOVE_RESULT.Win);
                         annoucePlayerWinner(playerName, currentGame.Player2, currentGame);
@@ -249,10 +249,10 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 }
                 else if (playerName == currentGame.Player2)
                 {
-                    insertionRowIndex = currentGame.Board.Insert(Side.Black, column);
-                    Side winner = currentGame.Board.Winner(insertionRowIndex, column);
+                    insertionRowIndex = currentGame.Board.Insert(Color.Black, column);
+                    Color winner = currentGame.Board.Winner(insertionRowIndex, column);
 
-                    if (winner != Side.None)
+                    if (winner != Color.None)
                     {
                         // if player 2 winner
                         updateCellForAnotherPlayer(playerName, insertionRowIndex, column, currentGame, MOVE_RESULT.Win);
@@ -276,9 +276,25 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                     return createInsertResult(insertionRowIndex, column, MOVE_RESULT.Nothing);
                 }
             }
-
-            throwUserNotFoundFault(playerName);
+            else
+            {
+                throwGameNotFoundFault(gameId);
+            }
             return result;
+        }
+
+        private void throwGameNotFoundFault(int gameId)
+        {
+            GameNotFoundFault fault = new GameNotFoundFault()
+            { Message = "gameId " + gameId + " not found" };
+            throw new FaultException<GameNotFoundFault>(fault);
+        }
+
+        private void throwPlayerNotFoundInGameFault(int gameId, string Player)
+        {
+            GameNotFoundFault fault = new GameNotFoundFault()
+            { Message = "Player: " + Player +" not found in game: " + gameId };
+            throw new FaultException<GameNotFoundFault>(fault);
         }
 
         private void updateTurn(string playerWithTurn, PlayingGame currentGame)
@@ -312,10 +328,6 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             {
                 currentGame.CallBackPlayer1.updateCell(insertionRowIndex, column, move);
             }
-            //else
-            //{
-            //    throw exception
-            //}
         }
         private void annoucePlayerWinner(string winner, string loser, PlayingGame currentGame)
         {
@@ -426,14 +438,14 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                     disconnectClientsAndRemoveGame(currentGame, gameId);
 
                 }
-                //else
-                //{
-                //    throw exception
-                //}
+                else
+                {
+                    throwPlayerNotFoundInGameFault(gameId, playerNameWhoGaveUp);
+                }
             }
             else
             {
-                //throw exception
+                throwGameNotFoundFault(gameId);
             }
         }
 

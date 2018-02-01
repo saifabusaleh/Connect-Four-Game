@@ -27,9 +27,7 @@ namespace ConnectFourDBCore
 
         public int numberOfWins { get; set; }
 
-
         public int numberOfLoses { get; set; }
-
 
         public USER_STATUS status { get; set; }
         

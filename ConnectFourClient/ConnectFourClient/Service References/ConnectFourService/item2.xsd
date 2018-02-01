@@ -40,6 +40,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="InitGameResult" nillable="true" type="tns:InitGameResult" />
+  <xs:complexType name="GameNotFoundFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GameNotFoundFault" nillable="true" type="tns:GameNotFoundFault" />
   <xs:complexType name="InsertResult">
     <xs:sequence>
       <xs:element minOccurs="0" name="Move_result" type="tns:MOVE_RESULT" />
@@ -55,4 +61,10 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="MOVE_RESULT" nillable="true" type="tns:MOVE_RESULT" />
+  <xs:complexType name="PlayerNotFoundInGameFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayerNotFoundInGameFault" nillable="true" type="tns:PlayerNotFoundInGameFault" />
 </xs:schema>

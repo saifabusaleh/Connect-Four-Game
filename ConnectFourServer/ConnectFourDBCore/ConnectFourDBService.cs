@@ -107,19 +107,6 @@ namespace ConnectFourDBCore
         }
         #endregion
         #region game_logic
-        //Input: username that indicates the user that is just connected 
-        //Output: list of users returned by username which is waiting for partner for playing
-        public IEnumerable<String> getConnectedUsersByUsernameThatWaitingForPartner(string username)
-        {
-            using (var db = new ConnectFourContext())
-            {
-                List<String> usersByUsername = (from u in db.Users
-                                                where u.userName != username && u.status == USER_STATUS.WAITING_FOR_ENEMY
-                                                select u.userName).ToList();
-
-                return usersByUsername;
-            }
-        }
 
         public bool addGameWithWinToDB(string player1, string player2, string winnerPlayer)
         {

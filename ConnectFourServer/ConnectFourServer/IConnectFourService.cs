@@ -14,8 +14,6 @@ namespace ConnectFourServer
     {
 
         //Login and register functions
-
-
         [FaultContract(typeof(UserExistsFault))]
         [OperationContract]
         void register(string username, string password);
@@ -52,19 +50,21 @@ namespace ConnectFourServer
         [OperationContract]
         bool SendRequestForGameToUser(string opponentUserName, string myUserName);
 
+        [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]
         InitGameResult InitGame(string player1, string player2);
 
-        [FaultContract(typeof(UserNotFoundFault))]
+        [FaultContract(typeof(GameNotFoundFault))]
         [OperationContract]
         bool IsMyTurn(string playerName, int gameId);
 
         //returns the row where the circle inserted
-        [FaultContract(typeof(UserNotFoundFault))] 
+        [FaultContract(typeof(GameNotFoundFault))]
         [OperationContract]
         InsertResult Insert(int column, string playerName, int gameId);
 
         //if the player decided to give up the game while playing
+        [FaultContract(typeof(PlayerNotFoundInGameFault))]
         [OperationContract]
         void GiveupGame(string playerName, int gameId);
     }

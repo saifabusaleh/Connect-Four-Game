@@ -6,46 +6,46 @@ using System.Threading.Tasks;
 
 namespace ConnectFourServer
 {
-    public enum Side { None, Red, Black };
+    public enum Color { None, Red, Black };
 
     public class ConnectFourBoard
     {
-        public Side[,] GameBoard { get; private set; }
+        public Color[,] GameBoard { get; private set; }
 
         public ConnectFourBoard(int rows, int cols)
         {
             // Instantiate an empty board
-            GameBoard = new Side[rows, cols];
+            GameBoard = new Color[rows, cols];
             for (int row = 0; row < this.GameBoard.GetLength(0); row++)
                 for (int col = 0; col < this.GameBoard.GetLength(1); col++)
-                    this.GameBoard[row, col] = Side.None;
+                    this.GameBoard[row, col] = Color.None;
         }
 
         public bool Tied()
         {
             for (int col = 0; col < this.GameBoard.GetLength(1); col++)
-                if (GameBoard[0, col] == Side.None)
+                if (GameBoard[0, col] == Color.None)
                     return false;
             return true;
         }
 
-        public Side Winner(int row, int col)
+        public Color Winner(int row, int col)
         {
-            if (GameBoard[row, col] != Side.None &&
+            if (GameBoard[row, col] != Color.None &&
                 (VerticalConnectFour(row, col) ||
                 HorizontalConnectFour(row, col) ||
                 ForwardDiagonalConnectFour(row, col) ||
                 BackwardDiagonalConnectFour(row, col)))
                 return GameBoard[row, col];
             else
-                return Side.None;
+                return Color.None;
         }
 
-        #region Winner() helpers
+        #region Winner() function method helpers
 
         private bool VerticalConnectFour(int row, int col)
         {
-            if (GameBoard[row, col] == Side.None)
+            if (GameBoard[row, col] == Color.None)
                 return false;
             int count = 1;
             int rowCursor = row - 1;
@@ -67,7 +67,7 @@ namespace ConnectFourServer
 
         private bool HorizontalConnectFour(int row, int col)
         {
-            if (GameBoard[row, col] == Side.None)
+            if (GameBoard[row, col] == Color.None)
                 return false;
             int count = 1;
             int colCursor = col - 1;
@@ -89,7 +89,7 @@ namespace ConnectFourServer
 
         private bool ForwardDiagonalConnectFour(int row, int col)
         {
-            if (GameBoard[row, col] == Side.None)
+            if (GameBoard[row, col] == Color.None)
                 return false;
             int count = 1;
             int rowCursor = row - 1;
@@ -115,7 +115,7 @@ namespace ConnectFourServer
 
         private bool BackwardDiagonalConnectFour(int row, int col)
         {
-            if (GameBoard[row, col] == Side.None)
+            if (GameBoard[row, col] == Color.None)
                 return false;
             int count = 1;
             int rowCursor = row + 1;
@@ -140,14 +140,14 @@ namespace ConnectFourServer
         }
         #endregion
 
-        public int Insert(Side side, int column)
+        public int Insert(Color cell, int column)
         {
             // Start from bottom, work up
             for (int row = GameBoard.GetLength(0) - 1; row >= 0; row--)
             {
-                if (GameBoard[row, column] == Side.None)
+                if (GameBoard[row, column] == Color.None)
                 {
-                    GameBoard[row, column] = side;
+                    GameBoard[row, column] = cell;
                     return row;
                 }
             }

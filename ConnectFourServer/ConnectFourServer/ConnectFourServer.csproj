@@ -56,10 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectFourBoard.cs" />
+    <Compile Include="GameNotFoundFault.cs" />
     <Compile Include="IConnectFourServiceCallback.cs" />
     <Compile Include="IConnectFourService.cs" />
     <Compile Include="InitGameResult.cs" />
     <Compile Include="InsertResult.cs" />
+    <Compile Include="PlayerNotFoundInGameFault.cs" />
     <Compile Include="PlayingGame.cs" />
     <Compile Include="PlayingGames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
