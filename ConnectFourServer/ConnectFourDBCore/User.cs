@@ -9,8 +9,7 @@ namespace ConnectFourDBCore
 {
     public enum USER_STATUS
     {
-        NONE,
-        WAITING_FOR_ENEMY,
+        OTHER,
         PLAYING,
     }
     public class User

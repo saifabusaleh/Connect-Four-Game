@@ -177,6 +177,7 @@ namespace ConnectFourClient
 
         private void lbUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            btnPick.IsEnabled = true;
             var curItem = lbUsers.SelectedItem;
             if (curItem == null) // handling the case that nothing is selected
 
@@ -192,7 +193,7 @@ namespace ConnectFourClient
 
                 
                 playerDetails = client.getPlayerDetails(playername);
-                }   catch (FaultException<UserAlreadyLoggedInFault> ex)
+                }   catch (FaultException<UserNotFoundFault> ex)
                 {
                     MessageBox.Show(ex.Detail.Message);
                     return;
@@ -201,6 +202,11 @@ namespace ConnectFourClient
             t.Start();
             t.Join();
             setTextBoxesToPlayerData(playerDetails);
+            if (playerDetails.status == USER_STATUS.PLAYING)
+            {
+                MessageBox.Show("Cant select this player because this player is in game");
+                btnPick.IsEnabled = false;
+            }
 
         }
 

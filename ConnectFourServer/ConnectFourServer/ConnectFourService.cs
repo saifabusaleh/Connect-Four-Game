@@ -87,11 +87,10 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
         {
             if (!clients.ContainsKey(userName))
             {
-                UserNotFoundFault fault = new UserNotFoundFault()
-                { Message = "Username " + userName + " is not found!" };
-                throw new FaultException<UserNotFoundFault>(fault);
+                throwUserNotFoundFault(userName);
             }
             clients.Remove(userName);
+            cs.updateUserStatus(userName, USER_STATUS.OTHER);
             Thread updateThread = new Thread(() => RemoveFromClientListThreadingFunction(userName));
             updateThread.Start();
         }
@@ -181,6 +180,8 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             Thread t = new Thread(() => { gameId = initGameThread(player1, player2); });
             t.Start();
             t.Join();
+            cs.updateUserStatus(player1, USER_STATUS.PLAYING);
+            cs.updateUserStatus(player2, USER_STATUS.PLAYING);
             InitGameResult res = new InitGameResult();
             res.Player1 = player1;
             res.Player2 = player2;

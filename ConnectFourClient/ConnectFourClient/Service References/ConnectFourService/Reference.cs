@@ -170,6 +170,9 @@ namespace ConnectFourClient.ConnectFourService {
         private int numOfWinsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ConnectFourClient.ConnectFourService.USER_STATUS statusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string usernameField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -235,6 +238,19 @@ namespace ConnectFourClient.ConnectFourService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public ConnectFourClient.ConnectFourService.USER_STATUS status {
+            get {
+                return this.statusField;
+            }
+            set {
+                if ((this.statusField.Equals(value) != true)) {
+                    this.statusField = value;
+                    this.RaisePropertyChanged("status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string username {
             get {
                 return this.usernameField;
@@ -255,6 +271,17 @@ namespace ConnectFourClient.ConnectFourService {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="USER_STATUS", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourDBCore")]
+    public enum USER_STATUS : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        OTHER = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PLAYING = 1,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -718,6 +745,7 @@ namespace ConnectFourClient.ConnectFourService {
         System.Threading.Tasks.Task<bool> SendRequestForGameToUserAsync(string opponentUserName, string myUserName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/InitGame", ReplyAction="http://tempuri.org/IConnectFourService/InitGameResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/InitGameUserNotFoundFaultFault", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
         ConnectFourClient.ConnectFourService.InitGameResult InitGame(string player1, string player2);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/InitGame", ReplyAction="http://tempuri.org/IConnectFourService/InitGameResponse")]

@@ -71,7 +71,11 @@ namespace ConnectFourClient
 
             try
             {
-                client.Connect(currentUser);
+                Thread t = new Thread(() =>
+                {
+                    client.Connect(currentUser);
+                });
+                t.Start();
 
             }
             catch (FaultException<UserAlreadyLoggedInFault> ex)

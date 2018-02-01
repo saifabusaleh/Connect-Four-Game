@@ -128,14 +128,13 @@ namespace ConnectFourClient
                 {
                     MessageBox.Show("Congrats, you won");
                     Closed_from_gui = true;
-                    this.Close();
-
+                    Application.Current.Dispatcher.Invoke(new Action(() => { this.Close(); }));         
                 }
                 else if (insertResult.Move_result == MOVE_RESULT.Draw)
                 {
                     MessageBox.Show("Game ended with Draw");
                     Closed_from_gui = true;
-                    this.Close();
+                    Application.Current.Dispatcher.Invoke(new Action(() => { this.Close(); }));
                 }
 
             }

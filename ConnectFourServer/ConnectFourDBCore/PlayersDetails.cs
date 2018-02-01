@@ -8,5 +8,6 @@ namespace ConnectFourDBCore
         public int numOfPoints { get; set; }
         public int numOfWins { get; set; }
         public string username { get; set; }
+        public USER_STATUS status { get; set; }
     }
 }
