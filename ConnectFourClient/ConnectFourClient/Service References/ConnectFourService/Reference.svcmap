@@ -19,16 +19,16 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8000/ConnectFourService/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="7b091f18-25fa-4227-89ae-5a238b6526fa" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd0" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="625d8402-a6ff-4366-8596-ba10a4775420" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd1" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="fa0ecca8-770c-489c-9621-59c5a99d24a9" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?disco" />
-    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="2c7449a6-998e-4056-bf79-f461c20b5ea5" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd3" />
-    <MetadataFile FileName="ConnectFourService.wsdl" MetadataType="Wsdl" ID="e4508a33-bcad-4452-8c61-5bf767990a2f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?wsdl" />
-    <MetadataFile FileName="item4.xsd" MetadataType="Schema" ID="c5e9bdd0-23a8-4ea5-bcc2-8064e303148e" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd4" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="947ea7bc-9879-40cd-8cd8-9d52a413de2e" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/?xsd=xsd2" />
+    <MetadataFile FileName="item1.disco" MetadataType="Disco" ID="7366c875-afce-4980-b8c8-0e457a67cc38" SourceId="1" SourceUrl="http://localhost:8000/ConnectFourService/?disco" />
+    <MetadataFile FileName="item5.xsd" MetadataType="Schema" ID="7fab5c83-b837-47de-ab27-7829e4f6c932" SourceId="1" SourceUrl="http://localhost:8000/ConnectFourService/?xsd=xsd1" />
+    <MetadataFile FileName="item51.xsd" MetadataType="Schema" ID="ae4fef70-13ea-41a2-8242-3707a836d429" SourceId="1" SourceUrl="http://localhost:8000/ConnectFourService/?xsd=xsd0" />
+    <MetadataFile FileName="item52.xsd" MetadataType="Schema" ID="2864254e-100d-4061-9470-7aa8f43d75c3" SourceId="1" SourceUrl="http://localhost:8000/ConnectFourService/?xsd=xsd3" />
+    <MetadataFile FileName="item53.xsd" MetadataType="Schema" ID="2a44cec5-13e7-4572-8843-56139d1cc13c" SourceId="1" SourceUrl="http://localhost:8000/ConnectFourService/?xsd=xsd2" />
+    <MetadataFile FileName="item54.xsd" MetadataType="Schema" ID="9fccba61-1fa2-4983-8748-4f9dadf2025e" SourceId="1" SourceUrl="http://localhost:8000/ConnectFourService/?xsd=xsd4" />
+    <MetadataFile FileName="ConnectFourService1.wsdl" MetadataType="Wsdl" ID="64a5d638-f199-4a85-b6a8-dc407b5eeeae" SourceId="1" SourceUrl="http://localhost:8000/ConnectFourService/?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

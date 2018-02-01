@@ -15,14 +15,14 @@ namespace ConnectFourHost
             try
             {
                 ServiceHost host = new ServiceHost(
-            typeof(ConnectFourService), new Uri(
-                "http://localhost:8000/ConnectFourService"));
+            typeof(ConnectFourService));
                 host.Description.Behaviors.Add(
                     new ServiceMetadataBehavior { HttpGetEnabled = true });
                 host.Open();
                 Console.WriteLine("Connected...");
                 Console.WriteLine("Type Enter to shutdown");
                 Console.ReadLine();
+                host.Close();
             }
             catch (Exception ex)
             {

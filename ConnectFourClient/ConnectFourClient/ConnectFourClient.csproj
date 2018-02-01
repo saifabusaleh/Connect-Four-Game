@@ -168,16 +168,6 @@
     <None Include="Service References\ConnectFourService\ConnectFourClient.ConnectFourService.PlayingGames.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ConnectFourService\ConnectFourService.wsdl" />
-    <None Include="Service References\ConnectFourService\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ConnectFourService\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ConnectFourService\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -189,19 +179,26 @@
     <WCFMetadataStorage Include="Service References\ConnectFourService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ConnectFourService\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\ConnectFourService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ConnectFourService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ConnectFourService\item3.xsd">
+    <None Include="Service References\ConnectFourService\ConnectFourService1.wsdl" />
+    <None Include="Service References\ConnectFourService\item5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ConnectFourService\item4.xsd">
+    <None Include="Service References\ConnectFourService\item51.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ConnectFourService\item52.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ConnectFourService\item53.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ConnectFourService\item54.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ConnectFourService\Reference.svcmap">
@@ -214,6 +211,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="gamecontroller-512.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ConnectFourService\item1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

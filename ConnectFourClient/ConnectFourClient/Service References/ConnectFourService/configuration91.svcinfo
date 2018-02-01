@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="8mRx4fyfYjUmjK7CMSIfRdGI9A0=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="gsms0hUaq6061lZ+O58k/j+eSgc=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="wsDualHttpBinding" name="WSDualHttpBinding_IConnectFourService">
       <properties>
@@ -97,10 +97,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="WSDualHttpBinding_IConnectFourService" contract="ConnectFourService.IConnectFourService" bindingType="wsDualHttpBinding" address="http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/" bindingConfiguration="WSDualHttpBinding_IConnectFourService">
+    <endpoint name="WSDualHttpBinding_IConnectFourService" contract="ConnectFourService.IConnectFourService" bindingType="wsDualHttpBinding" address="http://localhost:8000/ConnectFourService/" bindingConfiguration="WSDualHttpBinding_IConnectFourService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:8733/Design_Time_Addresses/ConnectFourServer/Service1/</serializedValue>
+          <serializedValue>http://localhost:8000/ConnectFourService/</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
