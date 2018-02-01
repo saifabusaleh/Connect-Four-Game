@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConnectFourClient"
         mc:Ignorable="d"
-        Title="Main connect four window" Height="300" Width="383.39">
+        Title="Main connect four window" Height="300" Width="385">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Play">

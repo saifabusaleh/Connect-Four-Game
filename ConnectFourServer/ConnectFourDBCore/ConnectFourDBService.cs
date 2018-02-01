@@ -137,6 +137,7 @@ namespace ConnectFourDBCore
                 if(winnerPlayer == player1)
                 {
                     g.winner = player1InDB.userId;
+                    player1InDB.numberOfPoints  += 1;
                     player1InDB.numberOfWins += 1;
                     player2InDB.numberOfLoses += 1;
                 } else

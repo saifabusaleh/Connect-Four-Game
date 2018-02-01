@@ -126,7 +126,10 @@ namespace ConnectFourClient
                 btnPick.IsEnabled = false;
                 if (gameRequestResult == true)
                 {
-                    int game_id = client.InitGame(currentUser, selectedOponentString);
+                    int game_id = 0;
+                    Thread t = new Thread(() => game_id = client.InitGame(currentUser, selectedOponentString));
+                    t.Start();
+                    t.Join();
                     initGameWindow(GameWindow.Side.Red, game_id);
                     // in thread
                 }
@@ -207,7 +210,7 @@ namespace ConnectFourClient
                 txtWinPercent.Text = "0";
                 return;
             }
-            txtWinPercent.Text = ((playerDetails.numOfWins / playerDetails.numOfGames) * 100).ToString() + "%";
+            txtWinPercent.Text = (((double)playerDetails.numOfWins / playerDetails.numOfGames) * 100).ToString() + "%";
         }
 
         //This method set all textboxes to empty

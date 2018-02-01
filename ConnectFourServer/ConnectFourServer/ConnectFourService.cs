@@ -315,14 +315,6 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
         }
         private void annoucePlayerWinner(string winner, string loser, PlayingGame currentGame)
         {
-            //// update other player that the other one has own
-            //if (winner == currentGame.Player1)
-            //{
-            //    currentGame.CallBackPlayer2.updateCell(insertionRowIndex, column, MOVE_RESULT.Win);
-            //} else
-            //{
-            //    currentGame.CallBackPlayer1.updateCell(insertionRowIndex, column, MOVE_RESULT.Win);
-            //}
             bool retValue = cs.addGameWithWinToDB(winner, loser, winner);
             if (retValue == false)
             {
@@ -330,20 +322,10 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 { Message = "Username " + winner + " or " + loser + " not found" };
                 throw new FaultException<UserNotFoundFault>(fault);
             }
-            //   disconnectClientsAndRemoveGame(currentGame, gameId);
-
         }
 
         private void announceDraw(string playerWithTurn, string otherPlayer, PlayingGame currentGame)
         {
-            //if (playerWithTurn == currentGame.Player1)
-            //{
-            //    currentGame.CallBackPlayer2.updateCell(insertionRowIndex, column, MOVE_RESULT.Draw);
-            //}
-            //else
-            //{
-            //    currentGame.CallBackPlayer1.updateCell(insertionRowIndex, column, MOVE_RESULT.Draw);
-            //}
             bool retValue = cs.addGameWithDrawToDB(playerWithTurn, otherPlayer);
             if (retValue == false)
             {
@@ -351,7 +333,6 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 { Message = "Username " + playerWithTurn + " or " + otherPlayer + " not found" };
                 throw new FaultException<UserNotFoundFault>(fault);
             }
-            //        disconnectClientsAndRemoveGame(currentGame, gameId);
         }
 
         private void disconnectClientsAndRemoveGame(PlayingGame currentGame, int gameId)

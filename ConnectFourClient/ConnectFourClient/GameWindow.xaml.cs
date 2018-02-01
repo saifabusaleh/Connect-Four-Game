@@ -126,11 +126,15 @@ namespace ConnectFourClient
                 if (insertResult.Move_result == MOVE_RESULT.Win)
                 {
                     MessageBox.Show("Congrats, you won");
+                    Closed_from_gui = true;
+                    this.Close();
 
                 }
                 else if (insertResult.Move_result == MOVE_RESULT.Draw)
                 {
                     MessageBox.Show("Game ended with Draw");
+                    Closed_from_gui = true;
+                    this.Close();
                 }
 
             }
@@ -235,10 +239,14 @@ namespace ConnectFourClient
             if (result == MOVE_RESULT.Win)
             {
                 MessageBox.Show("Oops, looks like you lost :(");
+                Closed_from_gui = true;
+                this.Close();
             }
             else if (result == MOVE_RESULT.Draw)
             {
                 MessageBox.Show("Game ended with draw");
+                Closed_from_gui = true;
+                this.Close();
             }
         }
 

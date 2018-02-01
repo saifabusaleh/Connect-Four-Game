@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConnectFourClient"
         mc:Ignorable="d"
-        Title="Show Games Window" Height="300" Width="300">
+        Title="Show Games Window" Height="300" Width="350">
     <StackPanel Margin="0,0,-0.4,0">
         <DataGrid Margin="10,10,9.6,0" Name="GamesDG" Height="250" Loaded="GamesDG_Loaded"></DataGrid>
     </StackPanel>

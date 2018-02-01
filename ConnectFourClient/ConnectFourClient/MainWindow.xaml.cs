@@ -85,6 +85,7 @@ namespace ConnectFourClient
             waitingGameWindow.currentUser = currentUser;
             waitingGameWindow.client = client;
             waitingGameWindow.Show();
+            this.Close();
         }
     }
 }
