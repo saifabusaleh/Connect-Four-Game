@@ -977,7 +977,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_sendGameId_output_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IConnectFourService_sendGameInfo_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -1146,8 +1146,8 @@
   <wsdl:message name="IConnectFourService_updateCell_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:updateCell" />
   </wsdl:message>
-  <wsdl:message name="IConnectFourService_sendGameId_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:sendGameId" />
+  <wsdl:message name="IConnectFourService_sendGameInfo_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:sendGameInfo" />
   </wsdl:message>
   <wsdl:message name="IConnectFourService_annouceWinnerBecauseOtherPlayerLeft_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:annouceWinnerBecauseOtherPlayerLeft" />
@@ -1225,8 +1225,8 @@
     <wsdl:operation name="updateCell">
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/updateCell" message="tns:IConnectFourService_updateCell_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="sendGameId">
-      <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/sendGameId" message="tns:IConnectFourService_sendGameId_OutputCallbackMessage" />
+    <wsdl:operation name="sendGameInfo">
+      <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/sendGameInfo" message="tns:IConnectFourService_sendGameInfo_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="annouceWinnerBecauseOtherPlayerLeft">
       <wsdl:output wsaw:Action="http://tempuri.org/IConnectFourService/annouceWinnerBecauseOtherPlayerLeft" message="tns:IConnectFourService_annouceWinnerBecauseOtherPlayerLeft_OutputCallbackMessage" />
@@ -1438,10 +1438,10 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="sendGameId">
-      <soap12:operation soapAction="http://tempuri.org/IConnectFourService/sendGameId" style="document" />
+    <wsdl:operation name="sendGameInfo">
+      <soap12:operation soapAction="http://tempuri.org/IConnectFourService/sendGameInfo" style="document" />
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_sendGameId_output_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IConnectFourService_sendGameInfo_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

@@ -129,10 +129,6 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 if (client.Key == opponentUserName)
                 {
                     bool requestResult = client.Value.sendGameRequestToUser(myUserName);
-                    //if (requestResult == true)
-                    //{
-                    //    initGameThread(myUserName, opponentUserName);
-                    //}
                     return requestResult;
                 }
             }
@@ -165,7 +161,11 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
 
             currentGames.Add(currentGameId, initPlayingGame(player1, player2, player1CallBack, player2CallBack));
             //Send to player2 the gameId, player1 will get the gameId from function return value
-            player2CallBack.sendGameId(currentGameId);
+            InitGameResult game = new InitGameResult();
+            game.Player1 = player1;
+            game.Player2 = player2;
+            game.gameId = currentGameId;
+            player2CallBack.sendGameInfo(game);
 
             return currentGameId++;
         }
@@ -173,13 +173,17 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
         // Input: Two players
         // Output: the game Id which identifies the key of the dictionary of the game between the two players
 
-        public int InitGame(string player1, string player2)
+        public InitGameResult InitGame(string player1, string player2)
         {
             int gameId = 0;
             Thread t = new Thread(() => { gameId = initGameThread(player1, player2); });
             t.Start();
             t.Join();
-            return gameId;
+            InitGameResult res = new InitGameResult();
+            res.Player1 = player1;
+            res.Player2 = player2;
+            res.gameId = gameId;
+            return res;
         }
 
         private PlayingGame initPlayingGame(string player1, string player2, IConnectFourServiceCallback player1CallBack, IConnectFourServiceCallback player2CallBack)

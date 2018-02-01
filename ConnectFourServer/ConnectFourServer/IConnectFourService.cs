@@ -53,7 +53,7 @@ namespace ConnectFourServer
         bool SendRequestForGameToUser(string opponentUserName, string myUserName);
 
         [OperationContract]
-        int InitGame(string player1, string player2);
+        InitGameResult InitGame(string player1, string player2);
 
         [FaultContract(typeof(UserNotFoundFault))]
         [OperationContract]

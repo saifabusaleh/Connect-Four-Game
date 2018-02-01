@@ -31,7 +31,7 @@ namespace ConnectFourClient
         public ClientCallback Callback { get; set; }
         public string currentUser { get; set; }
         public int gameId { get; set; }
-
+        public string playersInfo { get; set; }
         public enum Side { None, Red, Black };
 
 
@@ -52,7 +52,7 @@ namespace ConnectFourClient
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Title = "Playing as player: " + currentUser;
+            this.Title = "Playing as player: " + currentUser + " " + playersInfo;
             Callback.updateCellFunc += updateCell;
             Callback.AnnouceWinnerBecauseOtherPlayerLeftFunc += AnnouceWinnerBecauseOtherPlayerLeft;
         }

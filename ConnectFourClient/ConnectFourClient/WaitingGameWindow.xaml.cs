@@ -45,15 +45,15 @@ namespace ConnectFourClient
             Callback.addUsers += AddUsers;
             Callback.removeUser += removeUser;
             Callback.sendGameRequestToUserFunc += RecieveGameRequest;
-            Callback.SendGameIdFunc += RecieveGameId;
+            Callback.SendGameInfoFunc += RecieveGameInfo;
             this.Title = "Waiting window, connected as: " + currentUser;
         }
         // When the player2 accepts the game, wait player1 to init the game and to create game Id
         // and to send it to player2
         // when player2 recieves gameId, Player2 inits the game
-        private void RecieveGameId(int gameId)
+        private void RecieveGameInfo(InitGameResult game)
         {
-            initGameWindow(GameWindow.Side.Black, gameId);
+            initGameWindow(GameWindow.Side.Black, game);
         }
 
         private void removeUser(string user)
@@ -66,13 +66,14 @@ namespace ConnectFourClient
             connectedUsers.Remove(user);
         }
 
-        private void initGameWindow(GameWindow.Side Side, int game_id)
+        private void initGameWindow(GameWindow.Side Side, InitGameResult game)
         {
             GameWindow gWindow = new GameWindow(Side);
             gWindow.client = this.client;
             gWindow.Callback = this.Callback;
             gWindow.currentUser = this.currentUser;
-            gWindow.gameId = game_id;
+            gWindow.gameId = game.gameId;
+            gWindow.playersInfo = "[ " + game.Player1 + " vs " + game.Player2 + " ]";
             gWindow.Show();
             isClosingFromGui = true;
             this.Close();
@@ -98,10 +99,6 @@ namespace ConnectFourClient
             }
             return true;
         }
-        private void initGameThread(string player1, string player2)
-        {
-            client.InitGame(player1, player2);
-        }
         private void AddUsers(string[] users)
         {
             for (int i = 0; i < users.Length; i++)
@@ -126,11 +123,11 @@ namespace ConnectFourClient
                 btnPick.IsEnabled = false;
                 if (gameRequestResult == true)
                 {
-                    int game_id = 0;
-                    Thread t = new Thread(() => game_id = client.InitGame(currentUser, selectedOponentString));
+                    InitGameResult game = null;
+                    Thread t = new Thread(() => game = client.InitGame(currentUser, selectedOponentString));
                     t.Start();
                     t.Join();
-                    initGameWindow(GameWindow.Side.Red, game_id);
+                    initGameWindow(GameWindow.Side.Red, game);
                     // in thread
                 }
                 else

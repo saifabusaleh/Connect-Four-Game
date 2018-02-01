@@ -42,12 +42,12 @@ namespace ConnectFourClient
             updateCellFunc(row,col, result);
         }
 
-        public delegate void SendGameId(int gameId);
-        public event SendGameId SendGameIdFunc;
+        public delegate void SendGameInfo(InitGameResult game);
+        public event SendGameInfo SendGameInfoFunc;
 
-        public void sendGameId(int gameId)
+        public void sendGameInfo(InitGameResult game)
         {
-            SendGameIdFunc(gameId);
+            SendGameInfoFunc(game);
         }
 
         public delegate void AnnouceWinnerBecauseOtherPlayerLeft();

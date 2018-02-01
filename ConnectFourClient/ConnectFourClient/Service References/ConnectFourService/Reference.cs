@@ -413,6 +413,83 @@ namespace ConnectFourClient.ConnectFourService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="InitGameResult", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
+    [System.SerializableAttribute()]
+    public partial class InitGameResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Player1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Player2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int gameIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Player1 {
+            get {
+                return this.Player1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Player1Field, value) != true)) {
+                    this.Player1Field = value;
+                    this.RaisePropertyChanged("Player1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Player2 {
+            get {
+                return this.Player2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Player2Field, value) != true)) {
+                    this.Player2Field = value;
+                    this.RaisePropertyChanged("Player2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int gameId {
+            get {
+                return this.gameIdField;
+            }
+            set {
+                if ((this.gameIdField.Equals(value) != true)) {
+                    this.gameIdField = value;
+                    this.RaisePropertyChanged("gameId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="InsertResult", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
     [System.SerializableAttribute()]
     public partial class InsertResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -551,10 +628,10 @@ namespace ConnectFourClient.ConnectFourService {
         System.Threading.Tasks.Task<bool> SendRequestForGameToUserAsync(string opponentUserName, string myUserName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/InitGame", ReplyAction="http://tempuri.org/IConnectFourService/InitGameResponse")]
-        int InitGame(string player1, string player2);
+        ConnectFourClient.ConnectFourService.InitGameResult InitGame(string player1, string player2);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/InitGame", ReplyAction="http://tempuri.org/IConnectFourService/InitGameResponse")]
-        System.Threading.Tasks.Task<int> InitGameAsync(string player1, string player2);
+        System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.InitGameResult> InitGameAsync(string player1, string player2);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConnectFourService/IsMyTurn", ReplyAction="http://tempuri.org/IConnectFourService/IsMyTurnResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(ConnectFourClient.ConnectFourService.UserNotFoundFault), Action="http://tempuri.org/IConnectFourService/IsMyTurnUserNotFoundFaultFault", Name="UserNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/ConnectFourServer")]
@@ -592,8 +669,8 @@ namespace ConnectFourClient.ConnectFourService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/updateCell")]
         void updateCell(int row, int col, ConnectFourClient.ConnectFourService.MOVE_RESULT move_result);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendGameId")]
-        void sendGameId(int gameId);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/sendGameInfo")]
+        void sendGameInfo(ConnectFourClient.ConnectFourService.InitGameResult game);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IConnectFourService/annouceWinnerBecauseOtherPlayerLeft")]
         void annouceWinnerBecauseOtherPlayerLeft();
@@ -699,11 +776,11 @@ namespace ConnectFourClient.ConnectFourService {
             return base.Channel.SendRequestForGameToUserAsync(opponentUserName, myUserName);
         }
         
-        public int InitGame(string player1, string player2) {
+        public ConnectFourClient.ConnectFourService.InitGameResult InitGame(string player1, string player2) {
             return base.Channel.InitGame(player1, player2);
         }
         
-        public System.Threading.Tasks.Task<int> InitGameAsync(string player1, string player2) {
+        public System.Threading.Tasks.Task<ConnectFourClient.ConnectFourService.InitGameResult> InitGameAsync(string player1, string player2) {
             return base.Channel.InitGameAsync(player1, player2);
         }
         

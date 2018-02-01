@@ -131,7 +131,7 @@
   <xs:element name="InitGameResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="InitGameResult" type="xs:int" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="InitGameResult" nillable="true" type="q5:InitGameResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -162,7 +162,7 @@
   <xs:element name="InsertResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="InsertResult" nillable="true" type="q5:InsertResult" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="InsertResult" nillable="true" type="q6:InsertResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -182,7 +182,7 @@
   <xs:element name="addUsersToList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="newUser" nillable="true" type="q6:ArrayOfstring" />
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="newUser" nillable="true" type="q7:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -212,14 +212,14 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="row" type="xs:int" />
         <xs:element minOccurs="0" name="col" type="xs:int" />
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="move_result" type="q7:MOVE_RESULT" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="move_result" type="q8:MOVE_RESULT" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="sendGameId">
+  <xs:element name="sendGameInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="gameId" type="xs:int" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ConnectFourServer" minOccurs="0" name="game" nillable="true" type="q9:InitGameResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>gamecontroller-512.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -153,6 +156,9 @@
     <None Include="Service References\ConnectFourService\ConnectFourClient.ConnectFourService.GameDetails.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\ConnectFourService\ConnectFourClient.ConnectFourService.InitGameResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ConnectFourService\ConnectFourClient.ConnectFourService.InsertResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -205,6 +211,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Data\MyImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="gamecontroller-512.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -26,7 +26,7 @@ namespace ConnectFourServer
         void updateCell(int row, int col, MOVE_RESULT move_result);
 
         [OperationContract(IsOneWay = true)]
-        void sendGameId(int gameId);
+        void sendGameInfo(InitGameResult game);
 
         [OperationContract(IsOneWay = true)]
         void annouceWinnerBecauseOtherPlayerLeft();
