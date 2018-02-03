@@ -40,7 +40,7 @@ namespace ConnectFourClient
         private DispatcherTimer animationTimer;
         private bool inputLock;
 
-        private Color currentSide;
+        private Color PlayerColor;
         private Ellipse currentCircle;
         private int currentColumn;
 
@@ -64,7 +64,7 @@ namespace ConnectFourClient
                 for (int col = 0; col < this.GameBoard.GetLength(1); col++)
                     this.GameBoard[row, col] = Color.None;
 
-            currentSide = playerColor;
+            PlayerColor = playerColor;
             animationTimer = new DispatcherTimer();
             animationTimer.Interval = new TimeSpan(0, 0, 0, 0, 15);
             animationTimer.Start();
@@ -109,26 +109,26 @@ namespace ConnectFourClient
                     MessageBox.Show("Column is full, therefore you cant enter circle on it");
                     return;
                 }
-                Thread t = new Thread(() => insertCellThread(column, currentUser, currentSide));
+                Thread t = new Thread(() => insertCellThread(column, currentUser));
                 t.Start();
             }
         }
 
-        public void insertCellThread(int column, string currentUser, Color currentSide)
+        public void insertCellThread(int column, string currentUser)
         {
             try
             {
 
                 InsertResult insertResult = client.Insert(column, currentUser, gameId);
-                GameBoard[insertResult.Row_index, column] = currentSide;
+                GameBoard[insertResult.Row_index, column] = PlayerColor;
                 currentColumn = column;
-                Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(currentSide, column); }));
+                Application.Current.Dispatcher.Invoke(new Action(() => { DrawCircle(PlayerColor, column); }));
 
                 if (insertResult.Move_result == MOVE_RESULT.Win)
                 {
                     MessageBox.Show("Congrats, you won");
                     Closed_from_gui = true;
-                    Application.Current.Dispatcher.Invoke(new Action(() => { this.Close(); }));         
+                    Application.Current.Dispatcher.Invoke(new Action(() => { this.Close(); }));
                 }
                 else if (insertResult.Move_result == MOVE_RESULT.Draw)
                 {
@@ -165,7 +165,7 @@ namespace ConnectFourClient
         private void DrawCircle(Color side, int col)
         {
             inputLock = true;
-
+                
             Ellipse circle = new Ellipse();
             circle.Height = circleSize;
             circle.Width = circleSize;
@@ -205,13 +205,6 @@ namespace ConnectFourClient
             return numOfPieces;
         }
 
-        private void RestartButton_Click(object sender, RoutedEventArgs e)
-        {
-            NewGame(currentSide);
-        }
-
-
-
         private void AnnouceWinnerBecauseOtherPlayerLeft()
         {
             MessageBox.Show("Congratulations, you own because other player left!");
@@ -225,7 +218,7 @@ namespace ConnectFourClient
         {
             //paint with th other color
             Color addColor;
-            if (currentSide == Color.Red)
+            if (PlayerColor == Color.Red)
             {
                 addColor = Color.Black;
             }
@@ -293,7 +286,7 @@ namespace ConnectFourClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(Closed_from_gui)
+            if (Closed_from_gui)
             {
                 return;
             }

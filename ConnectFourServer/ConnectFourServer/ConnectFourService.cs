@@ -226,12 +226,12 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 if (playerName == currentGame.Player1)
                 {
                     insertionRowIndex = currentGame.Board.Insert(Color.Red, column);
-                    Color winner = currentGame.Board.Winner(insertionRowIndex, column);
+                    bool isWinner = currentGame.Board.Winner(insertionRowIndex, column);
                     // if player 1 is winner
-                    if (winner != Color.None)
+                    if (isWinner)
                     {
                         updateCellForAnotherPlayer(playerName, insertionRowIndex, column, currentGame, MOVE_RESULT.Win);
-                        annoucePlayerWinner(playerName, currentGame.Player2, currentGame);
+                        annoucePlayerWinner(playerName, currentGame.Player2, currentGame.GameStartTime);
                         disconnectClientsAndRemoveGame(currentGame, gameId);
                         return createInsertResult(insertionRowIndex, column, MOVE_RESULT.Win);
                     }
@@ -239,7 +239,7 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                     if (currentGame.Board.Tied())
                     {
                         updateCellForAnotherPlayer(playerName, insertionRowIndex, column, currentGame, MOVE_RESULT.Draw);
-                        announceDraw(playerName, currentGame.Player2, currentGame);
+                        announceDraw(playerName, currentGame.Player2, currentGame.GameStartTime);
                         disconnectClientsAndRemoveGame(currentGame, gameId);
                         return createInsertResult(insertionRowIndex, column, MOVE_RESULT.Draw);
                     }
@@ -251,13 +251,13 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 else if (playerName == currentGame.Player2)
                 {
                     insertionRowIndex = currentGame.Board.Insert(Color.Black, column);
-                    Color winner = currentGame.Board.Winner(insertionRowIndex, column);
+                    bool isWinner = currentGame.Board.Winner(insertionRowIndex, column);
 
-                    if (winner != Color.None)
+                    if (isWinner)
                     {
                         // if player 2 winner
                         updateCellForAnotherPlayer(playerName, insertionRowIndex, column, currentGame, MOVE_RESULT.Win);
-                        annoucePlayerWinner(playerName, currentGame.Player1, currentGame);
+                        annoucePlayerWinner(playerName, currentGame.Player1, currentGame.GameStartTime);
                         disconnectClientsAndRemoveGame(currentGame, gameId);
                         return createInsertResult(insertionRowIndex, column, MOVE_RESULT.Win);
                     }
@@ -266,7 +266,7 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                     {
                         // if tie
                         updateCellForAnotherPlayer(playerName, insertionRowIndex, column, currentGame, MOVE_RESULT.Draw);
-                        announceDraw(playerName, currentGame.Player1, currentGame);
+                        announceDraw(playerName, currentGame.Player1, currentGame.GameStartTime);
                         disconnectClientsAndRemoveGame(currentGame, gameId);
                         return createInsertResult(insertionRowIndex, column, MOVE_RESULT.Draw);
                     }
@@ -330,9 +330,9 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 currentGame.CallBackPlayer1.updateCell(insertionRowIndex, column, move);
             }
         }
-        private void annoucePlayerWinner(string winner, string loser, PlayingGame currentGame)
+        private void annoucePlayerWinner(string winner, string loser, DateTime gameTime)
         {
-            bool retValue = cs.addGameWithWinToDB(winner, loser, winner);
+            bool retValue = cs.addGameWithWinToDB(winner, loser, winner, gameTime);
             if (retValue == false)
             {
                 UserNotFoundFault fault = new UserNotFoundFault()
@@ -341,9 +341,9 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
             }
         }
 
-        private void announceDraw(string playerWithTurn, string otherPlayer, PlayingGame currentGame)
+        private void announceDraw(string playerWithTurn, string otherPlayer, DateTime gameTime)
         {
-            bool retValue = cs.addGameWithDrawToDB(playerWithTurn, otherPlayer);
+            bool retValue = cs.addGameWithDrawToDB(playerWithTurn, otherPlayer, gameTime);
             if (retValue == false)
             {
                 UserNotFoundFault fault = new UserNotFoundFault()
@@ -428,13 +428,13 @@ OperationContext.Current.GetCallbackChannel<IConnectFourServiceCallback>();
                 // announce winner to other player
                 if (playerNameWhoGaveUp == currentGame.Player1)
                 {
-                    annoucePlayerWinner(currentGame.Player2, playerNameWhoGaveUp, currentGame);
+                    annoucePlayerWinner(currentGame.Player2, playerNameWhoGaveUp, currentGame.GameStartTime);
                     currentGame.CallBackPlayer2.annouceWinnerBecauseOtherPlayerLeft();
                     disconnectClientsAndRemoveGame(currentGame, gameId);
                 }
                 else if (playerNameWhoGaveUp == currentGame.Player2)
                 {
-                    annoucePlayerWinner(currentGame.Player1, playerNameWhoGaveUp, currentGame);
+                    annoucePlayerWinner(currentGame.Player1, playerNameWhoGaveUp, currentGame.GameStartTime);
                     currentGame.CallBackPlayer1.annouceWinnerBecauseOtherPlayerLeft();
                     disconnectClientsAndRemoveGame(currentGame, gameId);
 

@@ -99,6 +99,7 @@ namespace ConnectFourDBCore
                                            {
                                                Player1 = c.user1.userName,
                                                Player2 = c.user2.userName,
+                                               gameTime = c.gameTime,
                                                Winner = c.user1.userId == c.winner ? c.user1.userName : (c.user2.userId == c.winner ? c.user2.userName : "No Winner")
 
                                            }
@@ -109,7 +110,7 @@ namespace ConnectFourDBCore
         #endregion
         #region game_logic
 
-        public bool addGameWithWinToDB(string player1, string player2, string winnerPlayer)
+        public bool addGameWithWinToDB(string player1, string player2, string winnerPlayer, DateTime gameTime)
         {
             using (var db = new ConnectFourContext())
             {
@@ -122,6 +123,7 @@ namespace ConnectFourDBCore
                 Game g = new Game();
                 g.user1 = player1InDB;
                 g.user2 = player2InDB;
+                g.gameTime = gameTime;
                 if (winnerPlayer == player1)
                 {
                     g.winner = player1InDB.userId;
@@ -148,7 +150,7 @@ namespace ConnectFourDBCore
             }
         }
 
-        public bool addGameWithDrawToDB(string player1, string player2)
+        public bool addGameWithDrawToDB(string player1, string player2, DateTime gameTime)
         {
             using (var db = new ConnectFourContext())
             {
@@ -163,7 +165,8 @@ namespace ConnectFourDBCore
                 Game g = new Game();
                 g.user1 = player1InDB;
                 g.user2 = player2InDB;
-
+                g.gameTime = gameTime;
+                // set winner to 0 that means its draw
                 g.winner = 0;
 
                 player1InDB.numberOfGames += 1;

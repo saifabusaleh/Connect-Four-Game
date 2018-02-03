@@ -35,6 +35,7 @@
       <xs:element minOccurs="0" name="Player1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Player2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Winner" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gameTime" type="xs:dateTime" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GameDetails" nillable="true" type="tns:GameDetails" />

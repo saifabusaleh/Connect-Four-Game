@@ -26,7 +26,7 @@ namespace ConnectFourHost
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Could not connect");
+                Console.WriteLine("Could not connect, " + ex.Message);
             }
         }
     }

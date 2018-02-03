@@ -6,9 +6,7 @@
         xmlns:local="clr-namespace:ConnectFourClient"
         mc:Ignorable="d"
         Title="Connect Four Game Window" Height="534" Width="574" Loaded="Window_Loaded" ResizeMode="NoResize" Closing="Window_Closing">
-    <!--<Window.Background>
-        <ImageBrush ImageSource="/Data/MyImage.png"/>
-    </Window.Background>-->
+
     <DockPanel>
         <Border DockPanel.Dock="Bottom">
             <Canvas Name="GameCanvas" MouseDown="GameCanvas_MouseDown">

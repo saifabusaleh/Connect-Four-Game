@@ -21,6 +21,8 @@ namespace ConnectFourServer
                     this.GameBoard[row, col] = Color.None;
         }
 
+        // check first column, if first column is full then the board is full
+        // then its tie
         public bool Tied()
         {
             for (int col = 0; col < this.GameBoard.GetLength(1); col++)
@@ -29,16 +31,12 @@ namespace ConnectFourServer
             return true;
         }
 
-        public Color Winner(int row, int col)
+        public bool Winner(int row, int col)
         {
-            if (GameBoard[row, col] != Color.None &&
-                (VerticalConnectFour(row, col) ||
+            return ((VerticalConnectFour(row, col) ||
                 HorizontalConnectFour(row, col) ||
                 ForwardDiagonalConnectFour(row, col) ||
-                BackwardDiagonalConnectFour(row, col)))
-                return GameBoard[row, col];
-            else
-                return Color.None;
+                BackwardDiagonalConnectFour(row, col)));
         }
 
         #region Winner() function method helpers
@@ -49,11 +47,6 @@ namespace ConnectFourServer
                 return false;
             int count = 1;
             int rowCursor = row - 1;
-            while (rowCursor >= 0 && GameBoard[rowCursor, col] == GameBoard[row, col])
-            {
-                count++;
-                rowCursor--;
-            }
             rowCursor = row + 1;
             while (rowCursor < GameBoard.GetLength(0) && GameBoard[rowCursor, col] == GameBoard[row, col])
             {
@@ -70,12 +63,14 @@ namespace ConnectFourServer
             if (GameBoard[row, col] == Color.None)
                 return false;
             int count = 1;
+            //check left to inserted cell
             int colCursor = col - 1;
             while (colCursor >= 0 && GameBoard[row, colCursor] == GameBoard[row, col])
             {
                 count++;
                 colCursor--;
             }
+            // check right to inserted cell
             colCursor = col + 1;
             while (colCursor < GameBoard.GetLength(1) && GameBoard[row, colCursor] == GameBoard[row, col])
             {

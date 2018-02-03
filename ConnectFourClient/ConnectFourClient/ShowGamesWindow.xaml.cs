@@ -42,6 +42,7 @@ namespace ConnectFourClient
                                       {
                                           Player1 = game.Player1,
                                           Player2 = game.Player2,
+                                          GameTime = game.gameTime,
                                           Winner = game.Winner
                                       };
             }));

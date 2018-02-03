@@ -65,10 +65,8 @@ namespace ConnectFourClient
             string passwordEncrypted = GetSHA1HashData(password);
             ClientCallback callback = new ClientCallback();
             client = new ConnectFourServiceClient(new InstanceContext(callback));
-            bool loginResult = false;
-            Thread t = new Thread(() => { loginResult = client.login(username, passwordEncrypted); });
-            t.Start();
-            t.Join();
+            bool loginResult = client.login(username, passwordEncrypted); 
+
             if (loginResult == false)
             {
                 MessageBox.Show("username or password is incorrect!");

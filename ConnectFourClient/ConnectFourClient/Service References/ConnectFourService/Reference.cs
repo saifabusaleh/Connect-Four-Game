@@ -302,6 +302,9 @@ namespace ConnectFourClient.ConnectFourService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string WinnerField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime gameTimeField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -347,6 +350,19 @@ namespace ConnectFourClient.ConnectFourService {
                 if ((object.ReferenceEquals(this.WinnerField, value) != true)) {
                     this.WinnerField = value;
                     this.RaisePropertyChanged("Winner");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime gameTime {
+            get {
+                return this.gameTimeField;
+            }
+            set {
+                if ((this.gameTimeField.Equals(value) != true)) {
+                    this.gameTimeField = value;
+                    this.RaisePropertyChanged("gameTime");
                 }
             }
         }
