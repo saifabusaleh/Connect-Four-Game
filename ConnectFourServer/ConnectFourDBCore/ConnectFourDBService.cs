@@ -136,6 +136,8 @@ namespace ConnectFourDBCore
                     g.winner = player2InDB.userId;
                     player1InDB.numberOfLoses += 1;
                     player2InDB.numberOfWins += 1;
+                    player2InDB.numberOfPoints += 1;
+
                 }
 
                 player1InDB.numberOfGames += 1;
