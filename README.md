@@ -1,5 +1,7 @@
-Connect Four game, see game demo in internet:http://www.coolmath-games.com/0-4-in-a-row
+## Connect Four game ##
 
-Client made with WPF 
+see game demo in internet:http://www.coolmath-games.com/0-4-in-a-row
 
-Server made with WCF
+* Client made with WPF 
+
+* Server made with WCF
